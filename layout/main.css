@@ -1,0 +1,17 @@
+.wrapper{
+    max-width: 960px;
+    margin: 0px auto;
+}
+
+.header {
+  background: blue;
+  width: 200px;
+  height: 100px;
+  color: white;
+}
+
+.main{
+    background-color: red;
+    width: 1820px;
+
+}

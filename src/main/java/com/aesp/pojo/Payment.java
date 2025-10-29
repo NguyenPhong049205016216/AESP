@@ -7,7 +7,7 @@ import org.hibernate.annotations.Comment;
 
 @Entity
 @Table(name = "Payment")
-public class Payment {
+public class Payment {     //thanh toán
     //.1
     @Id
     @GeneratedValue

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 //.1
 @Entity
 @Table(name = "Learner")
-public class Learner extends User {
+public class Learner extends User {    //học viên
     @Column(name ="level")
     private String level; //cấp độ
     @Column(name = "goal")
@@ -62,6 +62,7 @@ public class Learner extends User {
     }
     //Khai báo đối tượng lồng nhau:.1
     //do đường liên kết use case: nên một Learner có nhiều Assessment:.1
+    @OneToMany(mappedBy = "learner") 
     public List<Assessment> assessment;
 
     public List<ConversationSession> conversationSession;

@@ -3,17 +3,15 @@ package com.aesp;
 import com.aesp.pojo.User;
 import java.util.Scanner;
 import com.aesp.service.UserService;
-/* 
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-*/
+
 
 public class Main {
     public static void main(String[] args) {
-        UserService service = new UserService();
+        /*UserService service = new UserService();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -53,7 +51,8 @@ public class Main {
 
 
         }
-        /* //lệnh cấu hình kết nối vói sql
+            */
+        //lệnh cấu hình kết nối vói sql
         try {
             // Đọc file persistence.xml -> tạo kết nối đến SQL Server
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAs");
@@ -66,11 +65,6 @@ public class Main {
             e.printStackTrace();
             System.out.println("loi ket noi: " + e.getMessage());
         }
-       /* //Hibernate thuần
-        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory factory = cfg.buildSessionFactory();
-        System.out.println("✅ Kết nối SQL thành công!");
-        */
     }
     
 }

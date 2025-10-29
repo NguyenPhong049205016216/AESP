@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Packages")
-public class Packages {
+public class Package {      //gói học
     //.1
     @Id
     @GeneratedValue
@@ -21,5 +21,6 @@ public class Packages {
     public boolean hasMentor;
 
     // quang hệ 1 0 vói purchase:.1
+    @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Purchase> purchase;
 }

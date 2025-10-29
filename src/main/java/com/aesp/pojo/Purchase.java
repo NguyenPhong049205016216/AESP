@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Purchase")
-public class Purchase {
+public class Purchase {       //mua hàng
     //.1
     @Id
     @GeneratedValue
@@ -19,7 +19,11 @@ public class Purchase {
     @Column(name = "amount")
     public double amount;
     //do quang hệ 1 0 
+    @ManyToOne
+    @JoinColumn(name = "learner_id")
     public Learner learner;
     //do quang hệ 1 0
-    public Packages packages;
+    @ManyToOne
+    @JoinColumn(name = "package_id")
+    public Package packages;
 }

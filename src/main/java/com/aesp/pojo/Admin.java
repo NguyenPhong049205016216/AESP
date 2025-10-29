@@ -1,6 +1,6 @@
 package com.aesp.pojo;
 
-public class Admin extends User{
+public class Admin extends User{   //quản trị viên
     //.1
     public Admin(long id, String name, String email){
         super(id, name, email);

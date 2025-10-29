@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Mentor extends User{
    // củng kế thừa nhưng không có contructor lớp cha:.1
-   public Mentor(long id, String name, String email){
+   public Mentor(long id, String name, String email){      //nguoi hướng dẫn
    super(id, name, email);
    }
 

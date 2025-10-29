@@ -1,6 +1,6 @@
 package com.aesp.pojo;
 import java.util.Date;
-public class ConversationSession{
+public class ConversationSession{   //buổi hội thoại
     //.1
     public long id;
     public String topic;

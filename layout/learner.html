@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điều khiển - AESP</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- THANH ĐIỀU HƯỚNG BÊN TRÁI -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li class="active"><a href="#">Bảng điều khiển</a></li>
+                <li><a href="#">Luyện tập</a></li>
+                <li><a href="#">Chủ đề & Tình huống</a></li>
+                <li><a href="#">Tìm Mentor</a></li>
+                <li><a href="#">Gói dịch vụ</a></li>
+                <li><a href="#">Báo cáo tiến độ</a></li>
+                <li><a href="#">Thử thách & BXH</a></li>
+                <li><a href="#">Cài đặt</a></li>
+                <li><a href="login.html">Đăng xuất</a></li>
+            </ul>
+        </nav>
+
+        <!-- NỘI DUNG CHÍNH -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Chào mừng trở lại, Phong!</h1>
+                <p>Hôm nay bạn muốn luyện tập kỹ năng gì?</p>
+            </header>
+
+            <section class="cta-section">
+                <div class="card cta-card">
+                    <h2>Bắt đầu một phiên luyện nói mới</h2>
+                    <p>Chọn một chủ đề ngẫu nhiên hoặc theo lộ trình của bạn để bắt đầu ngay!</p>
+                    <button class="btn btn-primary btn-large">Luyện tập ngay</button>
+                </div>
+            </section>
+
+            <section class="dashboard-grid">
+                <!-- Lộ trình học tập -->
+                <div class="card">
+                    <h3>Lộ trình học tập của bạn</h3>
+                    <p><strong>Cấp độ hiện tại:</strong> Intermediate (B1)</p>
+                    <div class="learning-path-item">
+                        <p><strong>Bài học tiếp theo:</strong> Phỏng vấn xin việc</p>
+                        <p class="description">Luyện tập các câu hỏi thường gặp và cách trả lời tự tin.</p>
+                        <button class="btn btn-secondary">Bắt đầu bài học</button>
+                    </div>
+                </div>
+
+                <!-- Kết quả phiên gần nhất -->
+                <div class="card">
+                    <h3>Phiên luyện tập gần nhất</h3>
+                    <p><strong>Chủ đề:</strong> Du lịch & Đặt phòng khách sạn</p>
+                    <div class="last-session-scores">
+                        <div>
+                            <span>Phát âm</span>
+                            <span class="score">85%</span>
+                        </div>
+                         <div>
+                            <span>Ngữ pháp</span>
+                            <span class="score">92%</span>
+                        </div>
+                         <div>
+                            <span>Độ trôi chảy</span>
+                            <span class="score">78%</span>
+                        </div>
+                    </div>
+                    <a href="#" class="view-details">Xem chi tiết & nhận xét</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- THANH THÔNG TIN BÊN PHẢI -->
+        <aside class="right-sidebar">
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/60" alt="Avatar" class="avatar">
+                <div>
+                    <h4>Nguyễn Văn Phong</h4>
+                    <a href="#">Hồ sơ của tôi</a>
+                </div>
+            </div>
+
+            <!-- Theo dõi chuỗi ngày học -->
+            <div class="card">
+                <h3>Chuỗi ngày luyện tập</h3>
+                <div class="streak-counter">
+                    <span class="streak-number">15</span>
+                    <span>ngày liên tiếp!</span>
+                </div>
+                <p class="motivation">Hãy tiếp tục để phá kỷ lục nhé!</p>
+            </div>
+            
+            <!-- Theo dõi tiến độ -->
+            <div class="card">
+                <h3>Tiến độ mục tiêu</h3>
+                <p>Hoàn thành <strong>60%</strong> mục tiêu tháng này.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 60%;"></div>
+                </div>
+            </div>
+
+             <!-- Buổi hẹn sắp tới -->
+            <div class="card">
+                <h3>Buổi hẹn với Mentor</h3>
+                <div class="appointment-item">
+                    <p><strong>Mentor Anna</strong></p>
+                    <p>Thứ Sáu, 15/11, lúc 8:00 Tối</p>
+                </div>
+                 <a href="#">Xem tất cả lịch hẹn</a>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

@@ -20,5 +20,7 @@ public class LearningPath{       //hành trình học
     public int totalLession;
 
     //vì quang hệ 1 Leamingpath và 1 với learner:.1
+    @OneToOne
+    @JoinColumn(name = "learner_id")
     public Learner learner;
 }

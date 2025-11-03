@@ -1,6 +1,7 @@
 package com.aesp.pojo;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +9,7 @@ import javax.persistence.*;
 public class Package {      //gói học
     //.1
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
     public long id;
     @Column(name = "name")

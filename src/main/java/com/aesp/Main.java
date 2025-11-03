@@ -1,9 +1,7 @@
 package com.aesp;
 
 import com.aesp.pojo.User;
-import java.util.Scanner;
-import com.aesp.service.UserService;
-
+import javax.persistence.EntityTransaction;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -52,7 +50,7 @@ public class Main {
 
         }
             */
-        //lệnh cấu hình kết nối vói sql
+        /*//lệnh cấu hình kết nối vói sql
         try {
             // Đọc file persistence.xml -> tạo kết nối đến SQL Server
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAs");
@@ -64,6 +62,58 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("loi ket noi: " + e.getMessage());
+        }*/    
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            // Bước 1: Khởi tạo EntityManagerFactory.
+            // JPA sẽ đọc file persistence.xml và cố gắng kết nối tới CSDL.
+            // Nếu có lỗi ở đây, nghĩa là cấu hình kết nối của bạn bị sai.
+            System.out.println("Attempting to connect to the database...");
+            emf = Persistence.createEntityManagerFactory("JPAs"); // "JPAs" phải khớp với tên trong persistence.xml
+            
+            // Nếu dòng trên không báo lỗi, kết nối đã thành công!
+            System.out.println("Database connection established successfully! da thang cong.");
+
+            em = emf.createEntityManager();
+
+            // Bước 2: Thực hiện một giao dịch để kiểm tra ghi dữ liệu.
+            EntityTransaction transaction = em.getTransaction();
+            
+            // Bắt đầu giao dịch
+            transaction.begin();
+
+            // Tạo một đối tượng User mới để lưu
+            User newUser = new User();
+            newUser.setName("Test User");
+            newUser.setName("Test User From Main");
+            newUser.setImail("test" + System.currentTimeMillis() + "@gmail.com"); // Email ngẫu nhiên để tránh trùng lặp
+            newUser.setPassword("password123");
+            newUser.setRole("LEARNER");
+            newUser.setStatus("ACTIVE");
+
+            // Lưu đối tượng vào CSDL
+            em.persist(newUser);
+            
+            // Kết thúc giao dịch
+            transaction.commit();
+
+            System.out.println("Test user saved successfully with ID: " + newUser.getId());
+            
+        } catch (Exception e) {
+            // Nếu có bất kỳ lỗi nào xảy ra, in nó ra console.
+            System.err.println("An error occurred during the database test!");
+            e.printStackTrace();
+        } finally {
+            // Bước 3: Luôn đóng các kết nối sau khi hoàn thành.
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+                System.out.println("Connection closed.");
+            }
         }
     }
     

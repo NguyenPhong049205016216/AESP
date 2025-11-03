@@ -2,7 +2,7 @@ package com.aesp.pojo;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
 import org.hibernate.annotations.Comment;
 
 @Entity
@@ -10,7 +10,7 @@ import org.hibernate.annotations.Comment;
 public class Payment {     //thanh toán
     //.1
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
     public long id;
     @Column(name = "methor")
@@ -20,6 +20,10 @@ public class Payment {     //thanh toán
     @Column(name = "amount")
     public double amount;
     // quang hệ 1 1 với Purchanse: .1
+    @OneToOne
+    @JoinColumn(name = "purchase_id")
     public Purchase purchase;
+
+    //
 
 }

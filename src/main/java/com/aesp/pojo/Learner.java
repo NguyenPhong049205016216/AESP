@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 //.1
 @Entity
-@Table(name = "Learner")
+@DiscriminatorValue("LEARNER") 
 public class Learner extends User {    //học viên
     @Column(name ="level")
     private String level; //cấp độ
@@ -17,6 +17,9 @@ public class Learner extends User {    //học viên
     @Column(name = "progress")
     private double progress; //tiến triển
     //.1
+    public Learner(){
+        super();
+    }
     public Learner(long id, String name, String email,String level){
         super(id, name, email);
         this.level = level;
@@ -64,9 +67,9 @@ public class Learner extends User {    //học viên
     //do đường liên kết use case: nên một Learner có nhiều Assessment:.1
     @OneToMany(mappedBy = "learner") 
     public List<Assessment> assessment;
-
+    @OneToMany(mappedBy = "learner")
     public List<ConversationSession> conversationSession;
-    
+    @OneToMany(mappedBy = "learner")
     public List<Purchase> purchase; 
     
 

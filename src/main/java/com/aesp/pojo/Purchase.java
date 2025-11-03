@@ -1,7 +1,7 @@
 package com.aesp.pojo;
 
 import java.util.Date;
-
+import javax.persistence.GeneratedValue;
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Purchase {       //mua hàng
     //.1
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
     public long id; 
     @Column(name = "data")

@@ -43,11 +43,6 @@ public class Main {
 
                     break;
             }
-
-
-
-
-
         }
             */
         /*//lệnh cấu hình kết nối vói sql
@@ -70,11 +65,11 @@ public class Main {
             // Bước 1: Khởi tạo EntityManagerFactory.
             // JPA sẽ đọc file persistence.xml và cố gắng kết nối tới CSDL.
             // Nếu có lỗi ở đây, nghĩa là cấu hình kết nối của bạn bị sai.
-            System.out.println("Attempting to connect to the database...");
+            System.out.println("Dang co gang ket noi den database...");
             emf = Persistence.createEntityManagerFactory("JPAs"); // "JPAs" phải khớp với tên trong persistence.xml
             
             // Nếu dòng trên không báo lỗi, kết nối đã thành công!
-            System.out.println("Database connection established successfully! da thang cong.");
+            System.out.println("ket noi database duoc thiet lap! da thang cong.");
 
             em = emf.createEntityManager();
 

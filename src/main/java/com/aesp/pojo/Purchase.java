@@ -25,5 +25,5 @@ public class Purchase {       //mua hàng
     //do quang hệ 1 0
     @ManyToOne
     @JoinColumn(name = "package_id")
-    public Package packages;
+    public Packages packages;
 }

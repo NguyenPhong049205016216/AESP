@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Packages")
-public class Package {      //gói học
+public class Packages {      //gói học
     //.1
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)

@@ -94,11 +94,11 @@ public class Main {
             // Kết thúc giao dịch
             transaction.commit();
 
-            System.out.println("Test user saved successfully with ID: " + newUser.getId());
+            System.out.println("test user saver sussecfuly Id: " + newUser.getId());
             
         } catch (Exception e) {
             // Nếu có bất kỳ lỗi nào xảy ra, in nó ra console.
-            System.err.println("An error occurred during the database test!");
+            System.err.println("Da xay ra loi trong qua trinh kiem tra CSDL!");
             e.printStackTrace();
         } finally {
             // Bước 3: Luôn đóng các kết nối sau khi hoàn thành.
@@ -107,7 +107,7 @@ public class Main {
             }
             if (emf != null) {
                 emf.close();
-                System.out.println("Connection closed.");
+                System.out.println("Dong ket noi.");
             }
         }
     }

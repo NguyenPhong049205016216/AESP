@@ -3,12 +3,25 @@
 /* layout/main.css * ---->learner.html/
 /* --- CÀI ĐẶT CHUNG & BIẾN MÀU --- */
 .wrapper {
-    background-attachment: rgb(0, 128, 128);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    
+    background: white;
+    max-width: 12500px;
+    margin: 10 auto;
+    padding: 8 20px;
+
 }
+.header {
+    background: #00A99D;
+    color: rgb(165, 236, 59);
+    padding: 10 0;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
 :root {
     --primary-color: #00A99D; /* Màu xanh mòng két */
     --secondary-color: #F2F9F8;

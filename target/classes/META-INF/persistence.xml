@@ -7,21 +7,37 @@
     <persistence-unit name="JPAs" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <!-- Đảm bảo liệt kê TẤT CẢ các Entity (không chỉ User) ở đây! -->
         <class>com.aesp.pojo.User</class>
+        <!-- Thêm các Entity khác của bạn: -->
+        <!-- <class>com.aesp.pojo.Admin</class> -->
+        <!-- <class>com.aesp.pojo.Learner</class> -->
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=app_aesp;encrypt=false;trustServerCertificate=true;"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value="phongla@12345"/>
-            
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>	
-            
-            
+            <!-- ======================================================= -->
+            <!-- 1. CẤU HÌNH HIBERNATE SỬ DỤNG HIKARICP -->
+            <property name="hibernate.connection.provider_class" 
+                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
+            <!-- 2. Cấu hình CSDL cho HikariCP (Sử dụng các thuộc tính có tiền tố 'hibernate.hikari.') -->
+            <property name="hibernate.hikari.jdbcUrl" 
+                      value="jdbc:sqlserver://localhost:1433;databaseName=app_aesp;encrypt=false;trustServerCertificate=true;"/>
+                      
+            <property name="hibernate.hikari.dataSource.user" 
+                      value="sa"/> 
+            <property name="hibernate.hikari.dataSource.password" 
+                      value="phongla@12345"/>
 
+            <!-- 3. Cấu hình Pool chuyên dụng (KHUYẾN NGHỊ) -->
+            <property name="hibernate.hikari.maximumPoolSize" value="10"/> <!-- Số kết nối tối đa -->
+            <property name="hibernate.hikari.minimumIdle" value="5"/>   <!-- Số kết nối nhàn rỗi tối thiểu -->
+            <property name="hibernate.hikari.idleTimeout" value="30000"/> <!-- Ngắt kết nối nhàn rỗi sau 30s -->
+            <!-- ======================================================= -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>	
             <property name="hibernate.globally_quoted_identifiers" value="true"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!-- Thiết lập Dev/Prod: -->
+            <property name="hibernate.show_sql" value="true"/> 
+            <property name="hibernate.hbm2ddl.auto" value="update"/> 
+            
         </properties>
     </persistence-unit>
 </persistence>

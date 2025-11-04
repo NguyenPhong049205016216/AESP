@@ -10,6 +10,17 @@
         <!-- Đảm bảo liệt kê TẤT CẢ các Entity (không chỉ User) ở đây! -->
         <class>com.aesp.pojo.User</class>
         <!-- Thêm các Entity khác của bạn: -->
+        <class>com.aesp.pojo.Mentor</class>
+        <class>com.aesp.pojo.Learner</class>
+        <class>com.aesp.pojo.Appointment</class>
+        <class>com.aesp.pojo.Category</class>
+        <class>com.aesp.pojo.LearningPath</class>
+        <class>com.aesp.pojo.Practice</class>
+        <class>com.aesp.pojo.Session</class>
+        <class>com.aesp.pojo.Subject</class>
+        <class>com.aesp.pojo.Topic</class>
+        <class>com.aesp.pojo.Role</class>
+        <class>com.aesp.pojo.Avatar</class>
         <!-- <class>com.aesp.pojo.Admin</class> -->
         <!-- <class>com.aesp.pojo.Learner</class> -->
 

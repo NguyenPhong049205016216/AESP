@@ -11,7 +11,7 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DESKTOP-FMTMJO6:1433;databaseName=app_aesp;encrypt=true;trustServerCertificate=true;"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=app_aesp;encrypt=false;trustServerCertificate=true;"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value="phongla@12345"/>
             

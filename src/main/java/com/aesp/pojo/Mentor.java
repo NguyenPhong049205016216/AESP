@@ -1,7 +1,6 @@
 package com.aesp.pojo;
 
 import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
@@ -30,4 +29,6 @@ public class Mentor extends User{
    }
    @OneToMany(mappedBy = "mentor")
    public List<ConversationSession> conversationSession;
+   @ManyToMany(mappedBy = "mentor")
+   public List<Feedbacks> feedbacks;
 }

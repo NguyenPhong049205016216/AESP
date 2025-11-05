@@ -23,7 +23,6 @@ public class Payment {     //thanh toán
     @OneToOne
     @JoinColumn(name = "purchase_id")
     public Purchase purchase;
-
     //
 
 }

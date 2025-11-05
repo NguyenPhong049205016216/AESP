@@ -67,10 +67,10 @@ public class Learner extends User {    //học viên
     //do đường liên kết use case: nên một Learner có nhiều Assessment:.1
     @OneToMany(mappedBy = "learner") 
     public List<Assessment> assessment;
+    @ManyToMany(mappedBy = "learner")
+    public List<ConversationSession> conversationSession; //list phiên trò chuyện
     @OneToMany(mappedBy = "learner")
-    public List<ConversationSession> conversationSession;
-    @OneToMany(mappedBy = "learner")
-    public List<Purchase> purchase; 
-    
-
+    public List<Purchase> purchase;  //list lược mua
+    @ManyToMany(mappedBy = "learner")
+    public List<Feedbacks> feedbacks; //list bài đánh giá
 }

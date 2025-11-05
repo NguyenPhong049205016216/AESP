@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import javax.persistence.*;
 @Entity
 @Table(name = "User")
-//Chiến lược kế thừa: bảng con nối
+//#Chiến lược kế thừa: bảng con nối JOINED
 @Inheritance(strategy = InheritanceType.JOINED)
-//chiến lược kế thừa: bảng đơn
+//#chiến lược kế thừa: bảng đơn
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)//chiến lược kế thừa: bảng đơn
 //@DiscriminatorColumn(name = "User_Type", discriminatorType = DiscriminatorType.STRING)
 public class User{//người dùng

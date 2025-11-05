@@ -26,4 +26,7 @@ public class Purchase {       //mua hàng
     @ManyToOne
     @JoinColumn(name = "package_id")
     public Packages packages;
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    public Payment payment;
 }

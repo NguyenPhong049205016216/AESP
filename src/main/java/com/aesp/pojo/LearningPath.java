@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "LearningPath")
-public class LearningPath{       //hành trình học
+public class LearningPath{//hành trình học
     //.1
     @Id
     @GeneratedValue

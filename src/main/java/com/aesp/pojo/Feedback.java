@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 
 @Entity
-@Table(name = "feedbacks")
+@Table(name = "Feedbacks")
 public class Feedback {     //phản hồi đánh giá
     //.1
     @Id

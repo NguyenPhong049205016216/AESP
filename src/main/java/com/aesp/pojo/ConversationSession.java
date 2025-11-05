@@ -5,7 +5,7 @@ import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 
 @Entity
-@Table(name = "conversation_sessions")
+@Table(name = "ConversationSessions")
 public class ConversationSession{   //buổi hội thoại
     //.1
     @Id

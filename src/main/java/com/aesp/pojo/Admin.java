@@ -3,8 +3,8 @@ package com.aesp.pojo;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("ADMIN")
+@Table(name = "Admin")
+@PrimaryKeyJoinColumn(name = "id")
 public class Admin extends User{   //quản trị viên
     //.1
     public Admin(){

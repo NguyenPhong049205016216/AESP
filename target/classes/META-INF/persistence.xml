@@ -25,7 +25,6 @@
         <!-- <class>com.aesp.pojo.Learner</class> -->
 
         <properties>
-            <!-- ======================================================= -->
             <!-- 1. CẤU HÌNH HIBERNATE SỬ DỤNG HIKARICP -->
             <property name="hibernate.connection.provider_class" 
                       value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
@@ -42,12 +41,11 @@
             <property name="hibernate.hikari.maximumPoolSize" value="10"/> <!-- Số kết nối tối đa -->
             <property name="hibernate.hikari.minimumIdle" value="5"/>   <!-- Số kết nối nhàn rỗi tối thiểu -->
             <property name="hibernate.hikari.idleTimeout" value="30000"/> <!-- Ngắt kết nối nhàn rỗi sau 30s -->
-            <!-- ======================================================= -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>	
             <property name="hibernate.globally_quoted_identifiers" value="true"/>
             <!-- Thiết lập Dev/Prod: -->
             <property name="hibernate.show_sql" value="true"/> 
-            <property name="hibernate.hbm2ddl.auto" value="update"/> 
+            <property name="hibernate.hbm2ddl.auto" value="create"/> 
             
         </properties>
     </persistence-unit>

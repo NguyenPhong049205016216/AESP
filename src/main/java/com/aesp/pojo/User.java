@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import javax.persistence.*;
 @Entity
 @Table(name = "User")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "User_Type")
-public class User{                 //người dùng
+//Chiến lược kế thừa: bảng con nối
+@Inheritance(strategy = InheritanceType.JOINED)
+//chiến lược kế thừa: bảng đơn
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)//chiến lược kế thừa: bảng đơn
+//@DiscriminatorColumn(name = "User_Type", discriminatorType = DiscriminatorType.STRING)
+public class User{//người dùng
     //truy cập sang các methor bên dưới:.1
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
@@ -28,11 +31,8 @@ public class User{                 //người dùng
     //attribute này là "cập nhập tiến trình".1
     @Column(name = "UpdateAT")
     private LocalDate UpdatedAT; //cập nhập tại.
-
     public User(){   //contructor mặc định.1
-       
     }
-
     //nguyên tắc đóng gói.1
     public User(long id, String name, String email){
         this.id = id;
@@ -42,9 +42,7 @@ public class User{                 //người dùng
         this.CreatedAT = LocalDate.now();
         //atribute này.1
         this.UpdatedAT = this.CreatedAT;
-        
     }
-
     //getid 0 tham số:.1
     public long getId() {
         return id;
@@ -89,17 +87,12 @@ public class User{                 //người dùng
     public void setStatus(String status) {
         this.status = status;
     }
-
-    
     public LocalDate getUpdatedAT() {
         return UpdatedAT;
     }
-
     public void setUpdatedAT(LocalDate updatedAT) {
         UpdatedAT = updatedAT;
     }
-
-
     //.1
     @Override
     public String toString() {

@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+
 //.1
 @Entity
-@DiscriminatorValue("LEARNER") 
+@Table(name = "Learner") 
+@PrimaryKeyJoinColumn(name = "id")
 public class Learner extends User {    //học viên
     @Column(name ="level")
     private String level; //cấp độ

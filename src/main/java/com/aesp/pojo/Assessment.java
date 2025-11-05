@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import org.hibernate.annotations.ManyToAny;
 
 @Entity
-@Table(name = "assessments")
+@Table(name = "Assessments")
 public class Assessment {  //đánh giá
 
     @Id

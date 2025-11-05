@@ -5,7 +5,8 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("MENTOR")
+@Table(name = "Mentor")
+@PrimaryKeyJoinColumn(name = "id")
 public class Mentor extends User{
    public Mentor(){
     super();

@@ -11,7 +11,7 @@ public class Purchase {       //mua hàng
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
-    public long id; 
+    private long id; 
     @Column(name = "data")
     public Date data;
     @Column(name = "status")
@@ -21,12 +21,12 @@ public class Purchase {       //mua hàng
     //do quang hệ 1 0 
     @ManyToOne
     @JoinColumn(name = "learner_id")
-    public Learner learner;
+    private Learner learner;
     //do quang hệ 1 0
     @ManyToOne
     @JoinColumn(name = "package_id")
-    public Packages packages;
+    private Packages packages;
     @OneToOne
     @JoinColumn(name = "payment_id")
-    public Payment payment;
+    private Payment payment;
 }

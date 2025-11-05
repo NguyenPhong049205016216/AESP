@@ -11,7 +11,7 @@ public class Assessment {  //đánh giá
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public long id;
+    private long id;
     @Column(name = "score")
     public double score;
     @Column(name = "topic")
@@ -24,10 +24,10 @@ public class Assessment {  //đánh giá
     //Một Menter sẻ có nhiều Assessment:.1 NG_hướng dẩn_đánh giá
     @ManyToOne
     @JoinColumn(name = "learner_id") 
-    public Learner learner;
+    private Learner learner;
     @ManyToOne
     @JoinColumn(name = "mentor_id")
-    public Mentor mentor;
+    private Mentor mentor;
 
     public double getScore() {
         return score;

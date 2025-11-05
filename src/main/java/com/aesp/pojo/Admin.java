@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Admin")
+//liên kết khóa chính với bảng cha User
 @PrimaryKeyJoinColumn(name = "id")
 public class Admin extends User{   //quản trị viên
     //.1

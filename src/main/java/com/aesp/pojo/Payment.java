@@ -12,7 +12,7 @@ public class Payment {     //thanh toán
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
-    public long id;
+    private long id;
     @Column(name = "methor")
     public String methor;
     @Column(name = "transactionCode")
@@ -22,7 +22,7 @@ public class Payment {     //thanh toán
     // quang hệ 1 1 với Purchanse: .1
     @OneToOne
     @JoinColumn(name = "purchase_id")
-    public Purchase purchase;
+    private Purchase purchase;
     //
 
 }

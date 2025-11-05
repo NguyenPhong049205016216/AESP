@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Mentor")
+//liên kết khóa chính với bảng cha User
 @PrimaryKeyJoinColumn(name = "id")
 public class Mentor extends User{
    public Mentor(){
@@ -28,7 +29,7 @@ public class Mentor extends User{
 
    }
    @OneToMany(mappedBy = "mentor")
-   public List<ConversationSession> conversationSession;
-   @ManyToMany(mappedBy = "mentor")
-   public List<Feedbacks> feedbacks;
+   private List<ConversationSession> conversationSession;
+   @OneToMany(mappedBy = "mentor")
+   private List<Assessment> assessment;
 }

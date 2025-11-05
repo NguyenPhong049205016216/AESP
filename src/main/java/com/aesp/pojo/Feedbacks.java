@@ -10,7 +10,7 @@ public class Feedbacks {     //phản hồi đánh giá
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public long id;
+    private long id;
     @Column(name = "comment")
     public String comment;
     @Column(name = "overall_score")
@@ -18,11 +18,9 @@ public class Feedbacks {     //phản hồi đánh giá
     @Column(name = "pronunciation_score")
     public double grammarScore; 
 
-    @ManyToMany
-    @JoinColumn(name = "learner_id")
-    public Learner learner;
-    @ManyToMany
-    @JoinColumn(name = "mentor_id")
-    public Mentor mentor;
+    @OneToOne
+    @JoinColumn(name = "conversation_session_id")
+    private ConversationSession conversationSession;
     
+
 }

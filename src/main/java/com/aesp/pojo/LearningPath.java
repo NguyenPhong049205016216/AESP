@@ -11,7 +11,7 @@ public class LearningPath{//hành trình học
     @Id
     @GeneratedValue
     @Column(name = "Id")
-    public long id;
+    private long id;
     @Column(name = "currentLevel")
     public String currentLevel;
     @Column(name = "progress")
@@ -22,5 +22,6 @@ public class LearningPath{//hành trình học
     //vì quang hệ 1 Leamingpath và 1 với learner:.1
     @OneToOne
     @JoinColumn(name = "learner_id")
-    public Learner learner;
+    @MapsId
+    private Learner learner;
 }

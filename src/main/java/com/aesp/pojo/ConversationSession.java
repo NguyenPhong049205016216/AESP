@@ -31,4 +31,6 @@ public class ConversationSession{   //buổi hội thoại
     //Khai báo vì quang hệ: Bắc buộc  .1
     public Mentor mentor;
     
+    @OneToOne(mappedBy = "conversationSession", cascade = CascadeType.ALL)
+    private Feedbacks feedbacks;
 }

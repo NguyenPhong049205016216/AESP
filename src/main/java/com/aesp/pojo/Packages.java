@@ -11,7 +11,7 @@ public class Packages {      //gói học
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
-    public long id;
+    private long id;
     @Column(name = "name")
     public String name;
     @Column(name = "prive")
@@ -23,5 +23,5 @@ public class Packages {      //gói học
 
     // quang hệ 1 0 vói purchase:.1
     @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Purchase> purchase;
+    private List<Purchase> purchase;
 }

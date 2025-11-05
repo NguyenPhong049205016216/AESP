@@ -1,99 +1,95 @@
 package com.aesp.dao;
 import java.util.*;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
-
+import javax.persistence.*;
 import com.aesp.pojo.User;
     //dống Solid tuân theo nguyên tắc.
-public class Userdao {  
-    //lệnh này dùng để đọc tham số cấu hình trong Pom.xml.
-    private static EntityManager entityManager;
+public abstract class Userdao {  
+    //#lệnh này dùng để đọc tham số cấu hình trong Pom.xml.
+    //private EntityManager entityManager;
     private static EntityManagerFactory entityManagerFactory; 
-    public Userdao(String persistenceName){
+    /*public Userdao(String persistenceName){
         entityManagerFactory = Persistence.createEntityManagerFactory(persistenceName);
         entityManager = entityManagerFactory.createEntityManager();
     }
-    //dùng  Factory class entityManager
-    public  boolean save (User user){ //lưu CN: đăng ký.đăng nhập.hồ sơ.
+    */
+    //constructor không tham số.
+    public Userdao(){
+    }
+    //dùng static vì chỉ cần khởi tạo 1 lần.
+    static {
         try{
-            entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            //thêm đói tượng vào CSDL persist..
-            entityManager.persist(user);
-            entityManager.getTransaction().commit();
+            entityManagerFactory = Persistence.createEntityManagerFactory("JPAs");   
+        }catch (Exception e){
+            System.err.println("Lỗi khởi tạo EntityManagerFactory trong Userdao");
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+    //mỗi thao tác với CSDL sẽ tạo một EntityManager mới.
+    public  boolean save(User user){ //lưu CN: đăng ký.đăng nhập.hồ sơ.
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try{
+            transaction.begin();
+            em.persist(user); //thêm đối tượng vào CSDL persist..X
+            transaction.commit();
+            //thêm đói tượng vào CSDL persist..X
             return true; 
         }catch (Exception e ){
-            if (entityManager.getTransaction().isActive()){
-                entityManager.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();
             }
             e.printStackTrace();
             return false;                                                             
         }finally{
-            if (entityManager != null){
-                entityManager.close();
+            if(em != null){
+                em.close();
             }
         }
-            
     }
-    //
+    // cập nhập người dùng
     public boolean update(User user){ //cập nhập CN: Hồ sơ
-    try{
-            entityManager = entityManagerFactory.createEntityManager();
-            //quảng lý trang conlection bắt đầu =  begin
-            entityManager.getTransaction().begin();
-            //updata vào CSDL dùng merge.
-            entityManager.merge(user);
-            //không sảy ra lỗi commit sác thực bản ghi suống CSDL.
-            entityManager.getTransaction().commit();
-            return true; 
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try{
+            transaction.begin();
+            em.merge(user); //cập nhập dùng merge.
+            transaction.commit();
+            return true;
         }catch (Exception e ){
-            //lỗi rollback lại nếu sai số 
-            if (entityManager.getTransaction().isActive()){
-                entityManager.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();
             }
             e.printStackTrace();
             return false;
         }finally{
-            if (entityManager != null){
-                //đóng lại conlection.
-                entityManager.close();
+            if(em != null){
+                em.close();
             }
         }
-
     }
     public boolean delete(long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try{
-            entityManager = entityManagerFactory.createEntityManager();
-            //quảng lý trang conlection bắt đầu =  begin.
-            entityManager.getTransaction().begin();
-            //trước khi delere  kiểm tra sem id có trong CSDL không.
-            User user = entityManager.find(User.class, id);
+            transaction.begin();
+            User user = em.find(User.class, id);
             if (user != null){
-                //xóa vào CSDL dùng remove.
-                    entityManager.remove(user);
-                    //không sảy ra lỗi commit sác thực bản ghi suống CSDL.
-                    entityManager.getTransaction().commit();
-                    return true; 
-                }else {
-                return false;
+                em.remove(user);
             }
-                
+            transaction.commit();
+            return true;
         }catch (Exception e ){
-            //lỗi rollback lại nếu sai số.
-            if (entityManager.getTransaction().isActive()){
-                entityManager.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();
             }
             e.printStackTrace();
             return false;
         }finally{
-            if (entityManager != null){
-                //đóng lại conlection.
-                entityManager.close();
+            if(em != null){
+                em.close();
             }
         }
-
     }
     //dùng cho cập nhập. xáo. xem chi tiếc
     public User findById(long id) {
@@ -144,6 +140,11 @@ public class Userdao {
             }
         }
              
+    }
+    public static void closeFactory() {
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
     }
 
 }

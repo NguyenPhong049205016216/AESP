@@ -1,45 +1,73 @@
 package com.aesp.repository;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import com.aesp.dao.Userdao;
+import com.aesp.pojo.Admin;
+import com.aesp.pojo.Learner;
+import com.aesp.pojo.Mentor;
 import com.aesp.pojo.User;
-//chứa data dã lập || call csdl thật
-public class UserRepository implements IUserRepository {
-
-    //UserRepository::::call Userdao để để call ->csdl
-    //UserRepository::::all lệnh này run được khi có csdl phần cứng rồi.
+//không chứa dữ liệu, nhiệm vụ nó là  || gọi call csdl thật 
+public class UserRepository implements IUserRepository{
+    //không nên khai báo Userdao userdao = new Userdao();
+    
     private Userdao userdao;
 
     public UserRepository(){
-        this.userdao = new Userdao("JPAs");
+        try{
+        userdao = new Userdao("JPAs");
+    }catch(Exception e){
+        System.err.println("Lỗi khởi tạo UserRepository"+ e.getMessage());
+        e.printStackTrace();
     }
-    
-    public List<User> user = new ArrayList<>();
-    //thêm người dùng->dao
+ }
     @Override
-    public boolean save(User user){
-        return userdao.save(user);
-    }
-    //cập nhập người dùng->dao
-    @Override
-    public boolean update(User user){
-        return userdao.update(user);
+    public Optional<User> findById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
-    //tìm người dùng theo email.->dao
     @Override
-    public User findByEmail(String email){
-        return userdao.findByEmail(email);
-    }
-    @Override
-    public void addUser(User user) {
+    public List<User> findAll() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
+
     @Override
-    public List<User> getAllUser() {
+    public Learner addLearner(Learner learner) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllUser'");
+        throw new UnsupportedOperationException("Unimplemented method 'addLearner'");
     }
+
+    @Override
+    public Mentor addMentor(Mentor mentor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addMentor'");
+    }
+
+    @Override
+    public Admin addAdmin(Admin admin) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addAdmin'");
+    }
+
+    @Override
+    public User updateUser(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
+    }
+
+
 }
 

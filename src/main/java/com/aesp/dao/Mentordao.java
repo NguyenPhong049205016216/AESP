@@ -1,17 +1,16 @@
 package com.aesp.dao;
 
+import javax.persistence.*;
 import com.aesp.pojo.Mentor;
 public class Mentordao extends Userdao {
-    //call  contructor của lớp cha
     public Mentordao(String persistenceName){
         super(persistenceName);
     }
-    
     public boolean saveMentor(Mentor mentor){
-        return save(mentor);
+        return save(mentor); 
     }
 
-    public boolean updateMentor(Mentor mentor){
+    public boolean updataMentor(Mentor mentor){
         return update(mentor);
     }
 

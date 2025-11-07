@@ -11,7 +11,7 @@ public class Payment {     //thanh toán
     //.1
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private long id;
     @Column(name = "methor")
     public String methor;

@@ -10,7 +10,7 @@ public class Packages {      //gói học
     //.1
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private long id;
     @Column(name = "name")
     public String name;

@@ -25,7 +25,7 @@ public class UserService{
         user.setPassword(newPassword);
         user.setUpdatedAT(LocalDate.now());
 
-        userRepository.update(user);
+        userRepository.updateUser(user);
         return true;
     }
     //UserServicenghiệp vụ đăng ký ->repository||dao||pojo
@@ -41,7 +41,7 @@ public class UserService{
     }
     //UserService::::nghiệp vụ đăng nhập
     public User login(String email, String password) {
-        User u = userRepository.findByEmail(email);
+        User u = userRepository.findById(email.hashCode()).orElse(null);
         if (u != null && u.getPassword().equals(password)) {
             return u;
         }

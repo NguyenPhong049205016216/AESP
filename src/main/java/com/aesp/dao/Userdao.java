@@ -3,22 +3,20 @@ import java.util.*;
 import javax.persistence.*;
 import com.aesp.pojo.User;
     //dống Solid tuân theo nguyên tắc.
-public abstract class Userdao {  
-    //#lệnh này dùng để đọc tham số cấu hình trong Pom.xml.
-    //private EntityManager entityManager;
-    private static EntityManagerFactory entityManagerFactory; 
-    /*public Userdao(String persistenceName){
-        entityManagerFactory = Persistence.createEntityManagerFactory(persistenceName);
-        entityManager = entityManagerFactory.createEntityManager();
+public class Userdao {  
+
+    private static EntityManagerFactory emf; 
+
+    public Userdao(String persistenceName){
+        emf= Persistence.createEntityManagerFactory(persistenceName);
     }
-    */
+    
     //constructor không tham số.
-    public Userdao(){
-    }
+    //public Userdao(){}
     //dùng static vì chỉ cần khởi tạo 1 lần.
     static {
         try{
-            entityManagerFactory = Persistence.createEntityManagerFactory("JPAs");   
+            emf = Persistence.createEntityManagerFactory("JPAs");   
         }catch (Exception e){
             System.err.println("Lỗi khởi tạo EntityManagerFactory trong Userdao");
             e.printStackTrace();
@@ -27,7 +25,7 @@ public abstract class Userdao {
     }
     //mỗi thao tác với CSDL sẽ tạo một EntityManager mới.
     public  boolean save(User user){ //lưu CN: đăng ký.đăng nhập.hồ sơ.
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try{
             transaction.begin();
@@ -42,14 +40,14 @@ public abstract class Userdao {
             e.printStackTrace();
             return false;                                                             
         }finally{
-            if(em != null){
+            if(em != null && em.isOpen()){
                 em.close();
             }
         }
     }
     // cập nhập người dùng
     public boolean update(User user){ //cập nhập CN: Hồ sơ
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try{
             transaction.begin();
@@ -63,13 +61,14 @@ public abstract class Userdao {
             e.printStackTrace();
             return false;
         }finally{
-            if(em != null){
+            if(em != null && em.isOpen()){
                 em.close();
             }
         }
     }
+    //xóa User khỏi CSDL
     public boolean delete(long id){
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try{
             transaction.begin();
@@ -86,7 +85,7 @@ public abstract class Userdao {
             e.printStackTrace();
             return false;
         }finally{
-            if(em != null){
+            if(em != null && em.isOpen()){
                 em.close();
             }
         }
@@ -97,7 +96,7 @@ public abstract class Userdao {
         EntityManager em = null;
         try {
             //mở kết nối sớm đến cơ sở dử liệu
-            em = entityManagerFactory.createEntityManager();
+            em = emf.createEntityManager();
             //tìm đối tượng user có id tương ứng trong csdl
             return em.find(User.class, id);  
         //nếu có lỗi      
@@ -113,9 +112,8 @@ public abstract class Userdao {
     }
     //dùng cho duyệt danh sách
     public List<User> findAll() {
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
         try {
-            em = entityManagerFactory.createEntityManager();
             return em.createQuery("SELECT u FROM User u", User.class).getResultList();
         } catch (IllegalArgumentException | PersistenceException ex) {
             ex.printStackTrace();
@@ -127,9 +125,8 @@ public abstract class Userdao {
         }   
     }
     public User findByEmail(String email){
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
         try{
-            em = entityManagerFactory.createEntityManager();
             return em.createQuery("SELECT u FROM U", User.class).setParameter(email, em).getSingleResult();
         }catch(Exception e){
             e.printStackTrace();
@@ -141,11 +138,13 @@ public abstract class Userdao {
         }
              
     }
+    
     public static void closeFactory() {
-        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
-            entityManagerFactory.close();
+        if (emf != null && emf.isOpen()) {
+            emf.close();
         }
     }
+    
 
 }
 

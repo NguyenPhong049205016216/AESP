@@ -43,7 +43,7 @@ public class Ctroller_Register extends HttpServlet {
         
         // 1. Lấy dữ liệu từ form
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String email = request.getParameter("con");
         String password = request.getParameter("password");
         // Lấy thêm các trường khác nếu có, ví dụ:
         // String goal = request.getParameter("goal");
@@ -68,8 +68,9 @@ public class Ctroller_Register extends HttpServlet {
         // 4. Gọi Repository để lưu
         Learner savedLearner = userRepository.addLearner(newLearner);
 
-        // 5. Kiểm tra kết quả và chuyển hướng
+        /* 5. Kiểm tra kết quả và chuyển hướng
         if (savedLearner != null && savedLearner.getId() != null) {
+
             // Nếu thành công, chuyển hướng đến trang đăng nhập
             response.sendRedirect(request.getContextPath() + "/login.jsp");
         } else {
@@ -77,5 +78,6 @@ public class Ctroller_Register extends HttpServlet {
             request.setAttribute("errorMessage", "Đã có lỗi xảy ra. Vui lòng thử lại.");
             doGet(request, response);
         }
+            */
     }
 }

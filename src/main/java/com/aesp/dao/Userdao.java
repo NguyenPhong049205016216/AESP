@@ -124,10 +124,15 @@ public class Userdao {
             }
         }   
     }
+    //dùng cho đăng nhập
     public User findByEmail(String email){
         EntityManager em = emf.createEntityManager();
         try{
-            return em.createQuery("SELECT u FROM U", User.class).setParameter(email, em).getSingleResult();
+            TypedQuery<User> query = em.createQuery("Select u WHERE u.email = : emailParam",User.class);
+            query.setParameter("emailParam,", email);
+            return query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;

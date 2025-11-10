@@ -58,10 +58,10 @@ public class User{//người dùng
         this.name = name;
     }
     //getImail 0 tham số:.
-    public String getImail() {
+    public String getEmail() {
         return email;
     }
-    public void setImail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
     //getPassword 0 tham số:

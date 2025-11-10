@@ -8,7 +8,7 @@ import com.aesp.pojo.Learner;
 import java.util.Optional;
 public interface IUserRepository {
     Optional<User> findById(int id);
-
+    
     List<User> findAll();
 
     List<User> getAllUsers();
@@ -22,5 +22,9 @@ public interface IUserRepository {
     User updateUser(User user);
 
     void deleteUser(int id);
+
+	Optional<User> findByEmail(String email);
+
+
 
 } 

@@ -1,9 +1,12 @@
 package com.aesp.pojo;
 
+import java.nio.channels.UnsupportedAddressTypeException;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.servlet.UnavailableException;
 
 //.1
 @Entity
@@ -74,4 +77,21 @@ public class Learner extends User {    //học viên
     private List<Purchase> purchase;  //list lược mua
     @OneToOne(mappedBy = "learner")
     private LearningPath learningPath; //hành trình học
+    
+    public void setEmail(String email) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedAddressTypeException();
+    }
+    public void setStatus(boolean b) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+    }
+    public void setUpdateAt(Date date) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setUpdateAt'");
+    }
+    public void setCreatedAt(Date date) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+    }
 }

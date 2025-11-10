@@ -2,6 +2,8 @@ package com.aesp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.aesp.pojo.Learner;
 import com.aesp.pojo.User;
 import com.aesp.repository.UserRepository;
 import java.time.LocalDate;
@@ -21,7 +23,7 @@ public class UserService{
         if (user == null) return false;
 
         user.setName(newName);
-        user.setImail(newImail);
+        user.setEmail(newImail);
         user.setPassword(newPassword);
         user.setUpdatedAT(LocalDate.now());
 
@@ -50,6 +52,18 @@ public class UserService{
 
     public List<User> getAllUser(){
         return users;
+    }
+    public User Ctroller_Register(Learner newLearner, String regPassword) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Ctroller_Register'");
+    }
+    public void closeRepository() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'closeRepository'");
+    }
+    public void closeRe1pository() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'closeRe1pository'");
     }
 
 }

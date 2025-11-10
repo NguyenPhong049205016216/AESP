@@ -8,7 +8,7 @@
     
     <!-- SỬA LẠI ĐƯỜNG DẪN CSS CHO ĐÚNG CHUẨN (nếu cần) -->
     <!-- request.getContextPath() sẽ tự động lấy đường dẫn gốc của ứng dụng web của bạn -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     

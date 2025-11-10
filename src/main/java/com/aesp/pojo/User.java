@@ -27,10 +27,10 @@ public class User{//người dùng
     @Column(name = "status")
     private String status; //trạng thái
     @Column(name =  "CreatedAT")
-    private LocalDate CreatedAT; //khởi tạo tại.
+    private LocalDate createdAT; //khởi tạo tại.
     //attribute này là "cập nhập tiến trình".1
     @Column(name = "UpdateAT")
-    private LocalDate UpdatedAT; //cập nhập tại.
+    private LocalDate updatedAT; //cập nhập tại.
     public User(){   //contructor mặc định.1
     }
     //nguyên tắc đóng gói.1
@@ -39,9 +39,9 @@ public class User{//người dùng
         this.name = name;
         this.email = email;
         this.status = status;
-        this.CreatedAT = LocalDate.now();
+        this.createdAT = LocalDate.now();
         //atribute này.1
-        this.UpdatedAT = this.CreatedAT;
+        this.updatedAT = this.createdAT;
     }
     //getid 0 tham số:.1
     public long getId() {
@@ -88,10 +88,13 @@ public class User{//người dùng
         this.status = status;
     }
     public LocalDate getUpdatedAT() {
-        return UpdatedAT;
+        return updatedAT;
+    }
+    public void setCreatedAt(LocalDate createdAT ){
+        this.createdAT = createdAT;
     }
     public void setUpdatedAT(LocalDate updatedAT) {
-        UpdatedAT = updatedAT;
+        this.updatedAT = updatedAT;
     }
     //.1
     @Override

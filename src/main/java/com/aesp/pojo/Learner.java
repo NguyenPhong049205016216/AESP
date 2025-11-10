@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import javax.servlet.UnavailableException;
 
 //.1
@@ -79,19 +78,15 @@ public class Learner extends User {    //học viên
     private LearningPath learningPath; //hành trình học
     
     public void setEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedAddressTypeException();
+        super.setEmail(email);
     }
     public void setStatus(boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+        super.setStatus(goal);
     }
     public void setUpdateAt(Date date) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUpdateAt'");
+         
     }
     public void setCreatedAt(Date date) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCreatedAt'");
+       
     }
 }

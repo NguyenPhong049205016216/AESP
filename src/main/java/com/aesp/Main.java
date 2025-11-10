@@ -2,26 +2,21 @@ package com.aesp;
 
 import com.aesp.pojo.Learner;
 import com.aesp.pojo.User;
-import com.aesp.repository.UserRepository;
 import com.aesp.service.UserService;
 import java.util.Scanner;
-
-import java.util.Optional;
-
-import javax.persistence.EntityTransaction;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.*;
 
 
 public class Main {
       
     public static void main(String[] args) {
+        UserService userService = null;
         EntityManagerFactory emf = null;
         EntityManager em = null;
-        UserService userService = null;
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+
         /* 
         try {
             // Khởi tạo EntityManagerFactory.
@@ -73,7 +68,9 @@ public class Main {
             }
         }
             */
+
         try {
+            userService = new UserService();
             System.out.println("=============================================");
             System.out.println("  He thong huan luyen tieng anh (AESP)  ");
             System.out.println("=============================================");
@@ -115,7 +112,7 @@ public class Main {
     }
 
     // =======================================================
-    // CHỨC NĂNG 1: ĐĂNG KÝg
+    // CHỨC NĂNG 1: ĐĂNG KÝ registerLearner handleRegistration
     // =======================================================
    private static void handleRegistration(Scanner scanner, UserService userService) {
     System.out.println("\n--- Dang ky (LEARNER) ---");
@@ -145,7 +142,7 @@ public class Main {
         // ------------------------------------
         
         // ... (phần gọi service và in kết quả)
-        User registeredUser = userService.Ctroller_Register(newLearner, regPassword);
+        User registeredUser = userService.registerLearner(newLearner, regPassword);
         
         if (registeredUser != null) {
             System.out.println("   [Thanh cong] Dang ky hoan tat!");
@@ -156,6 +153,7 @@ public class Main {
         }
     } catch (Exception e) {
         System.err.println("   [Loi] Dang ky loi: " + e.getMessage());
+        e.printStackTrace();
     }
 }
 

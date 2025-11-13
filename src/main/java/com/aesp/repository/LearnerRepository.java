@@ -8,11 +8,4 @@ public class LearnerRepository implements ILearnerRepository{
     public LearnerRepository(){
         this.learnerdao = new Learnerdao();
     }
-
-    
-
-    
-
-    
-
 }

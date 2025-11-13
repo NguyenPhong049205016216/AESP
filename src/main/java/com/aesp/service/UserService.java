@@ -10,32 +10,47 @@ import com.aesp.pojo.Admin;
 import com.aesp.pojo.Learner;
 import com.aesp.pojo.Mentor;
 import com.aesp.pojo.User;
-import com.aesp.repository.UserRepository;
+import com.aesp.repository.IUserRepository;
+import com.aesp.service.PasswordUtil;
 
+import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.stereotype.Service;  
+import org.springframework.transaction.annotation.Transactional; 
+
+@Service
 //xử lý nghiệp vụ -> repository || pojo
+//thay IUserRepository
 public class UserService{
-    //UserService::::call repository
-    private UserRepository userRepository;
+    private final IUserRepository userRepository;
 
     private List<User> users = new ArrayList<>();
 
-    //UserService::::khỏi tạo cuntructor -> gọi theo thứ tự
-    public UserService(){
-        this.userRepository = new UserRepository();
+    @Autowired
+
+    public UserService(IUserRepository userRepository){
+        this.userRepository = userRepository;
     }
+    // ===================================================================
     //UserService::::nghiệp vụ cập nhập hồ sơ.->pojo||repository||dao
+    // ===================================================================
+    @Transactional
     public boolean updateProfile(User user, String newName, String newImail, String newPassword) {
         if (user == null) return false;
 
         user.setName(newName);
         user.setEmail(newImail);
-        user.setPassword(newPassword);
+        //trước khi cập nhập cần hash mật khẩu.
+        if(newPassword != null && !newPassword.isEmpty()){
+            user.setPassword(PasswordUtil.hashPassword(newPassword));
+        }
         user.setUpdatedAT(LocalDate.now());
-
+        //gọi hàm cập nhập chung.f
         userRepository.updateUser(user);
         return true;
     }
-    //UserServicenghiệp vụ đăng ký ->repository||dao||pojo  
+    // ===================================================================
+    //UserServicenghiệp vụ đăng ký ->repository||dao||pojo 
+    // ===================================================================  
     public User registerUser(User newUser, String rawPassword) 
     throws Exception {
         
@@ -43,11 +58,9 @@ public class UserService{
         if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
             throw new Exception("Email đã được sử dụng. Vui lòng chọn email khác.");
         }
-        
         // 2. Hash mật khẩu (Bước bảo mật quan trọng)
         String hashedPassword = PasswordUtil.hashPassword(rawPassword);
         newUser.setPassword(hashedPassword);
-        
         // 3. Set các giá trị nghiệp vụ
         if(newUser instanceof Learner){
             newUser.setRole("Learner");
@@ -58,14 +71,17 @@ public class UserService{
         }else{
             newUser.setRole("UNKNOWN");
         }
+        
         newUser.setStatus("ACTIVE");
         newUser.setCreatedAt(LocalDate.now());
         newUser.setCreatedAt(LocalDate.now());
-        
+
         // 4. Lưu vào CSDL
         return userRepository.saveUser(newUser);
     }
+    // ===================================================================
     //UserService::::nghiệp vụ đăng nhập
+    // ===================================================================  
     public User login(String email, String password) {
         
         // 1. Tìm User theo Email (đúng cách)
@@ -83,23 +99,6 @@ public class UserService{
         } else {
             return null; // Sai mật khẩu
         }
-    }
-    
-
-    public List<User> getAllUser(){
-        return users;
-    }
-    public User Ctroller_Register(Learner newLearner, String regPassword) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Ctroller_Register'");
-    }
-    public void closeRepository() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'closeRepository'");
-    }
-    public void closeRe1pository() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'closeRe1pository'");
     }
 
 }

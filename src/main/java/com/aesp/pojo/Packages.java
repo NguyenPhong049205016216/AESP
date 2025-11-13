@@ -20,7 +20,6 @@ public class Packages {      //gói học
     public int duration;
     @Column(name = "hasMentor")
     public boolean hasMentor;
-
     // quang hệ 1 0 vói purchase:.1
     @OneToMany(mappedBy = "packages", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Purchase> purchase;

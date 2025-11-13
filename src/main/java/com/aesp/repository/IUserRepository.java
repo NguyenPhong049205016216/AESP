@@ -6,7 +6,10 @@ import com.aesp.pojo.Admin;
 import com.aesp.pojo.Mentor;
 import com.aesp.pojo.Learner;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
+@Repository
 public interface IUserRepository {
+    
     Optional<User> findById(int id);
     
     List<User> findAll();
@@ -26,7 +29,5 @@ public interface IUserRepository {
     void deleteUser(int id);
 
 	Optional<User> findByEmail(String email);
-
-
 
 } 

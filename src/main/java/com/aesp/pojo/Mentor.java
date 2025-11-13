@@ -18,16 +18,16 @@ public class Mentor extends User{
 
    public void evaluatilearner(){
     return;
-  
    }
+
    public void giveFeedback(){
     return;
-
    }
+
    public void sharExperience(){
     return;
-
    }
+   
    @OneToMany(mappedBy = "mentor")
    private List<ConversationSession> conversationSession;
    @OneToMany(mappedBy = "mentor")

@@ -1,127 +1,85 @@
 package com.aesp.repository;
 import java.util.List;
 import java.util.Optional;
-import com.aesp.dao.Userdao;
 import com.aesp.pojo.Admin;
 import com.aesp.pojo.Learner;
 import com.aesp.pojo.Mentor;
 import com.aesp.pojo.User;
 
-public class UserRepository implements IUserRepository{
-    
-    private Userdao userdao;
+import jakarta.transaction.Transactional;
 
-    public UserRepository(){
-        try{
-            userdao = new Userdao();
-        }catch(Exception e){
-            System.err.println("Lỗi khởi tạo UserRepository"+ e.getMessage());
-            e.printStackTrace();
-            // Ném lại để báo hiệu lỗi nghiêm trọng
-            throw new RuntimeException("Cannot initialize Userdao", e); 
-        }
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository; 
+@Repository
+public class UserRepository implements IUserRepository {
+
+    private final JpaUserRepository jpaUserRepository;
+    @Autowired
+    public UserRepository(JpaUserRepository jpaRepository){
+        this.jpaUserRepository = jpaRepository;
     }
     
     // ===================================================================
     // CHỨC NĂNG ĐĂNG KÝ (Registration)
     // ===================================================================
-    
-    // Lưu ý: Trong một ứng dụng thực tế, nên hash mật khẩu trong tầng Service
-    // hoặc ngay tại đây trước khi gọi userdao.save().
-    
     @Override
+    @Transactional
     public User saveUser(User user) {
-        // Learner là một User, nên có thể dùng save của Userdao
-        // Logic nghiệp vụ: Cần kiểm tra email đã tồn tại chưa (có thể dùng findByEmail)
-        
-        boolean success = userdao.save(user);
-        
-        if (success) {
-            // Trả về đối tượng đã lưu (có thể cần refresh để lấy ID nếu save không tự động)
-            return user; 
-        } else {
-            // Ném Exception hoặc trả về null nếu lưu thất bại
-            return null; 
-        }
+        return jpaUserRepository.save(user);
     }
-
     @Override
+    @Transactional
     public Mentor addMentor(Mentor mentor) {
-        boolean success = userdao.save(mentor);
-        if (success) {
-            return mentor; 
-        } else {
-            return null; 
-        }
+        return (Mentor) jpaUserRepository.save(mentor);
     }
-
     @Override
+    @Transactional
     public Admin addAdmin(Admin admin) {
-        boolean success = userdao.save(admin);
-        if (success) {
-            return admin; 
-        } else {
-            return null; 
-        }
+        return (Admin) jpaUserRepository.save(admin);
+    }
+    @Override
+    @Transactional
+    public Learner addLearner(Learner learner) {
+        return (Learner) jpaUserRepository.save(learner);
     }
 
     // ===================================================================
     // CHỨC NĂNG ĐĂNG NHẬP (Login - Tìm theo Email)
     // ===================================================================
-
     @Override
     public Optional<User> findByEmail(String email) {
-        // Gọi phương thức findByEmail đã được sửa lỗi trong Userdao
-        User user = userdao.findByEmail(email);
-        
-        // Dùng Optional.ofNullable để trả về một Optional, đây là cách làm tốt trong Java
-        // để tránh lỗi NullPointerException khi không tìm thấy User
-        return Optional.ofNullable(user);
+        return jpaUserRepository.findByEmail( email);
     }
-
-
     // ===================================================================
     // Triển khai các phương thức còn lại
     // ===================================================================
-
     @Override
     public Optional<User> findById(int id) {
         // Chuyển đổi từ long ID sang int nếu cần, hoặc sửa findById trong DAO thành int/long
-        User user = userdao.findById(id);
-        return Optional.ofNullable(user);
+        return jpaUserRepository.findById((long)id);
     }
-
     @Override
     public List<User> findAll() {
-        return userdao.findAll();
+        return jpaUserRepository.findAll();
     }
-    
-    // ... Triển khai các phương thức khác tương tự ...
-    
-    @Override
-    public User updateUser(User user) {
-        boolean success = userdao.update(user);
-        return success ? user : null; 
-    }
-
-    @Override
-    public void deleteUser(int id) {
-        userdao.delete(id);
-    }
-
     @Override
     public List<User> getAllUsers() {
-        return userdao.findAll();
+        return jpaUserRepository.findAll();
     }
-
-    public void closeFactory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'closeFactory'");
-    }
-
+    // ===================================================================
+    // Triển khai các phương thức cập nhập, xóa, sữa.
+    // ===================================================================
+    // ... Triển khai các phương thức khác tương tự ...
     @Override
-    public Learner addLearner(Learner learner) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addLearner'");
+    @Transactional
+    public User updateUser(User user) {
+        return jpaUserRepository.save(user);
     }
+    @Override
+    @Transactional
+    public void deleteUser(int id) {
+        jpaUserRepository.deleteById((long)id);
+    }
+    
 }

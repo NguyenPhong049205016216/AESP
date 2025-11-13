@@ -1,8 +1,8 @@
 package com.aesp.pojo;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import org.hibernate.annotations.Comment;
 
 @Entity
@@ -10,7 +10,7 @@ import org.hibernate.annotations.Comment;
 public class Payment {     //thanh toán
     //.1
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "methor")

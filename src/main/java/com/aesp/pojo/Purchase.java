@@ -1,15 +1,15 @@
 package com.aesp.pojo;
 
 import java.util.Date;
-import javax.persistence.GeneratedValue;
-import javax.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Purchase")
 public class Purchase {       //mua hàng
     //.1
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
     private long id; 
     @Column(name = "data")

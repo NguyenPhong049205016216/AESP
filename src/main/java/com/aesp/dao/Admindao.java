@@ -1,21 +1,18 @@
 package com.aesp.dao;
 
 import com.aesp.pojo.Admin;
+import org.springframework.stereotype.Repository;
 public class Admindao extends Userdao {
-    //call lại contructor của lớp cha
-    public Admindao(String persistenceName){
-        super(persistenceName);
-    }
 
     public boolean saveAdmin(Admin admin){
-        return save(admin); 
+        return super.save(admin); 
     }
 
     public boolean updataAdmin(Admin admin){
-        return update(admin);
+        return super.update(admin);
     }
 
     public boolean deleteAdmin(long id){
-        return delete(id);
+        return super.delete(id);
     }
 }

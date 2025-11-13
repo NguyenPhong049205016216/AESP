@@ -6,7 +6,7 @@ public class LearnerRepository implements ILearnerRepository{
     private Learnerdao learnerdao;
 
     public LearnerRepository(){
-        this.learnerdao = new Learnerdao("JPAs");
+        this.learnerdao = new Learnerdao();
     }
 
     

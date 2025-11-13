@@ -1,6 +1,6 @@
 package com.aesp.pojo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Admin")

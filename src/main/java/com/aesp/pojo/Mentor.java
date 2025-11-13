@@ -1,7 +1,7 @@
 package com.aesp.pojo;
 
 import java.util.List;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Mentor")

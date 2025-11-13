@@ -13,6 +13,8 @@ public interface IUserRepository {
 
     List<User> getAllUsers();
 
+    User saveUser(User user);
+
     Learner addLearner(Learner learner);
 
     Mentor addMentor(Mentor mentor);

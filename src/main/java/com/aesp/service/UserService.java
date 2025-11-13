@@ -2,15 +2,16 @@ package com.aesp.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.aesp.pojo.Admin;
 import com.aesp.pojo.Learner;
+import com.aesp.pojo.Mentor;
 import com.aesp.pojo.User;
 import com.aesp.repository.UserRepository;
 
-
-import java.time.LocalDate;
 //xử lý nghiệp vụ -> repository || pojo
 public class UserService{
     //UserService::::call repository
@@ -35,25 +36,34 @@ public class UserService{
         return true;
     }
     //UserServicenghiệp vụ đăng ký ->repository||dao||pojo  
-    public User registerLearner(Learner learner, String rawPassword) throws Exception {
+    public User registerUser(User newUser, String rawPassword) 
+    throws Exception {
         
         // 1. Kiểm tra email trùng
-        if (userRepository.findByEmail(learner.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
             throw new Exception("Email đã được sử dụng. Vui lòng chọn email khác.");
         }
         
         // 2. Hash mật khẩu (Bước bảo mật quan trọng)
         String hashedPassword = PasswordUtil.hashPassword(rawPassword);
-        learner.setPassword(hashedPassword);
+        newUser.setPassword(hashedPassword);
         
         // 3. Set các giá trị nghiệp vụ
-        learner.setRole("LEARNER");
-        learner.setStatus("ACTIVE");
-        learner.setCreatedAt(new Date());
-        learner.setUpdateAt(new Date());
+        if(newUser instanceof Learner){
+            newUser.setRole("Learner");
+        }else if(newUser instanceof Mentor){
+            newUser.setRole("Mentor");
+        }else if(newUser instanceof Admin){
+            newUser.setRole("Learner");
+        }else{
+            newUser.setRole("UNKNOWN");
+        }
+        newUser.setStatus("ACTIVE");
+        newUser.setCreatedAt(LocalDate.now());
+        newUser.setCreatedAt(LocalDate.now());
         
         // 4. Lưu vào CSDL
-        return userRepository.addLearner(learner);
+        return userRepository.saveUser(newUser);
     }
     //UserService::::nghiệp vụ đăng nhập
     public User login(String email, String password) {

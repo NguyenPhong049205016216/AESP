@@ -1,38 +1,27 @@
 package com.aesp.controller;
-import com.aesp.repository.IUserRepository; // Nên dùng Interface
-import com.aesp.repository.UserRepository;
+
+import com.aesp.service.UserService;
 import com.aesp.pojo.Learner;
 import com.aesp.pojo.User;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
-// Đặt tên class rõ ràng hơn
-public class Ctroller_Register extends HttpServlet {
+// Đặt tên class rõ ràng: RegistrationServlet
+public class Ctroller_Register extends HttpServlet { 
     
-    private IUserRepository userRepository;
+    private UserService userService; // <<< CHỈ DÙNG SERVICE
 
     @Override
     public void init() {
-        this.userRepository = new UserRepository();
+        // Khởi tạo UserService ở đây
+        this.userService = new UserService(); 
     }
 
-    /**
-     * Phương thức GET: Chỉ dùng để hiển thị trang register.jsp
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        // Chuyển tiếp request đến file JSP để hiển thị form
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
-        dispatcher.forward(request, response);
-    }
+    // doGet: Giữ nguyên để hiển thị form
 
     /**
      * Phương thức POST: Xử lý dữ liệu khi người dùng nhấn nút "Đăng ký"
@@ -41,43 +30,53 @@ public class Ctroller_Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
         
-        // 1. Lấy dữ liệu từ form
-        String name = request.getParameter("name");
-        String email = request.getParameter("con");
-        String password = request.getParameter("password");
-        // Lấy thêm các trường khác nếu có, ví dụ:
-        // String goal = request.getParameter("goal");
+        // Cần thiết lập Encoding để đọc tiếng Việt
+        request.setCharacterEncoding("UTF-8"); 
 
-        // 2. Kiểm tra email đã tồn tại chưa
-        Optional<User> existingUser = userRepository.findByEmail(email);
-        if (existingUser.isPresent()) {
-            request.setAttribute("errorMessage", "Email này đã được sử dụng.");
-            doGet(request, response); // Quay lại trang đăng ký và hiển thị lỗi
+        // 1. Lấy dữ liệu từ form (SỬA LỖI TÊN THAM SỐ)
+        String name = request.getParameter("name");
+        String email = request.getParameter("email"); // <<< SỬA: Lấy từ name="email"
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirm-password"); 
+        String goal = request.getParameter("goal");
+        
+        // 2. Kiểm tra nghiệp vụ cơ bản (nên nằm ở Service, nhưng kiểm tra password khớp là cần thiết ở đây)
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("errorMessage", "Mật khẩu và Xác nhận mật khẩu không khớp.");
+            doGet(request, response); 
             return;
         }
-        
-        // 3. Tạo đối tượng Learner
+
+        // 3. Tạo đối tượng Learner (Giả định: form này chỉ dành cho Learner)
         Learner newLearner = new Learner();
         newLearner.setName(name);
-        newLearner.setEmail(email); // SỬA LẠI TÊN PHƯƠNG THỨC
-        newLearner.setPassword(password); // Cần mã hóa mật khẩu này
-        newLearner.setRole("LEARNER");
-        newLearner.setStatus(true);
-        // newLearner.setGoal(goal);
+        newLearner.setEmail(email); 
+        newLearner.setGoal(goal);
+        // Không set Role/Status/Password/CreatedAt/UpdatedAt ở đây, để Service lo.
 
-        // 4. Gọi Repository để lưu
-        Learner savedLearner = userRepository.addLearner(newLearner);
+        // 4. Gọi Service để xử lý nghiệp vụ (Kiểm tra trùng Email, Hash Mật khẩu, Lưu CSDL)
+        try {
+            // Service xử lý toàn bộ nghiệp vụ và lưu vào DB
+            User registeredUser = userService.registerUser(newLearner, password); 
 
-        /* 5. Kiểm tra kết quả và chuyển hướng
-        if (savedLearner != null && savedLearner.getId() != null) {
+            if (registeredUser != null) {
+                // Đăng ký thành công, chuyển hướng đến trang Đăng nhập
+                response.sendRedirect(request.getContextPath() + "/login?success=registered"); 
+            } else {
+                // Lỗi CSDL (Service trả về null)
+                request.setAttribute("errorMessage", "Lỗi hệ thống: Không thể lưu dữ liệu.");
+                doGet(request, response);
+            }
 
-            // Nếu thành công, chuyển hướng đến trang đăng nhập
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-        } else {
-            // Nếu thất bại, quay lại trang đăng ký với thông báo lỗi chung
-            request.setAttribute("errorMessage", "Đã có lỗi xảy ra. Vui lòng thử lại.");
-            doGet(request, response);
+        } catch (Exception e) {
+            // Bắt lỗi nghiệp vụ từ Service (ví dụ: "Email đã được sử dụng")
+            request.setAttribute("errorMessage", e.getMessage());
+            
+            // Giữ lại các giá trị đã nhập để người dùng không phải gõ lại
+            request.setAttribute("enteredName", name);
+            request.setAttribute("enteredEmail", email);
+            
+            doGet(request, response); // Quay lại form
         }
-            */
     }
 }

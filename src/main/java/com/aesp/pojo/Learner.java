@@ -1,11 +1,8 @@
 package com.aesp.pojo;
-
-import java.nio.channels.UnsupportedAddressTypeException;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
-import javax.servlet.UnavailableException;
+import jakarta.persistence.*;
 
 //.1
 @Entity

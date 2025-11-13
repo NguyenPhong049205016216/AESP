@@ -1,15 +1,15 @@
 package com.aesp.pojo;
 
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Packages")
 public class Packages {      //gói học
     //.1
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")

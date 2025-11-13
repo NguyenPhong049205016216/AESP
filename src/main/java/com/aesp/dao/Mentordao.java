@@ -1,21 +1,21 @@
 package com.aesp.dao;
 
-import javax.persistence.*;
+
 import com.aesp.pojo.Mentor;
+import org.springframework.stereotype.Repository;
+@Repository
 public class Mentordao extends Userdao {
-    public Mentordao(String persistenceName){
-        super(persistenceName);
-    }
+    
     public boolean saveMentor(Mentor mentor){
-        return save(mentor); 
+        return super.save(mentor); 
     }
 
     public boolean updataMentor(Mentor mentor){
-        return update(mentor);
+        return super.update(mentor);
     }
 
     public boolean deleteMentor(long id){
-        return delete(id);
+        return super.delete(id);
     }
     
 }

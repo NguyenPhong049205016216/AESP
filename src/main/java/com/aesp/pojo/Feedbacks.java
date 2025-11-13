@@ -1,7 +1,7 @@
 package com.aesp.pojo;
 
-import javax.persistence.*;
-import javax.persistence.GeneratedValue;
+import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "Feedbacks")

@@ -1,4 +1,4 @@
-package com.aesp;
+package com.aesp.gui;
 
 import com.aesp.pojo.Admin;
 import com.aesp.pojo.Learner;
@@ -7,11 +7,12 @@ import com.aesp.pojo.User;
 import com.aesp.service.UserService;
 import java.util.Scanner;
 
-public class Main {
-      
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+
+public class Apprun {
     public static void main(String[] args) {
-    }}
-    /*    UserService userService = null;
+        UserService userService = null;
         EntityManagerFactory emf = null;
         EntityManager em = null;
         Scanner scanner = new Scanner(System.in);
@@ -134,18 +135,12 @@ public class Main {
             System.out.println("   -> ID: " + registeredUser.getId() + ", Email: " + registeredUser.getEmail());
             System.out.println("   -> Ten: " + registeredUser.getName() + ", Vai tro: " + registeredUser.getRole()); // Dùng getRole
         } else {
-            // LỖI 5: Lỗi này chỉ xảy ra khi CSDL rollback. Logic nghiệp vụ (email trùng) được catch ở dưới.
-            System.out.println("   [That bai] Dang ky khong thanh cong. Lỗi hệ thống CSDL.");
+            System.out.println("   [That bai] Dang ky khong thanh cong. Loi he thong CSDL.");
         }
     } catch (Exception e) {
         System.err.println("   [Loi] Dang ky that bai: " + e.getMessage());
-        // e.printStackTrace(); // Chỉ nên bật trong môi trường Dev/Debug
     }
 }
-
-    // =======================================================
-    // CHỨC NĂNG 2: ĐĂNG NHẬP
-    // =======================================================
     private static void handleLogin(Scanner scanner, UserService userService) {
         System.out.println("\n--- Dang nhap ---");
         System.out.print("   Nhap Email: ");
@@ -162,6 +157,5 @@ public class Main {
         } else {
             System.out.println("   [That bai] Dang nhap khong thanh cong! Sai Email hoac mat khau.");
         }
-    }*/
-    
-//}
+    }
+}

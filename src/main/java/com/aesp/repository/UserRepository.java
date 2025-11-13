@@ -13,7 +13,7 @@ public class UserRepository implements IUserRepository{
 
     public UserRepository(){
         try{
-            userdao = new Userdao("JPAs");
+            userdao = new Userdao();
         }catch(Exception e){
             System.err.println("Lỗi khởi tạo UserRepository"+ e.getMessage());
             e.printStackTrace();
@@ -30,15 +30,15 @@ public class UserRepository implements IUserRepository{
     // hoặc ngay tại đây trước khi gọi userdao.save().
     
     @Override
-    public Learner addLearner(Learner learner) {
+    public User saveUser(User user) {
         // Learner là một User, nên có thể dùng save của Userdao
         // Logic nghiệp vụ: Cần kiểm tra email đã tồn tại chưa (có thể dùng findByEmail)
         
-        boolean success = userdao.save(learner);
+        boolean success = userdao.save(user);
         
         if (success) {
             // Trả về đối tượng đã lưu (có thể cần refresh để lấy ID nếu save không tự động)
-            return learner; 
+            return user; 
         } else {
             // Ném Exception hoặc trả về null nếu lưu thất bại
             return null; 
@@ -117,5 +117,11 @@ public class UserRepository implements IUserRepository{
     public void closeFactory() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'closeFactory'");
+    }
+
+    @Override
+    public Learner addLearner(Learner learner) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addLearner'");
     }
 }

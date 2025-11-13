@@ -1,7 +1,7 @@
 package com.aesp.pojo;
 import java.time.LocalDate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 @Entity
 @Table(name = "User")
 //#Chiến lược kế thừa: bảng con nối JOINED
@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class User{//người dùng
     //truy cập sang các methor bên dưới:.1
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
@@ -101,13 +101,5 @@ public class User{//người dùng
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", email=" + email + "]";
     }
-
-
-
-
-
-
-    
-   
 }
 

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%-- <<< BẮT BUỘC --%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - AESP</title>
     
-    <!-- SỬA LẠI ĐƯỜNG DẪN CSS CHO ĐÚNG CHUẨN (nếu cần) -->
-    <!-- request.getContextPath() sẽ tự động lấy đường dẫn gốc của ứng dụng web của bạn -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css">
+    <!-- SỬA ĐƯỜNG DẪN CSS CHO ĐÚNG CHUẨN SPRING BOOT -->
+    <!-- Spring Boot không khuyến khích contextPath vì nó thường là / -->
+    <!-- Bạn nên đặt main.css trong src/main/resources/static/ -->
+    <link rel="stylesheet" href="/aesp/main.css"> <!-- Giả định context path là /aesp -->
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -32,16 +34,15 @@
                 <p>Bắt đầu hành trình chinh phục tiếng Anh của bạn ngay hôm nay!</p>
             </div>
 
-            <!-- THAY ĐỔI 1: HIỂN THỊ THÔNG BÁO LỖI TỪ CONTROLLER -->
-            <%-- Dùng JSTL (hoặc scriptlet) để kiểm tra xem có errorMessage không --%>
+            <!-- HIỂN THỊ THÔNG BÁO LỖI -->
             <c:if test="${not empty errorMessage}">
                 <div class="error-message">${errorMessage}</div>
             </c:if>
 
-            <!-- THAY ĐỔI 2: CẤU HÌNH THẺ <form> ĐỂ GỬI DỮ LIỆU ĐÚNG NƠI -->
+            <!-- FORM GỬI ĐẾN /register (ĐÚNG) -->
             <form action="${pageContext.request.contextPath}/register" method="post" class="auth-form">
                 
-                <!-- THAY ĐỔI 3: THÊM THUỘC TÍNH "name" CHO CÁC Ô INPUT -->
+                <!-- CÁC TRƯỜNG INPUT (Đúng tên name) -->
                 <div class="form-group">
                     <label for="fullname">Họ và tên</label>
                     <input type="text" id="fullname" name="name" placeholder="Nhập họ và tên của bạn" required value="${enteredName}">
@@ -57,22 +58,17 @@
                  <div class="form-group">
                     <label for="confirm-password">Xác nhận mật khẩu</label>
                     <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu" required>
-                    <%-- Bạn cần thêm JavaScript để kiểm tra mật khẩu có khớp không --%>
                 </div>
 
-                <!-- Các trường riêng của Learner. Bạn có thể ẩn/hiện tùy theo vai trò được chọn -->
                 <div class="form-group">
                     <label for="goal">Mục tiêu học tập (nếu bạn là Người học)</label>
                     <input type="text" id="goal" name="goal" placeholder="Ví dụ: Tự tin giao tiếp khi đi du lịch">
                 </div>
                 
-                <%-- Bỏ qua phần chọn vai trò vì Controller này chỉ dùng để đăng ký Learner --%>
-                <%-- Nếu muốn đăng ký cả Mentor, bạn cần một Controller khác hoặc logic phức tạp hơn --%>
-
                 <button type="submit" class="btn btn-primary">Đăng ký</button>
             </form>
             <div class="auth-footer">
-                <p>Đã có tài khoản? <a href="${pageContext.request.contextPath}/login.jsp">Đăng nhập ngay</a></p>
+                <p>Đã có tài khoản? <a href="${pageContext.request.contextPath}/login">Đăng nhập ngay</a></p>
             </div>
         </div>
     </div>

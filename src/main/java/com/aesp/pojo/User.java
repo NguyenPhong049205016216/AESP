@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "User")
+@Table(name = "[User]")
 //#Chiến lược kế thừa: bảng con nối JOINED
 @Inheritance(strategy = InheritanceType.JOINED)
 //#chiến lược kế thừa: bảng đơn

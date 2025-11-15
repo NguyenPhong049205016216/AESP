@@ -88,6 +88,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- BẮT BUỘC: CHỈ ĐỊNH CLASS CÓ @SpringBootApplication Ở ĐÂY -->
+                    <mainClass>com.aesp.gui.Apprun</mainClass> 
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -24,9 +24,9 @@ import java.util.Scanner;
 // =========================================================================================
 @SpringBootApplication 
 @ComponentScan(basePackages = "com.aesp") 
-@EnableJpaRepositories(basePackages = "com.aesp.repository") // <<< BẮT BUỘC: Nơi Repository Interface của bạn nằm
+@EnableJpaRepositories(basePackages = "com.aesp.repository")
 @EntityScan(basePackages = "com.aesp.pojo") 
-public class Apprun implements CommandLineRunner { 
+public class Apprun { 
 
     @Autowired
     private UserService userService; 
@@ -34,7 +34,7 @@ public class Apprun implements CommandLineRunner {
         // KHỞI ĐỘNG SPRING BOOT CONTEXT (Để Spring quản lý các @Service, @Repository)
         SpringApplication.run(Apprun.class, args);
     }
-    // HÀM CHÍNH CHẠY SAU KHI SPRING KHỞI TẠO
+    /*// HÀM CHÍNH CHẠY SAU KHI SPRING KHỞI TẠO
     @Override
     public void run(String... args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -164,5 +164,5 @@ public class Apprun implements CommandLineRunner {
         } else {
             System.out.println("   [That bai] Dang nhap khong thanh cong! Sai Email hoac mat khau.");
         }
-    }
+    }*/
 }

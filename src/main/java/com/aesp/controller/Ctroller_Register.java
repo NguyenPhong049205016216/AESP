@@ -2,7 +2,6 @@ package com.aesp.controller;
 
 import com.aesp.service.UserService;
 import com.aesp.pojo.Learner;
-import com.aesp.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller; 
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class Ctroller_Register  { 
+public class Ctroller_Register  {   
     
     private final UserService userService; 
     
@@ -28,7 +27,7 @@ public class Ctroller_Register  {
     // =======================================================
     @GetMapping("/register")
     public String ShowRegisTrationFrom(){
-        return "register";
+        return "redirect:/login.html?success=registere";
     }
     
     // =======================================================
@@ -47,7 +46,7 @@ public class Ctroller_Register  {
             model.addAttribute("errorMessage", "Mật khẩu và Xác nhận mật khẩu không khớp.");
             model.addAttribute("enteredName", name); 
             model.addAttribute("enteredEmail", email);
-            return "register"; 
+            return "redirect:/login.html?success=registere"; 
         }
         
         Learner newLearner = new Learner();
@@ -67,7 +66,7 @@ public class Ctroller_Register  {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("enteredName", name);
             model.addAttribute("enteredEmail", email);
-            return "register";
+            return "redirect:/login.html?success=registere";
         }
     }
 }

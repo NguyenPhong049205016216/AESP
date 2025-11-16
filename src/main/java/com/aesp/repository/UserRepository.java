@@ -56,7 +56,6 @@ public class UserRepository implements IUserRepository {
     // ===================================================================
     @Override
     public Optional<User> findById(int id) {
-        // Chuyển đổi từ long ID sang int nếu cần, hoặc sửa findById trong DAO thành int/long
         return jpaUserRepository.findById((long)id);
     }
     @Override
@@ -70,7 +69,6 @@ public class UserRepository implements IUserRepository {
     // ===================================================================
     // Triển khai các phương thức cập nhập, xóa, sữa.
     // ===================================================================
-    // ... Triển khai các phương thức khác tương tự ...
     @Override
     @Transactional
     public User updateUser(User user) {

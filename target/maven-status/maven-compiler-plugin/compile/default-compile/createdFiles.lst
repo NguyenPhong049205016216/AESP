@@ -29,7 +29,6 @@ com\aesp\service\LearnerService.class
 com\aesp\pojo\ConversationSession.class
 com\aesp\pojo\User.class
 com\aesp\pojo\Ispeechevaluator.class
-com\aesp\gui\Testconnection.class
 com\aesp\Main.class
 com\aesp\controller\Ctroller_Logint.class
 com\aesp\pojo\Mentor.class

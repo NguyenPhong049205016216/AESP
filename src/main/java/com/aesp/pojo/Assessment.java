@@ -35,8 +35,4 @@ public class Assessment {  //đánh giá
     public void setScore(double score) {
         this.score = score;
     }
-    
-
-    
-
 }

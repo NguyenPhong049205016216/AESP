@@ -11,4 +11,8 @@ import java.util.List;
 public interface AssessmentRepository extends JpaRepository<Assessment, Long> { 
 
     List<Assessment> findAllByLearnerId(Long learnerId);
+
+    //List<Assessment> findAllByLearnerIdOrderByAssessmentDateDesc(Long learnerId);
+ 
+    //List<Assessment> findTop5ByLearnerIdOrderByAssessmentDateDesc(Long learnerId);
 }

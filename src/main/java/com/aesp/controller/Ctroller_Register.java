@@ -27,7 +27,7 @@ public class Ctroller_Register  {
     // =======================================================
     @GetMapping("/register")
     public String ShowRegisTrationFrom(){
-        return "redirect:/login.html?success=registere";
+        return "register.html";
     }
     
     // =======================================================

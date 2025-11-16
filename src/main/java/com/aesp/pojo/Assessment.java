@@ -1,7 +1,6 @@
 package com.aesp.pojo;
 
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "Assessments")
@@ -27,6 +26,9 @@ public class Assessment {  //đánh giá
     @ManyToOne
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
+    @ManyToOne
+    @JoinColumn(name = "template_id", nullable = false) // Khóa ngoại template_id
+    private AssessmentTemplate template;
 
     public double getScore() {
         return score;
@@ -34,5 +36,33 @@ public class Assessment {  //đánh giá
     
     public void setScore(double score) {
         this.score = score;
+    }
+    public Assessment() {
+    }
+
+    // ===============================================================
+    // GETTERS & SETTERS (Đã thêm các hàm còn thiếu)
+    // ===============================================================
+    public String getTopic() { return topic; }
+    public void setTopic(String topic) { this.topic = topic; }
+    
+    public String getFeedback() { return feedback; }
+    public void setFeedback(String feedback) { this.feedback = feedback; }
+
+    public String getSessionId() { return sessionId; }
+    public void setSessionId(String sessionId) { this.sessionId = sessionId; }
+
+    public AssessmentTemplate getTemplate() { return template; }
+    public void setTemplate(AssessmentTemplate template) { this.template = template; }
+    
+    public Learner getLearner() { return learner; }
+    public void setLearner(Learner learner) { this.learner = learner; }
+    
+    public Mentor getMentor() { return mentor; }
+    public void setMentor(Mentor mentor) { this.mentor = mentor; }
+
+    @Override
+    public String toString() {
+        return "Assessment [id=" + id + ", score=" + score + ", topic=" + topic + "]";
     }
 }

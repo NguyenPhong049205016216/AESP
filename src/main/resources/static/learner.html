@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điều khiển Học viên - AESP</title>
+    
+    <link rel="stylesheet" href="/aesp/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <!-- THANH ĐIỀU HƯỚNG BÊN TRÁI -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <!-- Menu với Icon và Chức năng Chính AESP -->
+                <li class="active"><a href="#"><i class="fas fa-home"></i> Bảng điều khiển</a></li>
+                <li><a href="#"><i class="fas fa-robot"></i> Luyện tập với AI</a></li> <!-- Yêu cầu: Practice with AI support -->
+                <li><a href="#"><i class="fas fa-route"></i> Lộ trình thích ứng</a></li> <!-- Yêu cầu: Adaptive Curriculum -->
+                <li><a href="#"><i class="fas fa-file-invoice"></i> Báo cáo tiến độ</a></li>  <!-- Yêu cầu: Performance Reports -->
+                <li><a href="#"><i class="fas fa-trophy"></i> Thử thách & BXH</a></li>     <!-- Yêu cầu: Challenges & Leaderboards -->
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <!-- NỘI DUNG CHÍNH -->
+        <main class="main-content">
+            <header class="main-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h1>Chào mừng trở lại, Phong!</h1>
+                    <p style="margin-bottom: 0;">Mục tiêu của bạn: Tự tin thuyết trình (Cấp độ B1).</p>
+                </div>
+                <!-- Profile nhỏ gọn (Avatar/Hồ sơ của tôi) -->
+                <div style="text-align: right;">
+                    <a href="#" style="color: var(--primary-color); font-size: 14px; text-decoration: none;"><i class="fas fa-user-circle"></i> Hồ sơ của tôi</a>
+                </div>
+            </header>
+
+            <!-- CTA SECTION (BẮT ĐẦU LUYỆN NÓI NGAY) -->
+            <section class="card cta-card">
+                <div>
+                    <h2>Bắt đầu luyện nói ngay</h2>
+                    <p>Chủ đề đề xuất: Phỏng vấn xin việc (Tiếp tục lộ trình).</p>
+                </div>
+                <a href="/aesp/practice" class="btn btn-primary btn-large-cta" style="background-color: var(--accent-color);">Luyện tập ngay</a>
+            </section>
+
+            <section class="dashboard-grid">
+                <!-- 1. LỘ TRÌNH THÍCH ỨNG (ADAPTIVE PATH) -->
+                <div class="card">
+                    <h3>Lộ trình thích ứng của bạn</h3>
+                    <p>Cấp độ hiện tại: Upper-Intermediate (B2)</p>
+                    <div style="margin-top: 15px;">
+                        <p style="font-weight: 600;">Bài học tiếp theo:</p>
+                        <ul style="list-style-type: none; padding-left: 0; font-size: 14px;">
+                            <li><i class="fas fa-lightbulb" style="color: #ffc107;"></i> **Kỹ năng:** Cải thiện độ trôi chảy (Fillers).</li>
+                            <li><i class="fas fa-book" style="color: var(--primary-color);"></i> **Từ vựng:** 10 Collocations chủ đề Môi trường.</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 14px; margin-top: 15px;">Xem toàn bộ lộ trình</a>
+                    </div>
+                </div>
+
+                <!-- 2. KIỂM TRA ĐẦU VÀO (ASSESSMENT) -->
+                <div class="card">
+                    <h3>Kiểm tra đầu vào (Yêu cầu: Initial Assessment)</h3>
+                    <p>Hoàn thành bài kiểm tra để A.I. tạo lộ trình học phù hợp nhất.</p>
+                    <a href="/aesp/assessment" class="btn btn-primary" style="background-color: var(--warning-color); color: white; margin-top: 15px;">Làm bài Kiểm tra Ngay</a>
+                </div>
+                
+                <!-- 3. PHẢN HỒI AI VÀ ĐIỂM SỐ (FULL WIDTH) -->
+                <div class="card" style="grid-column: 1 / span 2; margin-top: 20px;">
+                    <h3>Phản hồi AI phiên gần nhất</h3>
+                    <div class="last-session-scores" style="display: flex; gap: 40px; margin: 15px 0;">
+                        <div class="score-group"><span style="font-weight: 600;">Phát âm</span><span class="score-number">85%</span></div>
+                        <div class="score-group"><span style="font-weight: 600;">Ngữ pháp</span><span class="score-number">92%</span></div>
+                        <div class="score-group"><span style="font-weight: 600;">Độ trôi chảy</span><span class="score-number">78%</span></div>
+                    </div>
+                    <a href="#" style="color: var(--primary-color); font-size: 14px; display: block; margin-top: 15px;">Xem toàn bộ báo cáo tuần này</a>
+                </div>
+                
+            </section>
+        </main>
+
+        <!-- THANH THÔNG TIN BÊN PHẢI -->
+        <aside class="right-sidebar">
+            <div class="profile-card card">
+                <!-- Chỉ hiện tên và avatar lớn -->
+                <i class="fas fa-user-circle avatar"></i> 
+                <div>
+                    <h4>Nguyễn Văn Phong</h4>
+                    <p style="font-size: 14px; color: var(--secondary-color);">Học viên</p>
+                </div>
+            </div>
+            
+            <!-- Tiến độ mục tiêu -->
+            <div class="card">
+                <h3>Hoàn thành Mục tiêu</h3>
+                <p>Tiến độ tháng này: <strong>60%</strong></p>
+                <div class="progress-bar-small" style="height: 10px; background-color: #ddd; border-radius: 5px; margin-top: 10px;">
+                    <div class="progress" style="width: 60%; height: 100%; background-color: var(--primary-color); border-radius: 5px;"></div>
+                </div>
+            </div>
+
+            <!-- Buổi hẹn sắp tới -->
+            <div class="card">
+                <h3>Buổi hẹn với Mentor</h3>
+                <div class="appointment-item" style="margin-top: 15px;">
+                    <p><strong>Mentor Anna (B2)</strong></p>
+                    <p style="font-size: 14px; color: var(--secondary-color);">Thứ Sáu, 15/11, lúc 8:00 Tối</p>
+                </div>
+                 <a href="#" style="font-size: 14px; color: var(--primary-color); display: block; margin-top: 10px;">Xem tất cả lịch hẹn</a>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

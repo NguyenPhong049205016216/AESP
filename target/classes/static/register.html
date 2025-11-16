@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - AESP</title>
     <link rel="stylesheet" href="/aesp/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    
+
     <div class="auth-container">
         <div class="auth-box">
             <div class="auth-header">
@@ -16,18 +19,9 @@
                 <h2>Đăng ký tài khoản</h2>
                 <p>Bắt đầu luyện nói cùng AI!</p>
             </div>
-
-            <!-- HIỂN THỊ THÔNG BÁO LỖI (Controller sẽ truyền vào) -->
-            <!-- VÌ ĐÂY LÀ HTML THUẦN, BẠN CẦN THAY THẾ BẰNG JSTL NẾU CHUYỂN QUA JSP -->
-            <!-- Giả lập thẻ lỗi -->
-            <div class="error-message" 
-                 style="display:none; color: red;">
-                 Lỗi: Đây là lỗi Email đã tồn tại.
-            </div>
-
-            <!-- THẺ FORM (Đảm bảo action khớp với Controller) -->
+            <div class="error-message" id="error-message-box"></div>
             <form action="/aesp/register" method="post" class="auth-form">
-                
+
                 <div class="form-group">
                     <label for="fullname">Họ và tên</label>
                     <input type="text" id="fullname" name="name" placeholder="Nguyễn Văn A" required>
@@ -40,24 +34,47 @@
                     <label for="password">Mật khẩu</label>
                     <input type="password" id="password" name="password" placeholder="Tạo mật khẩu" required>
                 </div>
-                 <div class="form-group">
-                    <label for="confirm-password">Xác nhận mật khẩu</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu" required>
-                </div>
-
-                <!-- Trường dành riêng cho Learner -->
                 <div class="form-group">
+                    <label for="confirm-password">Xác nhận mật khẩu</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Vai trò đăng ký</label>
+                    <select id="role" name="role" required>
+                        <option value="LEARNER">Người học (Learner)</option>
+                        <option value="MENTOR">Người hướng dẫn (Mentor)</option>
+                        <option value="ADMIN">Quản trị viên (Admin)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="goal-group">
                     <label for="goal">Mục tiêu học tập</label>
                     <input type="text" id="goal" name="goal" placeholder="Ví dụ: Giao tiếp trôi chảy (Tùy chọn)">
                 </div>
-                
                 <button type="submit" class="btn-submit">Tạo tài khoản</button>
             </form>
-            
+
             <div class="auth-footer">
                 <p>Đã có tài khoản? <a href="/aesp/login">Đăng nhập</a></p>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const roleSelect = document.getElementById('role');
+            const goalGroup = document.getElementById('goal-group');
+
+            function toggleGoalField() {
+                if (roleSelect.value === 'LEARNER') {
+                    goalGroup.style.display = 'block';
+                } else {
+                    goalGroup.style.display = 'none';
+                }
+            }
+            roleSelect.addEventListener('change', toggleGoalField);
+            toggleGoalField();
+        });
+    </script>
 </body>
+
 </html>

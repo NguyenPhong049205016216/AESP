@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điều khiển Học viên - AESP</title>
+    
+    <link rel="stylesheet" href="/aesp/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li> <!-- Yêu cầu: Manage user accounts -->
+                <li><a href="#"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li>  <!-- Yêu cầu: Manage service packages & pricing -->
+                <li><a href="#"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> <!-- Yêu cầu: Moderate feedback & comments -->
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> <!-- Yêu cầu: View statistics & reports -->
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Chào mừng, Quản trị viên!</h1>
+                <p>Nơi quản lý toàn bộ hoạt động của hệ thống AESP.</p>
+            </header>
+
+            <!-- CTA SECTION (Quản lý Gói dịch vụ) -->
+            <section class="card" style="background-color: #ffeadb; border-left: 5px solid #ff5722; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2>Quản lý Gói dịch vụ</h2>
+                    <p>Thêm, sửa, hoặc cập nhật giá các gói học.</p>
+                </div>
+                <a href="/admin/packages" class="btn" style="background-color: #ff5722; color: white;">Cấu hình Gói</a>
+            </section>
+
+            <section class="dashboard-grid">
+                <div class="card">
+                    <h3>Thống kê Nhanh (Yêu cầu: View statistics)</h3>
+                    <div style="display: flex; justify-content: space-around; text-align: center; margin-top: 15px;">
+                        <div><span style="font-size: 28px; font-weight: 700;">120</span><p>Học viên mới</p></div>
+                        <div><span style="font-size: 28px; font-weight: 700; color: var(--accent-color);">45</span><p>Giao dịch thành công</p></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Cần Kiểm duyệt (Feedback & Comments)</h3>
+                    <p style="color: red; font-weight: 600;">8 phản hồi cần xem xét.</p>
+                    <a href="/admin/feedback" class="btn btn-secondary" style="margin-top: 10px;">Xem chi tiết</a>
+                </div>
+                <div class="card" style="grid-column: 1 / span 2;">
+                    <h3>Quản lý Tài khoản</h3>
+                    <p>Xem danh sách Mentor/Learner, kích hoạt hoặc vô hiệu hóa tài khoản.</p>
+                    <a href="/admin/users" class="btn btn-primary" style="margin-top: 15px;">Danh sách Tài khoản</a>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar">
+             <div class="profile-card card">
+                <i class="fas fa-shield-alt avatar" style="color: red;"></i>
+                <div><h4>Quản trị viên Chính</h4><p style="font-size: 14px; color: var(--secondary-color);">Quyền truy cập toàn hệ thống</p></div>
+            </div>
+            
+            <div class="card">
+                <h3>Báo cáo Doanh thu</h3>
+                <p>Tổng doanh thu tháng này:</p>
+                <h4 style="font-size: 24px; color: var(--accent-color); margin-top: 5px;">$12,500</h4>
+                <a href="/admin/reports" style="font-size: 14px; color: var(--primary-color); display: block; margin-top: 10px;">Xem báo cáo chi tiết</a>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

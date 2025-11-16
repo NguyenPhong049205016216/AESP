@@ -2,6 +2,10 @@ package com.aesp.controller;
 
 import com.aesp.service.UserService;
 import com.aesp.pojo.Learner;
+import com.aesp.pojo.Mentor;
+import com.aesp.pojo.Admin;
+import com.aesp.pojo.User;
+
 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller; 
@@ -35,38 +39,63 @@ public class Ctroller_Register  {
     // =======================================================
     @PostMapping("/register") // <<< SỬA LỖI CHÍNH TẢ
     public String registerUser(
+        //Tham số
         @RequestParam String name,
         @RequestParam String email,
         @RequestParam String password,
         @RequestParam("confirm-password") String confirmPassword,
+        @RequestParam String role,
         @RequestParam(required = false) String goal,
+
          Model model){
             // 1. Kiểm tra nghiệp vụ cơ bản
         if (!password.equals(confirmPassword)) {
             model.addAttribute("errorMessage", "Mật khẩu và Xác nhận mật khẩu không khớp.");
             model.addAttribute("enteredName", name); 
             model.addAttribute("enteredEmail", email);
-            return "redirect:/login.html?success=registere"; 
+            return "redirect.html"; 
         }
+        User newUser = null;
+        switch (role.toUpperCase()) {
+            case "MEMTOR":
+                newUser = new Mentor();
+                break;
+            case "ADMIN":
+                newUser = new Admin();
+                break;
+            case "LEARNER":
+                newUser = new Learner();
+                break;
         
-        Learner newLearner = new Learner();
-        newLearner.setName(name);
-        newLearner.setEmail(email); 
-        newLearner.setGoal(goal);
-        
+            default:
+                Learner learner = new Learner();
+                learner.setGoal(goal);
+                learner = learner;
+                break;
+        }
+        newUser.setName(name);
+        newUser.setEmail(email);  
         try {
             // Service xử lý Hash, Kiểm tra Trùng Email, Save
-            userService.registerUser(newLearner, password); 
-
-            // THÀNH CÔNG: Chuyển hướng đến trang Đăng nhập
-            return "redirect:/login?success=registered"; 
+            User registeredUser = userService.registerUser(newUser, password); 
+            String redirectUrl = "";
+            if (registeredUser instanceof Learner){
+                redirectUrl = "/learner_dashboard.html";
+            }else if(registeredUser instanceof Mentor){
+                redirectUrl = "/Mentor_dashboard.html";
+            }else if(registeredUser instanceof Admin){
+                redirectUrl = "/Admin_dashboard.html";
+            }else{
+                redirectUrl = "/index.html";
+            }
+            return "redirect:" + redirectUrl;
 
         } catch (Exception e) {
             // LỖI: Bắt lỗi nghiệp vụ (Email trùng, v.v.)
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("enteredName", name);
             model.addAttribute("enteredEmail", email);
-            return "redirect:/login.html?success=registere";
+            return "redirect.html";
         }
     }
 }

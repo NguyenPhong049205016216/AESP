@@ -21,11 +21,10 @@ public class Ctroller_Register  {
     
     private final UserService userService; 
     
-    @Autowired // Injection Constructor
+    @Autowired 
     public Ctroller_Register(UserService userService){
         this.userService = userService;
     }
-    
     // =======================================================
     // PHƯƠNG THỨC GET: Hiển thị trang đăng ký
     // =======================================================
@@ -33,13 +32,11 @@ public class Ctroller_Register  {
     public String ShowRegisTrationFrom(){
         return "register.html";
     }
-    
     // =======================================================
     // PHƯƠNG THỨC POST: Xử lý dữ liệu
     // =======================================================
-    @PostMapping("/register") // <<< SỬA LỖI CHÍNH TẢ
+    @PostMapping("/register") 
     public String registerUser(
-        //Tham số
         @RequestParam String name,
         @RequestParam String email,
         @RequestParam String password,
@@ -48,7 +45,6 @@ public class Ctroller_Register  {
         @RequestParam(required = false) String goal,
 
          Model model){
-            // 1. Kiểm tra nghiệp vụ cơ bản
         if (!password.equals(confirmPassword)) {
             model.addAttribute("errorMessage", "Mật khẩu và Xác nhận mật khẩu không khớp.");
             model.addAttribute("enteredName", name); 
@@ -76,22 +72,19 @@ public class Ctroller_Register  {
         newUser.setName(name);
         newUser.setEmail(email);  
         try {
-            // Service xử lý Hash, Kiểm tra Trùng Email, Save
             User registeredUser = userService.registerUser(newUser, password); 
             String redirectUrl = "";
             if (registeredUser instanceof Learner){
-                redirectUrl = "/learner_dashboard.html";
+                redirectUrl = "/learner.html";
             }else if(registeredUser instanceof Mentor){
-                redirectUrl = "/Mentor_dashboard.html";
+                redirectUrl = "/Mentor.html";
             }else if(registeredUser instanceof Admin){
-                redirectUrl = "/Admin_dashboard.html";
+                redirectUrl = "/Admin.html";
             }else{
                 redirectUrl = "/index.html";
             }
             return "redirect:" + redirectUrl;
-
         } catch (Exception e) {
-            // LỖI: Bắt lỗi nghiệp vụ (Email trùng, v.v.)
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("enteredName", name);
             model.addAttribute("enteredEmail", email);

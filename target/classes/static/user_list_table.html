@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điều khiển Học viên - AESP</title>
+    
+    <link rel="stylesheet" href="/aesp/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .user-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .user-table th, .user-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar (Để nguyên) -->
+        <nav class="sidebar">...</nav> 
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <h1>Danh sách Tài khoản Hệ thống</h1>
+            <p>Tổng cộng: {{ users.size }} tài khoản</p>
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ và tên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dùng Thymeleaf hoặc JSTL để lặp qua danh sách users -->
+                    <!-- VÍ DỤ THÔ (Nếu bạn dùng HTML tĩnh): -->
+                    <tr>
+                        <td>1</td>
+                        <td>Nguyễn Văn Phong</td>
+                        <td>phong@aesp.com</td>
+                        <td>Learner</td>
+                        <td>ACTIVE</td>
+                        <td><a href="/admin/users/toggle-status?userId=1&status=ACTIVE">Vô hiệu hóa</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <!-- Right Sidebar (Để nguyên) -->
+        <aside class="right-sidebar">...</aside>
+    </div>
+</body>
+</html>

@@ -25,13 +25,12 @@ public class User{//người dùng
     @Column(name = "role")
     private String role; 
     @Column(name = "status")
-    private String status; //trạng thái
+    private String status; 
     @Column(name =  "CreatedAT")
-    private LocalDate createdAT; //khởi tạo tại.
-    //attribute này là "cập nhập tiến trình".1
+    private LocalDate createdAT; 
     @Column(name = "UpdateAT")
-    private LocalDate updatedAT; //cập nhập tại.
-    public User(){   //contructor mặc định.1
+    private LocalDate updatedAT; 
+    public User(){  
     }
     //nguyên tắc đóng gói.1
     public User(long id, String name, String email){
@@ -40,10 +39,8 @@ public class User{//người dùng
         this.email = email;
         this.status = status;
         this.createdAT = LocalDate.now();
-        //atribute này.1
         this.updatedAT = this.createdAT;
     }
-    //getid 0 tham số:.1
     public long getId() {
         return id;
     }
@@ -96,7 +93,6 @@ public class User{//người dùng
     public void setUpdatedAT(LocalDate updatedAT) {
         this.updatedAT = updatedAT;
     }
-    //.1
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", email=" + email + "]";

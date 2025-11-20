@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gói Dịch vụ - AESP</title>
+    
+    <link rel="stylesheet" href="/aesp/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        
+        <!-- HEADER (Giữ nguyên cấu trúc chung) -->
+        <header class="main-header">
+            <div class="logo"><i class="fas fa-robot logo-icon"></i> <span class="logo-text">AESP</span></div>
+            <nav class="main-nav">
+                <a href="/aesp/" class="nav-item">Trang chủ</a>
+                <a href="/aesp/packages" class="nav-item active">Gói học</a> 
+                <a href="#about" class="nav-item">Về chúng tôi</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/aesp/login" class="btn btn-secondary">Đăng nhập</a>
+                <a href="/aesp/register" class="btn btn-primary">Đăng ký</a>
+            </div>
+        </header>
+        
+        <!-- MAIN CONTENT -->
+        <main class="pricing-page">
+            <section class="pricing-header" style="text-align: center; padding: 60px 0;">
+                <h1>Chọn gói học phù hợp với bạn</h1>
+                <p class="subtitle">Tất cả các gói đều bao gồm phản hồi AI tức thì và theo dõi tiến độ.</p>
+            </section>
+
+            <!-- KHU VỰC CÁC CARD GÓI DỊCH VỤ -->
+            <section class="pricing-grid">
+                
+                <!-- 1. GÓI CƠ BẢN (AI Luyện Tập) -->
+                <div class="package-card card">
+                    <h3>Gói Cơ bản</h3>
+                    <p class="price" style="font-size: 36px; font-weight: 700; color: var(--primary-color);">Miễn Phí</p>
+                    <p class="duration" style="color: var(--secondary-color); margin-bottom: 20px;">Vĩnh viễn</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Luyện nói với AI (30 phút/ngày)</li>
+                        <li><i class="fas fa-check-circle"></i> Phản hồi Phát âm tức thì</li>
+                        <li class="disabled"><i class="fas fa-times-circle"></i> Không Mentor</li>
+                        <li class="disabled"><i class="fas fa-times-circle"></i> Báo cáo Chi tiết hàng tuần</li>
+                    </ul>
+                    <a href="/aesp/register" class="btn btn-secondary" style="width: 100%; margin-top: 20px;">Bắt đầu Miễn phí</a>
+                </div>
+
+                <!-- 2. GÓI PHỔ BIẾN (AI Pro - Nổi bật) -->
+                <div class="package-card card featured">
+                    <div class="badge">PHỔ BIẾN NHẤT</div>
+                    <h3>AI Pro</h3>
+                    <p class="price" style="font-size: 36px; font-weight: 700; color: var(--accent-color);">$19.99</p>
+                    <p class="duration" style="color: var(--secondary-color); margin-bottom: 20px;">/Tháng</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Luyện nói KHÔNG GIỚI HẠN</li>
+                        <li><i class="fas fa-check-circle"></i> Chủ đề chuyên biệt (Business, Travel)</li>
+                        <li><i class="fas fa-check-circle"></i> Theo dõi Tiến độ nâng cao</li>
+                        <li class="disabled"><i class="fas fa-times-circle"></i> Không Mentor</li>
+                    </ul>
+                    <a href="/aesp/purchase?package=pro" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Mua ngay</a>
+                </div>
+
+                <!-- 3. GÓI MENTOR CAO CẤP -->
+                <div class="package-card card">
+                    <h3>Gói Mentor</h3>
+                    <p class="price" style="font-size: 36px; font-weight: 700; color: var(--primary-color);">$49.99</p>
+                    <p class="duration" style="color: var(--secondary-color); margin-bottom: 20px;">/Tháng</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Tất cả tính năng AI Pro</li>
+                        <li><i class="fas fa-check-circle"></i> 4 buổi/tháng với Mentor</li>
+                        <li><i class="fas fa-check-circle"></i> Phản hồi Ngữ pháp chi tiết</li>
+                        <li><i class="fas fa-check-circle"></i> Tài liệu học tập chuyên biệt</li>
+                    </ul>
+                    <a href="/aesp/purchase?package=mentor" class="btn btn-secondary" style="width: 100%; margin-top: 20px;">Mua ngay</a>
+                </div>
+            </section>
+        </main>
+        
+        <!-- FOOTER (Giữ nguyên) -->
+        <footer class="main-footer">
+            <p>AESP &copy; 2025. All rights reserved.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

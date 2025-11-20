@@ -9,6 +9,4 @@ public interface AssessmentTemplateRepository extends JpaRepository<AssessmentTe
     
     // Tùy chọn: Tìm Template theo tên
     Optional<AssessmentTemplate> findByName(String name);
-    
-    // Tự động có: save(), findById(), findAll(), delete()
 }

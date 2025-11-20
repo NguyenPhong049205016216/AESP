@@ -25,7 +25,7 @@ public class Apprun {
     }
     //http://localhost:8080/aesp/index.html
     //http://localhost:8080/aesp/
-    //http://localhost:8080/aesp/learner_dashboard.html
-    //http://localhost:8080/aesp/Mentor_dashboard.html
-    //http://localhost:8080/aesp/admin_dashboard.html
+    //http://localhost:8080/aesp/learner.html
+    //http://localhost:8080/aesp/Mentor.html
+    //http://localhost:8080/aesp/admin.html
 }

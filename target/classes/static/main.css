@@ -163,7 +163,6 @@ body {
     color: var(--secondary-color);
     font-size: 14px;
 }
-
 /* ========================================= */
 /* 6. FORM TÙY CHỌN 
 /* ========================================= */
@@ -263,9 +262,92 @@ body {
     text-align: center;
     font-weight: 500;
 }
+/* ========================================= */
+/* Package css  */
+/* ========================================= */
+.pricing-grid {
+    display: flex; /* Dùng Flexbox để căn giữa */
+    justify-content: center;
+    gap: 30px; /* Khoảng cách giữa các cột */
+    margin-bottom: 80px;
+}
+
+.package-card {
+    width: 350px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #eee; /* Viền mỏng */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.package-card:hover {
+    transform: translateY(-5px); /* Hiệu ứng nổi nhẹ khi di chuột */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.package-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+}
+
+.package-card .price {
+    margin-top: 10px;
+}
+
+.package-card .features {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.package-card .features li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+.package-card .features li i {
+    margin-right: 10px;
+    color: var(--accent-color); /* Icon xanh lá cho chức năng */
+}
+
+.package-card .features li.disabled {
+    color: #ccc;
+    text-decoration: line-through;
+}
+
+.package-card .features li.disabled i {
+    color: #ccc;
+}
+
+/* Style cho gói NỔI BẬT */
+.package-card.featured {
+    border: 2px solid var(--accent-color);
+    transform: scale(1.05); /* Lớn hơn một chút */
+    box-shadow: 0 15px 30px rgba(40, 167, 69, 0.2);
+}
+
+.package-card .badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
 /*------------------------------------*/
 /* Learner */
+/*------------------------------------*/
 .dashboard-layout {
     display: grid;
     /* Cấu trúc: Sidebar (220px) | Nội dung Chính (1fr) | Sidebar Phụ (300px) */
@@ -385,6 +467,16 @@ body {
     background-color: #fafafa;
 }
 
+/* THÊM ĐOẠN NÀY VÀO */
+.right-sidebar .card {
+    margin-bottom: 20px; /* Thêm khoảng cách 20px bên dưới mỗi card */
+}
+
+/* Để ngăn card cuối cùng tạo ra khoảng trống thừa ở cuối sidebar */
+.right-sidebar .card:last-child {
+    margin-bottom: 0;
+}
+
 .profile-card {
     margin-bottom: 30px;
     padding: 20px;
@@ -437,6 +529,15 @@ body {
 .right-sidebar {
     padding: 40px 20px;
     background-color: #fafafa;
+}
+/* THÊM ĐOẠN NÀY VÀO */
+.right-sidebar .card {
+    margin-bottom: 20px; /* Thêm khoảng cách 20px bên dưới mỗi card */
+}
+
+/* Để ngăn card cuối cùng tạo ra khoảng trống thừa ở cuối sidebar */
+.right-sidebar .card:last-child {
+    margin-bottom: 0;
 }
 
 .dashboard-grid {

@@ -30,9 +30,8 @@ public class UserService {
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
     // ===================================================================
-    // UserService::::nghiệp vụ cập nhập hồ sơ.->pojo||repository||dao
+    // nghiệp vụ cập nhập hồ sơ.->pojo||repository||dao
     // ===================================================================
     @Transactional
     public boolean updateProfile(User user, String newName, String newImail, String newPassword) {
@@ -49,7 +48,6 @@ public class UserService {
         userRepository.updateUser(user);
         return true;
     }
-
     // ===================================================================
     // UserServicenghiệp vụ đăng ký ->repository||dao||pojo
     // ===================================================================
@@ -72,38 +70,31 @@ public class UserService {
         } else {
             newUser.setRole("UNKNOWN");
         }
-
         newUser.setStatus("ACTIVE");
         newUser.setCreatedAt(LocalDate.now());
         newUser.setCreatedAt(LocalDate.now());
 
         return userRepository.saveUser(newUser);
     }
-
     // ===================================================================
     // UserService::::nghiệp vụ đăng nhập
     // ===================================================================
     public User login(String email, String password) {
-
         Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isEmpty()) {
             return null;
         }
-
         User user = userOptional.get();
-
         if (PasswordUtil.checkPassword(password, user.getPassword())) {
             return user;
         } else {
             return null;
         }
     }
-
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-
     // ===================================================================
     // UserService:::Nghiệp vụ quảng lý tài khoản
     // ===================================================================

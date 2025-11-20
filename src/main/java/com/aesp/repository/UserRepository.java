@@ -19,7 +19,6 @@ public class UserRepository implements IUserRepository {
     public UserRepository(JpaUserRepository jpaRepository){
         this.jpaUserRepository = jpaRepository;
     }
-    
     // ===================================================================
     // CHỨC NĂNG ĐĂNG KÝ (Registration)
     // ===================================================================
@@ -49,7 +48,7 @@ public class UserRepository implements IUserRepository {
     // ===================================================================
     @Override
     public Optional<User> findByEmail(String email) {
-        return jpaUserRepository.findByEmail( email);
+        return jpaUserRepository.findByEmail(email);
     }
     // ===================================================================
     // Triển khai các phương thức còn lại

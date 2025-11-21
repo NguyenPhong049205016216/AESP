@@ -54,7 +54,7 @@ public class UserRepository implements IUserRepository {
     // Triển khai các phương thức còn lại
     // ===================================================================
     @Override
-    public Optional<User> findById(int id) {
+    public Optional<User> findById(Long id) {
         return jpaUserRepository.findById((long)id);
     }
     @Override
@@ -75,8 +75,9 @@ public class UserRepository implements IUserRepository {
     }
     @Override
     @Transactional
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
         jpaUserRepository.deleteById((long)id);
     }
+    
     
 }

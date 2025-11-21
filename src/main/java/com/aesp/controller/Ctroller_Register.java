@@ -53,24 +53,22 @@ public class Ctroller_Register  {
         }
         User newUser = null;
         switch (role.toUpperCase()) {
-            case "MEMTOR":
+            case "MENTOR":
                 newUser = new Mentor();
                 break;
             case "ADMIN":
                 newUser = new Admin();
                 break;
             case "LEARNER":
-                newUser = new Learner();
-                break;
-        
             default:
-                Learner learner = new Learner();
-                learner.setGoal(goal);
-                learner = learner;
+                newUser = new Learner();
                 break;
         }
         newUser.setName(name);
         newUser.setEmail(email);  
+        if (newUser instanceof Learner) {
+        ((Learner)newUser).setGoal(goal); // Set Goal chỉ khi là Learner
+        }
         try {
             User registeredUser = userService.registerUser(newUser, password); 
             String redirectUrl = "";
@@ -88,7 +86,7 @@ public class Ctroller_Register  {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("enteredName", name);
             model.addAttribute("enteredEmail", email);
-            return "redirect.html";
+            return "register.htm";
         }
     }
 }

@@ -32,11 +32,11 @@ public class AdminUserController {
     // URL: /admin/users/toggle-status
     // =======================================================
     @PostMapping("/toggle-status")
-    public String toggleUserStatus(@RequestParam int userId, @RequestParam String currentStatus) {
+    public String toggleUserStatus(@RequestParam Long userId, @RequestParam String currentStatus) {
         try {
             // Logic: Tìm user, đảo ngược trạng thái, và cập nhật
             userService.toggleUserStatus(userId, currentStatus);
-            return "redirect:/admin/users/list"; 
+            return "redirect:/aesp/admin/users/list"; 
         } catch (Exception e) {
             return "redirect:/admin/users/list?error=" + e.getMessage(); 
         }
@@ -45,9 +45,50 @@ public class AdminUserController {
     // 3. GET: Hiển thị trang chỉnh sửa tài khoản (Tùy chọn)
     // =======================================================
     @GetMapping("/{userId}/edit")
-    public String editUserForm(@PathVariable int userId, Model model) {
+    public String editUserForm(@PathVariable Long userId, Model model) {
         User user = userService.findUserById(userId);
+        if (user == null) {
+            // Xử lý không tìm thấy user
+            return "redirect:/aesp/admin/users/list?error=UserNotFound";
+        }
         model.addAttribute("user", user);
-        return "admin/user_edit_form"; 
+        return "admin/user_edit_from"; 
     }
+    // =======================================================
+    // 4. GET: Xóa Tài khoản (Tạm thời - Dùng GET cho đơn giản)
+    // URL: /admin/users/{userId}/delete
+    // =======================================================
+    // Lưu ý: Trong môi trường thực tế nên dùng POST/DELETE API
+    @GetMapping("/{userId}/delete") 
+    public String deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUsert(userId); // Giả định UserService có hàm deleteUser
+            return "redirect:/aesp/admin/users/list?message=UserDeleted";
+        } catch (Exception e) {
+            return "redirect:/admin/users/list?error=" + e.getMessage();
+        }
+    }
+    // =======================================================
+    // 5. POST: Xử lý Lưu Thay Đổi (Update)
+    // URL: /admin/users/update
+    // =======================================================
+    @PostMapping("/update") 
+    public String updateUser(@RequestParam Long id, 
+        @RequestParam String email,
+        @RequestParam(required = false) String password,Model model) 
+    {
+        try {
+            User userToUpdate = userService.findUserById(id);
+            if (userToUpdate == null) {
+                 return "redirect:/aesp/admin/users/list?error=UserNotFound";
+            }
+            userService.updateProfile(userToUpdate, userToUpdate.getName(), email, password);
+            return "redirect:/aesp/admin/users/" + id + "/edit?success=updated"; 
+            
+        } catch (Exception e) {
+            // Thất bại: Chuyển hướng về trang list với thông báo lỗi
+            return "redirect:/aesp/admin/users/list?error=" + e.getMessage();
+        }
+    }
+
 }

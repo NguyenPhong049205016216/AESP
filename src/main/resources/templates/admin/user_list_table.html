@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- BẮT BUỘC: Khai báo namespace của Thymeleaf -->
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Tài khoản - AESP</title>
+    
+    <!-- SỬA LỖI: Đường dẫn CSS PHẢI có Context Root (th:href) nếu dùng Thymeleaf -->
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        .user-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .user-table th, .user-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar (Giữ nguyên) -->
+        <nav class="sidebar">...</nav> 
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <h1>Danh sách Tài khoản Hệ thống</h1>
+            <!-- SỬA LỖI: Cú pháp Thymeleaf (Bỏ chữ 'tài khoản' nếu không dùng th:text) -->
+            <p>Tổng cộng: <span th:text="${users.size()}"></span> tài khoản</p> 
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ và tên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- SỬA LỖI: Cú pháp lặp Thymeleaf (th:each) -->
+                    <tr th:each="user : ${users}">
+                        <!-- SỬA LỖI: Cú pháp Thymeleaf th:text -->
+                        <td th:text="${user.id}">1</td> 
+                        <td th:text="${user.name}">Họ và tên</td> 
+                        <td th:text="${user.email}">email@example.com</td>
+                        <td th:text="${user.role}">Role</td>
+                        <td th:text="${user.status}">Status</td>
+                        <td>
+                            <!-- [1] Xem Chi tiết / Chỉnh sửa -->
+                            <!-- SỬA LỖI: th:href DÙNG URL TƯƠNG ĐỐI TỪ CONTEXT ROOT -->
+                            <a th:href="@{/admin/users/{userId}/edit(userId=${user.id})}"
+                               style="color: blue; margin-right: 10px;">Chi tiết</a>
+                            
+                            <!-- [2] Vô hiệu hóa/Kích hoạt -->
+                            <!-- XÓA TH:HREF THỦ CÔNG VÀ DÙNG CÚ PHÁP THYMELYAF (Tối ưu hơn) -->
+                            <a th:if="${user.status == 'ACTIVE'}" 
+                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                               style="color: red;">Vô hiệu hóa</a>
+                            
+                            <a th:if="${user.status != 'ACTIVE'}" 
+                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                               style="color: green;">Kích hoạt</a>
+                            
+                            <!-- [3] Xóa Tài khoản -->
+                            <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}"
+                               style="color: orange;"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">Xóa</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <!-- Right Sidebar (Để nguyên) -->
+        <aside class="right-sidebar">...</aside>
+    </div>
+</body>
+</html>

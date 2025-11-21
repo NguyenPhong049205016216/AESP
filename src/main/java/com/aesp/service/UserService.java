@@ -25,8 +25,7 @@ public class UserService {
 
     private List<User> users = new ArrayList<>();
 
-    @Autowired
-
+    @Autowired 
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -100,7 +99,7 @@ public class UserService {
     // ===================================================================
     // Hàm cần bổ sung cho AdminUserController (Thao tác DB cần @Transactional)
     @Transactional
-    public void toggleUserStatus(int userId, String currentStatus) throws Exception {
+    public void toggleUserStatus(Long userId, String currentStatus) throws Exception {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception("Tài khoản không tồn tại."));
 
@@ -111,8 +110,18 @@ public class UserService {
         userRepository.saveUser(user); 
     }
 
-    public User findUserById(int userId) {
+    public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
+    // UserService:::Nghiệp vụ xóa tài khoản
+    @Transactional 
+    public void deleteUsert(Long id) {
+        User user = userRepository.findById(id) // IUserRepository dùng int id
+        .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại để xóa."));
+        // 2. Gọi hàm xóa của IUserRepository (deleteUser(int id))
+        // Chúng ta sẽ dùng hàm deleteUser(int id) đã được khai báo.
+        userRepository.deleteUser(id); 
+    }
+
 
 }

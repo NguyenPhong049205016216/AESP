@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin/templates") 
+@RequestMapping("/admin/assessment") 
 public class AdminAssessmentController {
 
     private final AssessmentTemplateService templateService;
@@ -16,16 +16,14 @@ public class AdminAssessmentController {
     public AdminAssessmentController(AssessmentTemplateService templateService) {
         this.templateService = templateService;
     }
-    // 1. GET: Hiển thị Form tạo Template
     @GetMapping("/new")
     public String showCreateForm() {
-        return "admin/template_create_form.html"; 
+        return "admin/assessment_creation_form.html"; 
     }
-    // 2. POST: Xử lý dữ liệu form và tạo Template
-    @PostMapping("/create")
+    @PostMapping("/create") 
     public String createTemplate(
         @RequestParam String templateName,
-        @RequestParam String questionsJson, // Dữ liệu câu hỏi từ form
+        @RequestParam String questionsJson, 
         @RequestParam String difficulty,
         Model model) 
     {
@@ -34,15 +32,12 @@ public class AdminAssessmentController {
                 templateName, questionsJson, difficulty
             );
             model.addAttribute("message", "Tạo mẫu bài tập thành công: " + savedTemplate.getName());
-            // Chuyển hướng đến danh sách các mẫu bài tập
-            return "redirect:/admin/templates/list"; 
+            return "redirect:/admin/assessment/list"; 
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            // Quay lại form với lỗi
-            return "admin/template_create_form.html"; 
+            return "admin/assessment_creation_form.html"; 
         }
     }
-    // 3. GET: Hiển thị danh sách các Template
     @GetMapping("/list")
     public String listTemplates(Model model) {
         model.addAttribute("templates", templateService.findAllTemplates());

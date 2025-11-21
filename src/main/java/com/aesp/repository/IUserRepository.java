@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserRepository {
     
-    Optional<User> findById(int id);
+    Optional<User> findById(Long id);
     
     List<User> findAll();
 
@@ -26,8 +26,9 @@ public interface IUserRepository {
 
     User updateUser(User user);
 
-    void deleteUser(int id);
+    void deleteUser(Long id);
 
 	Optional<User> findByEmail(String email);
+
 
 } 

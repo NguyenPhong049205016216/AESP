@@ -7,6 +7,6 @@ import java.util.Optional;
 @Repository
 public interface AssessmentTemplateRepository extends JpaRepository<AssessmentTemplate, Long> {
     
-    // Tùy chọn: Tìm Template theo tên
+    // Tùy chọn: Tìm Template theo tên 
     Optional<AssessmentTemplate> findByName(String name);
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TIÊU ĐỀ DỰA TRÊN VIỆC ĐANG THÊM HAY SỬA (Thymeleaf Logic) -->
+    <title th:text="${package.id == null ? 'Thêm Gói Dịch vụ Mới' : 'Chỉnh Sửa Gói: ' + package.name}"></title>
+    
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        .form-container { max-width: 600px; margin: 50px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { font-weight: 600; display: block; margin-bottom: 5px; color: var(--secondary-color); }
+        .btn-submit { background-color: var(--accent-color); color: white; padding: 12px 30px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        
+        <div class="form-container">
+            <h1 th:text="${package.id == null ? 'Thêm Gói Dịch vụ Mới' : 'Chỉnh Sửa Gói'}" 
+                style="color: var(--primary-color); margin-bottom: 20px;">Thêm Gói Mới</h1>
+            
+            <!-- HIỂN THỊ THÔNG BÁO LỖI -->
+            <div th:if="${errorMessage}" class="error-message">[[${errorMessage}]]</div>
+
+            <!-- FORM GỬI DỮ LIỆU ĐẾN ADMIN/PACKAGES/SAVE -->
+            <form th:action="@{/admin/packages/save}" th:object="${package}" method="post">
+                
+                <!-- TRƯỜNG ẨN: ID (QUAN TRỌNG CHO UPDATE) -->
+                <input type="hidden" th:field="*{id}">
+                
+                <!-- 1. TÊN GÓI -->
+                <div class="form-group">
+                    <label for="name">Tên Gói:</label>
+                    <input type="text" id="name" th:field="*{name}" required class="form-control" placeholder="Ví dụ: AI Pro Max">
+                </div>
+
+                <!-- 2. GIÁ (PRIVE) -->
+                <div class="form-group">
+                    <label for="prive">Giá (USD):</label>
+                    <!-- Tên trường phải KHỚP CHÍNH XÁC với POJO: prive -->
+                    <input type="number" id="prive" th:field="*{prive}" required class="form-control" step="0.01" placeholder="Ví dụ: 19.99">
+                </div>
+                
+                <!-- 3. THỜI LƯỢNG (DURATION) -->
+                <div class="form-group">
+                    <label for="duration">Thời lượng (Tháng):</label>
+                    <input type="number" id="duration" th:field="*{duration}" required class="form-control" placeholder="Ví dụ: 3">
+                </div>
+
+                <!-- 4. HAS MENTOR (CHECKBOX) -->
+                <div class="form-group">
+                    <label for="hasMentor">Bao gồm Mentor:</label>
+                    <!-- THYMELYAF CHECKBOX: Dùng th:field -->
+                    <input type="checkbox" id="hasMentor" th:field="*{hasMentor}" style="width: auto; margin-left: 10px;">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                    <button type="submit" class="btn-submit">Lưu Cấu Hình</button>
+                    <a th:href="@{/admin/packages/list}" class="btn btn-secondary" style="padding: 12px 30px;">Hủy bỏ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

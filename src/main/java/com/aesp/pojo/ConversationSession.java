@@ -11,15 +11,15 @@ public class ConversationSession{   //buổi hội thoại
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public long id;
+    private long id;
     @Column(name = "topic")
-    public String topic;
+    private String topic;
     @Column(name = "start_time")
-    public Date startTime;
+    private Date startTime;
     @Column(name = "end_time")
-    public int duration;
+    private int duration;
     @Column(name = "ai_support")
-    public boolean aiSupport;
+    private boolean aiSupport;
 
     @ManyToOne
     @JoinColumn(name = "learner_id")
@@ -32,5 +32,5 @@ public class ConversationSession{   //buổi hội thoại
     public Mentor mentor;
     
     @OneToOne(mappedBy = "conversationSession", cascade = CascadeType.ALL)
-    private Feedbacks feedbacks;
+    public Feedbacks feedbacks;
 }

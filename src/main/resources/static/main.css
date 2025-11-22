@@ -9,15 +9,10 @@
 
 :root {
     --primary-color: #007bff;
-    /* Màu xanh dương */
     --secondary-color: #6c757d;
-    /* Màu xám */
     --accent-color: #28a745;
-    /* Màu xanh lá cây (Điểm nhấn) */
     --dark-color: #212529;
-    /* Màu đen */
     --light-color: #f8f9fa;
-    /* Màu nền */
     --font-poppins: 'Poppins', sans-serif;
 }
 
@@ -166,8 +161,46 @@ body {
 /* ========================================= */
 /* 6. FORM TÙY CHỌN 
 /* ========================================= */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--secondary-color); 
+    font-size: 14px;
+}
+
+.form-control {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-buttons .btn {
+    flex-grow: 1;
+    font-size: 14px; 
+}
 /*-------------------------------------------*/
 /* Đăng ký */
+/*-------------------------------------------*/
 .auth-container {
     display: flex;
     justify-content: center;
@@ -266,9 +299,9 @@ body {
 /* Package css  */
 /* ========================================= */
 .pricing-grid {
-    display: flex; /* Dùng Flexbox để căn giữa */
+    display: flex; 
     justify-content: center;
-    gap: 30px; /* Khoảng cách giữa các cột */
+    gap: 30px; 
     margin-bottom: 80px;
 }
 
@@ -277,12 +310,12 @@ body {
     padding: 30px;
     text-align: center;
     position: relative;
-    border: 1px solid #eee; /* Viền mỏng */
+    border: 1px solid #eee; 
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .package-card:hover {
-    transform: translateY(-5px); /* Hiệu ứng nổi nhẹ khi di chuột */
+    transform: translateY(-5px); 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -312,7 +345,7 @@ body {
 
 .package-card .features li i {
     margin-right: 10px;
-    color: var(--accent-color); /* Icon xanh lá cho chức năng */
+    color: var(--accent-color);
 }
 
 .package-card .features li.disabled {
@@ -324,10 +357,9 @@ body {
     color: #ccc;
 }
 
-/* Style cho gói NỔI BẬT */
 .package-card.featured {
     border: 2px solid var(--accent-color);
-    transform: scale(1.05); /* Lớn hơn một chút */
+    transform: scale(1.05);
     box-shadow: 0 15px 30px rgba(40, 167, 69, 0.2);
 }
 
@@ -350,11 +382,10 @@ body {
 /*------------------------------------*/
 .dashboard-layout {
     display: grid;
-    /* Cấu trúc: Sidebar (220px) | Nội dung Chính (1fr) | Sidebar Phụ (300px) */
     grid-template-columns: 220px 1fr 300px;
     min-height: 100vh;
     background-color: var(--light-color);
-    /* Dùng biến */
+
 }
 
 /* 2. THANH BÊN TRÁI (SIDEBAR) */
@@ -398,17 +429,14 @@ body {
     font-size: 32px;
     font-weight: 700;
     color: var(--dark-color);
-    /* Dùng biến */
     margin-bottom: 5px;
 }
 
 .main-header p {
     color: var(--secondary-color);
-    /* Dùng biến */
     margin-bottom: 30px;
 }
 
-/* 4. CARD VÀ GRID */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1.5fr;
@@ -423,12 +451,9 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* CTA CARD (Lưu ý: màu nền đã được sửa để khớp với accent-color) */
 .cta-card {
     background-color: #e6fff4;
-    /* Giữ màu xanh nhạt gần Accent */
     border-left: 5px solid var(--accent-color);
-    /* Dùng biến */
     padding: 30px;
     display: flex;
     justify-content: space-between;
@@ -439,15 +464,12 @@ body {
 .cta-card h2 {
     font-size: 22px;
     color: var(--secondary-color);
-    /* Dùng biến */
 }
 
-/* 5. SCORES & STREAK */
 .score-number {
     font-size: 24px;
     font-weight: 700;
     color: var(--accent-color);
-    /* Dùng biến */
     display: block;
     margin-top: 5px;
 }
@@ -456,20 +478,17 @@ body {
     font-size: 48px;
     font-weight: 800;
     color: var(--primary-color);
-    /* Dùng biến */
     display: block;
     line-height: 1;
 }
 
-/* 6. RIGHT SIDEBAR */
 .right-sidebar {
     padding: 40px 20px;
     background-color: #fafafa;
 }
 
-/* THÊM ĐOẠN NÀY VÀO */
 .right-sidebar .card {
-    margin-bottom: 20px; /* Thêm khoảng cách 20px bên dưới mỗi card */
+    margin-bottom: 20px;   
 }
 
 /* Để ngăn card cuối cùng tạo ra khoảng trống thừa ở cuối sidebar */
@@ -509,6 +528,7 @@ body {
 
 /*------------------------------*/
 /* Trang Mentor*/
+/*------------------------------*/
 .dashboard-layout {
     display: grid;
     grid-template-columns: 220px 1fr 300px;
@@ -564,4 +584,49 @@ body {
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+}
+/*------------------------------*/
+/* Trang Admin*/
+/*------------------------------*/
+.card p {
+    margin-bottom: 10px; 
+    color: var(--secondary-color);
+}
+
+.feedback-moderation-card { 
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 150px; 
+}
+
+.feedback-moderation-card p:first-of-type { 
+    margin-bottom: 20px; 
+}
+
+.user-management-card {
+    padding-bottom: 15px; 
+}
+
+.user-management-card p {
+    margin-bottom: 20px; 
+}
+
+.card a.btn-primary, .card a.btn-secondary {
+    margin-top: 10px; 
+    display: inline-block;
+}
+.user-management-card { 
+    padding-bottom: 25px; /* Giữ padding dưới */
+}
+
+/* SỬA: Chỉnh lại đoạn text mô tả */
+.user-management-card p {
+    margin-bottom: 15px; /* Thêm khoảng cách giữa text và nút */
+}
+
+/* SỬA: Nút Danh sách Tài khoản */
+.user-management-card .btn-primary {
+    display: inline-block; /* Đảm bảo nút được hiển thị đúng cách */
+    margin-top: 10px; /* Thêm khoảng cách nếu cần */
 }

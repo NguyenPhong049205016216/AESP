@@ -8,12 +8,9 @@ public class PasswordUtil {
         return new StringBuilder(rawPassword).reverse().toString();
     }
     
-    // =======================================================
-    // TRIỂN KHAI checkPassword (Nếu cũng bị Unimplemented)
-    // =======================================================
     public static boolean checkPassword(String rawPassword, String hashedPassword) {
         if (rawPassword == null || hashedPassword == null) return false;
         return hashPassword(rawPassword).equals(hashedPassword);
-    }
+    } // checkpassword (Nếu bị Unimplemented)
 
 }

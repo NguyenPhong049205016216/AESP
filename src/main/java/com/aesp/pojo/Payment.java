@@ -14,11 +14,11 @@ public class Payment {     //thanh toán
     @Column(name = "id")
     private long id;
     @Column(name = "methor")
-    public String methor;
+    private String methor;
     @Column(name = "transactionCode")
-    public String transactionCode;
+    private String transactionCode;
     @Column(name = "amount")
-    public double amount;
+    private double amount;
     // quang hệ 1 1 với Purchanse: .1
     @OneToOne
     @JoinColumn(name = "purchase_id")

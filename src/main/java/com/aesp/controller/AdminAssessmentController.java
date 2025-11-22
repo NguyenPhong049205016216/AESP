@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/assessment") 
 public class AdminAssessmentController {
 
-    private final AssessmentTemplateService templateService;
+    private AssessmentTemplateService assessmentTemplateService;
     @Autowired
-    public AdminAssessmentController(AssessmentTemplateService templateService) {
-        this.templateService = templateService;
+    public AdminAssessmentController(AssessmentTemplateService assessmentTemplateService) {
+        this.assessmentTemplateService = assessmentTemplateService;
     }
     @GetMapping("/new")
     public String showCreateForm() {
@@ -28,7 +28,7 @@ public class AdminAssessmentController {
         Model model) 
     {
         try {
-            AssessmentTemplate savedTemplate = templateService.createTemplate(
+            AssessmentTemplate savedTemplate = assessmentTemplateService.createTemplate(
                 templateName, questionsJson, difficulty
             );
             model.addAttribute("message", "Tạo mẫu bài tập thành công: " + savedTemplate.getName());
@@ -40,7 +40,8 @@ public class AdminAssessmentController {
     }
     @GetMapping("/list")
     public String listTemplates(Model model) {
-        model.addAttribute("templates", templateService.findAllTemplates());
+        model.addAttribute("templates", assessmentTemplateService.findAllTemplates());
         return "admin/template_list";
     }
-}
+    
+}// tạo mẫu bài tập

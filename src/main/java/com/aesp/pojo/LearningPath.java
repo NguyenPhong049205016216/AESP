@@ -13,11 +13,11 @@ public class LearningPath{//hành trình học
     @Column(name = "Id")
     private long id;
     @Column(name = "currentLevel")
-    public String currentLevel;
+    private String currentLevel;
     @Column(name = "progress")
-    public double progress;
+    private double progress;
     @Column(name = "totalLession")
-    public int totalLession;
+    private int totalLession;
 
     //vì quang hệ 1 Leamingpath và 1 với learner:.1
     @OneToOne

@@ -12,15 +12,20 @@ public class Feedbacks {     //phản hồi đánh giá
     @Column(name = "id")
     private long id;
     @Column(name = "comment")
-    public String comment;
+    private String comment;
     @Column(name = "overall_score")
-    public double pronunciationScore;
+    private double pronunciationScore;
     @Column(name = "pronunciation_score")
-    public double grammarScore; 
+    private double grammarScore; 
 
     @OneToOne
     @JoinColumn(name = "conversation_session_id")
     private ConversationSession conversationSession;
+
+    public void setStatus(String newStatus) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+    }
     
 
 }

@@ -38,7 +38,7 @@ public class AdminUserController {
             userService.toggleUserStatus(userId, currentStatus);
             return "redirect:/aesp/admin/users/list"; 
         } catch (Exception e) {
-            return "redirect:/admin/users/list?error=" + e.getMessage(); 
+            return "redirect:/aesp/admin/users/list?error=" + e.getMessage(); 
         }
     }
     // =======================================================
@@ -49,7 +49,7 @@ public class AdminUserController {
         User user = userService.findUserById(userId);
         if (user == null) {
             // Xử lý không tìm thấy user
-            return "redirect:/aesp/admin/users/list?error=UserNotFound";
+            return "redirect:/admin/users/list?error=UserNotFound";
         }
         model.addAttribute("user", user);
         return "admin/user_edit_from"; 
@@ -63,7 +63,7 @@ public class AdminUserController {
     public String deleteUser(@PathVariable Long userId) {
         try {
             userService.deleteUsert(userId); // Giả định UserService có hàm deleteUser
-            return "redirect:/aesp/admin/users/list?message=UserDeleted";
+            return "redirect:/admin/users/list?message=UserDeleted";
         } catch (Exception e) {
             return "redirect:/admin/users/list?error=" + e.getMessage();
         }
@@ -73,22 +73,22 @@ public class AdminUserController {
     // URL: /admin/users/update
     // =======================================================
     @PostMapping("/update") 
-    public String updateUser(@RequestParam Long id, 
-        @RequestParam String email,
-        @RequestParam(required = false) String password,Model model) 
+    public String updateUser(@RequestParam Long id, @RequestParam String email,
+    @RequestParam(required = false) String password,Model model) 
     {
         try {
             User userToUpdate = userService.findUserById(id);
             if (userToUpdate == null) {
-                 return "redirect:/aesp/admin/users/list?error=UserNotFound";
+                 return "redirect:/admin/users/list?error=UserNotFound";
             }
             userService.updateProfile(userToUpdate, userToUpdate.getName(), email, password);
-            return "redirect:/aesp/admin/users/" + id + "/edit?success=updated"; 
+            return "redirect:/admin/users/" + id + "/edit?success=updated"; 
             
         } catch (Exception e) {
             // Thất bại: Chuyển hướng về trang list với thông báo lỗi
-            return "redirect:/aesp/admin/users/list?error=" + e.getMessage();
+            return "redirect:/admin/users/list?error=" + e.getMessage();
         }
     }
 
+    
 }

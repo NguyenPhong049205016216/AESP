@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AssessmentTemplateService {
-
+    
     private final AssessmentTemplateRepository templateRepository;
 
     @Autowired
@@ -30,4 +30,4 @@ public class AssessmentTemplateService {
     public java.util.List<AssessmentTemplate> findAllTemplates() {
         return templateRepository.findAll();
     }
-}
+}// quảng lý mãu bài tập

@@ -19,40 +19,33 @@ public class UserRepository implements IUserRepository {
     public UserRepository(JpaUserRepository jpaRepository){
         this.jpaUserRepository = jpaRepository;
     }
-    // ===================================================================
-    // CHỨC NĂNG ĐĂNG KÝ (Registration)
-    // ===================================================================
+    
     @Override
     @Transactional
     public User saveUser(User user) {
         return jpaUserRepository.save(user);
-    }
+    }// đăng ký save user
     @Override
     @Transactional
     public Mentor addMentor(Mentor mentor) {
         return (Mentor) jpaUserRepository.save(mentor);
-    }
+    }// đăng ký save menter
     @Override
     @Transactional
     public Admin addAdmin(Admin admin) {
         return (Admin) jpaUserRepository.save(admin);
-    }
+    }// đăng ký save admin
     @Override
     @Transactional
     public Learner addLearner(Learner learner) {
         return (Learner) jpaUserRepository.save(learner);
-    }
+    }// đăng ký save learner
 
-    // ===================================================================
-    // CHỨC NĂNG ĐĂNG NHẬP (Login - Tìm theo Email)
-    // ===================================================================
     @Override
     public Optional<User> findByEmail(String email) {
         return jpaUserRepository.findByEmail(email);
-    }
-    // ===================================================================
-    // Triển khai các phương thức còn lại
-    // ===================================================================
+    }// Đăng nhập tìm theo email user
+    
     @Override
     public Optional<User> findById(Long id) {
         return jpaUserRepository.findById((long)id);
@@ -65,19 +58,17 @@ public class UserRepository implements IUserRepository {
     public List<User> getAllUsers() {
         return jpaUserRepository.findAll();
     }
-    // ===================================================================
-    // Triển khai các phương thức cập nhập, xóa, sữa.
-    // ===================================================================
+    
     @Override
     @Transactional
     public User updateUser(User user) {
         return jpaUserRepository.save(user);
-    }
+    }// update user
     @Override
     @Transactional
     public void deleteUser(Long id) {
         jpaUserRepository.deleteById((long)id);
-    }
+    }// delete user
     
     
 }

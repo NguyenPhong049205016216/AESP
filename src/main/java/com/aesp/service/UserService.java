@@ -29,9 +29,7 @@ public class UserService {
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    // ===================================================================
-    // nghiệp vụ cập nhập hồ sơ.->pojo||repository||dao
-    // ===================================================================
+    
     @Transactional
     public boolean updateProfile(User user, String newName, String newImail, String newPassword) {
         if (user == null)
@@ -46,10 +44,8 @@ public class UserService {
         user.setUpdatedAT(LocalDate.now());
         userRepository.updateUser(user);
         return true;
-    }
-    // ===================================================================
-    // UserServicenghiệp vụ đăng ký ->repository||dao||pojo
-    // ===================================================================
+    } //nghiệp vụ cập nhập hồ sơ admin
+    
     public User registerUser(User newUser, String rawPassword)
             throws Exception {
 
@@ -74,10 +70,8 @@ public class UserService {
         newUser.setCreatedAt(LocalDate.now());
 
         return userRepository.saveUser(newUser);
-    }
-    // ===================================================================
-    // UserService::::nghiệp vụ đăng nhập
-    // ===================================================================
+    } //nghiệp vụ đăng ký user
+    
     public User login(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
 
@@ -90,14 +84,11 @@ public class UserService {
         } else {
             return null;
         }
-    }
+    }//nghiệp vụ đăng nhập
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-    // ===================================================================
-    // UserService:::Nghiệp vụ quảng lý tài khoản
-    // ===================================================================
-    // Hàm cần bổ sung cho AdminUserController (Thao tác DB cần @Transactional)
+    
     @Transactional
     public void toggleUserStatus(Long userId, String currentStatus) throws Exception {
         User user = userRepository.findById(userId)
@@ -108,20 +99,18 @@ public class UserService {
 
         user.setStatus(newStatus);
         userRepository.saveUser(user); 
-    }
+    }// nghiệp vụ quảng lý tài khoản admin
 
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
-    // UserService:::Nghiệp vụ xóa tài khoản
+    
     @Transactional 
     public void deleteUsert(Long id) {
         User user = userRepository.findById(id) // IUserRepository dùng int id
         .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại để xóa."));
-        // 2. Gọi hàm xóa của IUserRepository (deleteUser(int id))
-        // Chúng ta sẽ dùng hàm deleteUser(int id) đã được khai báo.
         userRepository.deleteUser(id); 
-    }
+    }//nghiệp vụ xóa tài khoản
 
 
 }

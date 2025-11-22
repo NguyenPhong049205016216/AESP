@@ -13,11 +13,11 @@ public class Purchase {       //mua hàng
     @Column(name = "id")
     private long id; 
     @Column(name = "data")
-    public Date data;
+    private Date data;
     @Column(name = "status")
-    public String status;
+    private String status;
     @Column(name = "amount")
-    public double amount;
+    private double amount;
     //do quang hệ 1 0 
     @ManyToOne
     @JoinColumn(name = "learner_id")

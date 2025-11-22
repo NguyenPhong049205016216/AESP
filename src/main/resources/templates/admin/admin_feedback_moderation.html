@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm duyệt Feedback - Admin</title>
+    
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        .data-table th { background-color: var(--secondary-color); color: white; }
+        .feedback-content { max-width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .badge-pending { background-color: #ffc107; color: #333; padding: 4px 8px; border-radius: 4px; font-weight: 600; }
+        .btn-approve { background-color: var(--accent-color); color: white; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- 1. SIDEBAR (ADMIN MENU) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
+                <li><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li><a href="/aesp/admin/templates/list"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
+                <li class="active"><a href="/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <!-- 2. MAIN CONTENT -->
+        <main class="main-content">
+            <h1>Kiểm duyệt Phản hồi (Feedback & Comments)</h1>
+            <p>Xem xét và phê duyệt các phản hồi của học viên và mentor trước khi hiển thị công khai.</p>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nội dung Feedback</th>
+                        <th>Điểm Phát âm</th>
+                        <th>Từ User/Session</th>
+                        <th>Thời gian</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dùng THYMELYAF để lặp qua danh sách Feedback Pending -->
+                    <tr th:each="feedback : ${pendingFeedbacks}">
+                        <td th:text="${feedback.id}">101</td>
+                        <td>
+                            <div class="feedback-content" th:text="${feedback.comment}">
+                                This is the actual feedback text...
+                            </div>
+                        </td>
+                        <td th:text="${feedback.pronunciationScore}">85%</td>
+                        <td>
+                            <span th:text="${feedback.user.name}">Phong L.</span> / 
+                            <span th:text="${feedback.sessionId}">Sess-45</span>
+                        </td>
+                        <td th:text="${feedback.createdAt}">2025-11-20</td>
+                        <td><span class="badge-pending">PENDING</span></td>
+                        <td>
+                            <!-- Chức năng Phê duyệt/Xóa -->
+                            <a th:href="@{/admin/feedback/approve(id=${feedback.id})}" class="btn btn-approve" style="padding: 5px 10px;">Phê duyệt</a>
+                            <a th:href="@{/admin/feedback/delete(id=${feedback.id})}" class="btn btn-secondary" style="background-color: #dc3545; color: white; padding: 5px 10px;">Xóa</a>
+                        </td>
+                    </tr>
+                    
+                    <tr th:unless="${not #lists.isEmpty(pendingFeedbacks)}">
+                        <td colspan="7" style="text-align: center;">Không có Feedback nào cần kiểm duyệt.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        
+        <!-- 3. RIGHT SIDEBAR (Không cần thiết cho trang này) -->
+        <aside class="right-sidebar">
+             <div class="card"><h3>Lọc & Tìm kiếm</h3></div>
+        </aside>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Gói Dịch vụ - Admin</title>
+    
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* Tùy chỉnh Table Style */
+        .data-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background: white; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .data-table th, .data-table td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .data-table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .action-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+        .btn-new-package {
+            margin-bottom: 20px;
+            background-color: var(--primary-color); /* Nút xanh dương */
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- 1. SIDEBAR (SAO CHÉP TỪ ADMIN DASHBOARD) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
+                <li class="active"><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
+                <li><a href="aesp/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="aesp/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <!-- 2. MAIN CONTENT -->
+        <main class="main-content">
+            <h1>Quản lý Gói Dịch vụ & Giá</h1>
+            <p>Danh sách các gói học hiện có trong hệ thống.</p>
+            
+            <!-- NÚT THÊM MỚI -->
+            <a href="/aesp/admin/packages/new" class="btn btn-new-package">
+                <i class="fas fa-plus"></i> Thêm Gói Mới
+            </a>
+
+            <!-- BẢNG DANH SÁCH GÓI DỊCH VỤ -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên Gói</th>
+                        <th>Giá (USD)</th>
+                        <th>Thời lượng (Tháng)</th>
+                        <th>Có Mentor</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- THYMELYAF LOOP: Lặp qua danh sách packages -->
+                    <tr th:each="pkg : ${packages}">
+                        <td th:text="${pkg.id}">1</td>
+                        <td th:text="${pkg.name}">AI Pro Max</td>
+                        <td th:text="${pkg.prive}">29.99</td> <!-- Dùng prive theo POJO -->
+                        <td th:text="${pkg.duration}">3</td>
+                        <td>
+                            <i th:if="${pkg.hasMentor}" class="fas fa-check" style="color: var(--accent-color);"></i>
+                            <i th:unless="${pkg.hasMentor}" class="fas fa-times" style="color: #dc3545;"></i>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/packages/{id}/edit(id=${pkg.id})}" class="action-link">Sửa</a>
+                            <a th:href="@{/admin/packages/{id}/delete(id=${pkg.id})}" class="action-link" style="color: #dc3545;" onclick="return confirm('Xóa gói này?');">Xóa</a>
+                        </td>
+                    </tr>
+                    <!-- Hàng mẫu (Nếu không có dữ liệu) -->
+                    <tr th:unless="${not #lists.isEmpty(packages)}">
+                        <td colspan="6" style="text-align: center;">Chưa có gói dịch vụ nào được tạo.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        
+        <!-- 3. RIGHT SIDEBAR (Giữ nguyên) -->
+        <aside class="right-sidebar">
+            <div class="card"><h3>Thông tin Thống kê</h3></div>
+        </aside>
+    </div>
+</body>
+</html>

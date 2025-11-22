@@ -1,66 +1,103 @@
 <!DOCTYPE html>
-<html lang="vi">
+<!-- [CHỈNH SỬA] Thêm namespace Thymeleaf nếu bạn dùng Spring Model cho lỗi -->
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Mẫu Bài Kiểm tra - Mentor</title>
+    <!-- [CHỈNH SỬA] Tiêu đề phải là Admin, không phải Mentor (theo nội dung) -->
+    <title>Tạo Mẫu Bài Kiểm tra - Admin/Quản lý</title> 
     
     <link rel="stylesheet" href="/aesp/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
-        /* Tái sử dụng cấu trúc Card và Form Style */
-        .wrapper { max-width: 1000px; margin: 50px auto; padding: 20px; }
+        /* GIỮ NGUYÊN CSS TÙY CHỈNH */
+        .wrapper { max-width: 1000px; margin: 0 auto; /* BỎ margin top/bottom vì đã dùng main-content padding */ }
         .form-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
         .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
         .form-group { margin-bottom: 20px; }
         .form-group label { font-weight: 600; display: block; margin-bottom: 5px; color: var(--secondary-color); }
-        .btn-submit { background-color: #ff9800; /* Màu cam của Mentor */ color: white; padding: 12px 30px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s; }
+        .btn-submit { background-color: var(--primary-color); /* Dùng màu Primary thay vì màu cam Mentor */ color: white; padding: 12px 30px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s; }
         .error-message { color: #d9534f; background-color: #fceceb; padding: 10px; border-radius: 6px; margin-bottom: 15px; }
         .form-header { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="form-header">
-            <h1 style="color: var(--dark-color);">Tạo Mẫu Bài Kiểm tra Cấp độ</h1>
-            <p>Thiết lập nội dung và tiêu chí đánh giá cho học viên.</p>
-        </div>
-
-        <!-- HIỂN THỊ THÔNG BÁO LỖI (Sử dụng Spring Model) -->
-        <!-- <p class="error-message" th:if="${errorMessage}">[[${errorMessage}]]</p> -->
+    <div class="dashboard-layout">
+        <!-- 1. SIDEBAR -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
+                <!-- [CHỈNH SỬA] Đặt /list vào URL để khớp với Controller (packages.html là tên view) -->
+                <li><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li class="active"><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
+                <!-- [CHỈNH SỬA] Thêm /aesp/ -->
+                <li><a href="/aesp/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="/aesp/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="/aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
         
-        <div class="form-container">
-            <!-- FORM GỬI DỮ LIỆU ĐẾN ADMINCONTROLLER.CREATE -->
-            <form action="aesp/admin/assessment/create" method="post">
-                
-                <!-- 1. TÊN MẪU BÀI TẬP -->
-                <div class="form-group">
-                    <label for="templateName">Tên Mẫu Bài Tập:</label>
-                    <input type="text" id="templateName" name="templateName" required class="form-control" placeholder="Ví dụ: Kiểm tra đầu vào (Placement Test)">
-                </div>
+        <!-- 2. NỘI DUNG CHÍNH (MAIN CONTENT) -->
+        <main class="main-content">
+            <div class="form-header">
+                <h1 style="color: var(--dark-color);">Tạo Mẫu Bài Kiểm tra Cấp độ</h1>
+                <p>Thiết lập nội dung và tiêu chí đánh giá cho học viên.</p>
+            </div>
 
-                <!-- 2. ĐỘ KHÓ -->
-                <div class="form-group">
-                    <label for="difficulty">Độ Khó / Cấp độ Mục tiêu:</label>
-                    <select id="difficulty" name="difficulty" required class="form-control">
-                        <option value="Beginner">Cơ bản (Beginner)</option>
-                        <option value="Intermediate">Trung cấp (Intermediate)</option>
-                        <option value="Advanced">Nâng cao (Advanced)</option>
-                    </select>
-                </div>
-                
-                <!-- 3. NỘI DUNG CÂU HỎI (JSON/TEXT) -->
-                <div class="form-group">
-                    <label for="questionsJson">Nội dung Câu Hỏi / Kịch bản (JSON/Text):</label>
-                    <textarea id="questionsJson" name="questionsJson" rows="10" required class="form-control" placeholder="Nhập các câu hỏi/kịch bản nói, ví dụ: 'Câu 1: Kể về kinh nghiệm làm việc của bạn...'"></textarea>
-                    <small style="color: var(--secondary-color);">Nội dung này sẽ được AI sử dụng để chấm điểm.</small>
-                </div>
-                
-                <button type="submit" class="btn-submit">Lưu Mẫu Bài Tập</button>
-            </form>
-        </div>
+            <!-- HIỂN THỊ THÔNG BÁO LỖI (Sử dụng Spring Model) -->
+            <!-- Bỏ comment khi có logic: <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p> -->
+            
+            <div class="form-container">
+                <!-- FORM GỬI DỮ LIỆU ĐẾN ENDPOINT XỬ LÝ -->
+                <!-- [CHỈNH SỬA] Thêm / ở đầu action: /aesp/... -->
+                <form action="/aesp/admin/assessment/create" method="post"> 
+                    
+                    <!-- 1. TÊN MẪU BÀI TẬP -->
+                    <div class="form-group">
+                        <label for="templateName">Tên Mẫu Bài Tập:</label>
+                        <input type="text" id="templateName" name="templateName" required class="form-control" placeholder="Ví dụ: Kiểm tra đầu vào (Placement Test)">
+                    </div>
+
+                    <!-- 2. ĐỘ KHÓ -->
+                    <div class="form-group">
+                        <label for="difficulty">Độ Khó / Cấp độ Mục tiêu:</label>
+                        <select id="difficulty" name="difficulty" required class="form-control">
+                            <option value="Beginner">Cơ bản (Beginner)</option>
+                            <option value="Intermediate">Trung cấp (Intermediate)</option>
+                            <option value="Advanced">Nâng cao (Advanced)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 3. NỘI DUNG CÂU HỎI (JSON/TEXT) -->
+                    <div class="form-group">
+                        <label for="questionsJson">Nội dung Câu Hỏi / Kịch bản (JSON/Text):</label>
+                        <textarea id="questionsJson" name="questionsJson" rows="10" required class="form-control" placeholder="Nhập các câu hỏi/kịch bản nói, ví dụ: 'Câu 1: Kể về kinh nghiệm làm việc của bạn...'"></textarea>
+                        <small style="color: var(--secondary-color);">Nội dung này sẽ được AI sử dụng để chấm điểm.</small>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Lưu Mẫu Bài Tập</button>
+                </form>
+            </div>
+        </main>
+        
+        <!-- 3. RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+             <div class="profile-card card">
+                <i class="fas fa-shield-alt avatar" style="color: red;"></i>
+                <div><h4>Quản trị viên Chính</h4><p style="font-size: 14px; color: var(--secondary-color);">Quyền truy cập toàn hệ thống</p></div>
+            </div>
+            
+            <div class="card">
+                <h3>Báo cáo Doanh thu</h3>
+                <p>Tổng doanh thu tháng này:</p>
+                <h4 style="font-size: 24px; color: var(--accent-color); margin-top: 5px;">$12,500</h4>
+                <a href="/admin/reports" style="font-size: 14px; color: var(--primary-color); display: block; margin-top: 10px;">Xem báo cáo chi tiết</a>
+            </div>
+        </aside>
     </div>
 </body>
 </html>

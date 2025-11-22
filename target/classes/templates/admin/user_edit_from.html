@@ -35,8 +35,19 @@
 
 <body>
     <div class="dashboard-layout">
-        <!-- 1. Sidebar (SAO CHÉP TỪ ADMIN DASHBOARD) -->
-        <nav class="sidebar">...</nav> 
+        <!-- 1. SIDEBAR (SAO CHÉP TỪ ADMIN DASHBOARD) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
+                <li class="active"><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
+                <li><a href="/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
         
         <!-- 2. MAIN CONTENT -->
         <main class="main-content">
@@ -45,7 +56,6 @@
             <!-- TH:OBJECT được đặt trên Card để tham chiếu *{...} dễ hơn -->
             <div class="card" th:object="${user}" style="max-width: 600px;">
                 
-                <!-- THÔNG TIN CHUNG (HEADER) -->
                 <div class="user-header-info">
                     <p style="color: var(--secondary-color); font-size: 14px;">ID: <b>[[*{id}]]</b></p>
                     <h3 th:text="*{name}">Tên người dùng</h3> 

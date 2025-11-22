@@ -18,8 +18,19 @@
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar (Giữ nguyên) -->
-        <nav class="sidebar">...</nav> 
+        <!-- 1. SIDEBAR (SAO CHÉP TỪ ADMIN DASHBOARD) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
+                <li class="active"><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
+                <li><a href="/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
         
         <!-- MAIN CONTENT -->
         <main class="main-content">
@@ -53,8 +64,6 @@
                             <a th:href="@{/admin/users/{userId}/edit(userId=${user.id})}"
                                style="color: blue; margin-right: 10px;">Chi tiết</a>
                             
-                            <!-- [2] Vô hiệu hóa/Kích hoạt -->
-                            <!-- XÓA TH:HREF THỦ CÔNG VÀ DÙNG CÚ PHÁP THYMELYAF (Tối ưu hơn) -->
                             <a th:if="${user.status == 'ACTIVE'}" 
                                th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
                                style="color: red;">Vô hiệu hóa</a>

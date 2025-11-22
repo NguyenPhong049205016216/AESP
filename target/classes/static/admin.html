@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
     <div class="dashboard-layout">
         <nav class="sidebar">
@@ -16,9 +17,9 @@
             <ul>
                 <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li> 
-                <li><a href=""><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
-                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
-                <li><a href="#"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
+                <li><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i>  Quảng Lý Bài Tập</a></li> 
+                <li><a href="/aesp/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
                 <li><a href="#"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
                 <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
             </ul>
@@ -45,12 +46,12 @@
                         <div><span style="font-size: 28px; font-weight: 700; color: var(--accent-color);">45</span><p>Giao dịch thành công</p></div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card feedback-moderation-card">
                     <h3>Cần Kiểm duyệt (Feedback & Comments)</h3>
                     <p style="color: red; font-weight: 600;">8 phản hồi cần xem xét.</p>
                     <a href="/admin/feedback" class="btn btn-secondary" style="margin-top: 10px;">Xem chi tiết</a>
                 </div>
-                <div class="card" style="grid-column: 1 / span 2;">
+                <div class="card user-management-card" style="grid-column: 1 / span 2;">
                     <h3>Quản lý Tài khoản</h3>
                     <p>Xem danh sách Mentor/Learner, kích hoạt hoặc vô hiệu hóa tài khoản.</p>
                     <a href="/admin/users" class="btn btn-primary" style="margin-top: 15px;">Danh sách Tài khoản</a>

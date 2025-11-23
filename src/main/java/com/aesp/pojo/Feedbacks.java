@@ -17,6 +17,8 @@ public class Feedbacks {     //phản hồi đánh giá
     private double pronunciationScore;
     @Column(name = "pronunciation_score")
     private double grammarScore; 
+    @Column(name = "status")
+    private String status; 
 
     @OneToOne
     @JoinColumn(name = "conversation_session_id")

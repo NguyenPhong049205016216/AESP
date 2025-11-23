@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <!-- BẮT BUỘC: Khai báo namespace của Thymeleaf -->
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách Tài khoản - AESP</title>
-    
+
     <!-- SỬA LỖI: Đường dẫn CSS PHẢI có Context Root (th:href) nếu dùng Thymeleaf -->
     <link rel="stylesheet" th:href="@{/main.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
+
     <style>
-        .user-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .user-table th, .user-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
+
 <body>
     <div class="dashboard-layout">
         <!-- 1. SIDEBAR (SAO CHÉP TỪ ADMIN DASHBOARD) -->
@@ -24,20 +37,32 @@
             <ul>
                 <li><a href="/aesp/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li>
-                <li class="active"><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
-                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li> 
-                <li><a href="/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
-                <li><a href="/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
-                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                <li class="active"><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ &
+                        Giá</a></li>
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Tạo Mẫu Bài Tập</a></li>
+                <li><a href="/aesp/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li>
+                <li><a href="/aesp/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li>
+                <li><a href="/aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
             </ul>
         </nav>
-        
+
         <!-- MAIN CONTENT -->
         <main class="main-content">
             <h1>Danh sách Tài khoản Hệ thống</h1>
             <!-- SỬA LỖI: Cú pháp Thymeleaf (Bỏ chữ 'tài khoản' nếu không dùng th:text) -->
-            <p>Tổng cộng: <span th:text="${users.size()}"></span> tài khoản</p> 
-            
+            <p>Tổng cộng: <span th:text="${users.size()}"></span> tài khoản</p>
+
+            <div th:if="${param.error}" class="error-message"
+                style="background-color:#f8d7da; color:#721c24; padding:10px; border-radius: 5px;">
+                [[${param.error[0]}]]
+            </div>
+
+            <!-- 2. THÔNG BÁO THÀNH CÔNG (DÙNG flash attribute) -->
+            <div th:if="${successMessage}" class="success-message"
+                style="background-color:#d4edda; color:#155724; padding:10px; border-radius: 5px;">
+                [[${successMessage}]]
+            </div>
+
             <table class="user-table">
                 <thead>
                     <tr>
@@ -53,8 +78,8 @@
                     <!-- SỬA LỖI: Cú pháp lặp Thymeleaf (th:each) -->
                     <tr th:each="user : ${users}">
                         <!-- SỬA LỖI: Cú pháp Thymeleaf th:text -->
-                        <td th:text="${user.id}">1</td> 
-                        <td th:text="${user.name}">Họ và tên</td> 
+                        <td th:text="${user.id}">1</td>
+                        <td th:text="${user.name}">Họ và tên</td>
                         <td th:text="${user.email}">email@example.com</td>
                         <td th:text="${user.role}">Role</td>
                         <td th:text="${user.status}">Status</td>
@@ -62,20 +87,19 @@
                             <!-- [1] Xem Chi tiết / Chỉnh sửa -->
                             <!-- SỬA LỖI: th:href DÙNG URL TƯƠNG ĐỐI TỪ CONTEXT ROOT -->
                             <a th:href="@{/admin/users/{userId}/edit(userId=${user.id})}"
-                               style="color: blue; margin-right: 10px;">Chi tiết</a>
-                            
-                            <a th:if="${user.status == 'ACTIVE'}" 
-                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
-                               style="color: red;">Vô hiệu hóa</a>
-                            
-                            <a th:if="${user.status != 'ACTIVE'}" 
-                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
-                               style="color: green;">Kích hoạt</a>
-                            
+                                style="color: blue; margin-right: 10px;">Chi tiết</a>
+
+                            <a th:if="${user.status == 'ACTIVE'}"
+                                th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                                style="color: red;">Vô hiệu hóa</a>
+
+                            <a th:if="${user.status != 'ACTIVE'}"
+                                th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                                style="color: green;">Kích hoạt</a>
+
                             <!-- [3] Xóa Tài khoản -->
-                            <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}"
-                               style="color: orange;"
-                               onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">Xóa</a>
+                            <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}" style="color: orange;"
+                                onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">Xóa</a>
                         </td>
                     </tr>
                 </tbody>
@@ -85,4 +109,5 @@
         <aside class="right-sidebar">...</aside>
     </div>
 </body>
+
 </html>

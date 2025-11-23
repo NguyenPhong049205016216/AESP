@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Tài khoản - AESP</title>
+    
+    <!-- Link CSS chính -->
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* CSS Tùy chỉnh cho bảng */
+        .data-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background: white; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .data-table th, .data-table td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .data-table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .action-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar (BẮT BUỘC: Sao chép từ Admin Dashboard) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a th:href="@{/admin/dashboard}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="active"><a th:href="@{/admin/users/list}"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li> 
+                <!-- ... các mục khác ... -->
+            </ul>
+        </nav>
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <h1 style="color: var(--dark-color);">Danh sách Tài khoản Hệ thống</h1>
+            <p style="color: var(--secondary-color);">Tổng cộng: <span th:text="${#lists.size(users)}">0</span> tài khoản</p> 
+            
+            <!-- THÔNG BÁO LỖI/THÀNH CÔNG (Nếu có từ Redirect) -->
+            <div th:if="${param.error}" class="error-message" style="background-color:#f8d7da; color:#721c24; padding:10px; border-radius: 5px;">[[${param.error[0]}]]</div>
+            <div th:if="${param.message}" class="success-message" style="background-color:#d4edda; color:#155724; padding:10px; border-radius: 5px;">[[${param.message[0]}]]</div>
+            
+            <!-- BẢNG DANH SÁCH USER -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ và tên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- THYMELYAF LOOP: Lặp qua danh sách users -->
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}">1</td>
+                        <td th:text="${user.name}">Nguyễn Văn Phong</td> 
+                        <td th:text="${user.email}">email@example.com</td>
+                        <td th:text="${user.role}">Learner</td>
+                        <td th:text="${user.status}">ACTIVE</td>
+                        <td>
+                            <!-- [1] Xem Chi tiết / Chỉnh sửa -->
+                            <a th:href="@{/admin/users/{userId}/edit(userId=${user.id})}"
+                               class="action-link" style="color: var(--primary-color);">Chi tiết</a>
+                            
+                            <!-- [2] Vô hiệu hóa/Kích hoạt (Logic hiển thị nút) -->
+                            <a th:if="${user.status == 'ACTIVE'}" 
+                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                               class="action-link" style="color: #dc3545;">Vô hiệu hóa</a>
+                            
+                            <a th:if="${user.status != 'ACTIVE'}" 
+                               th:href="@{/admin/users/toggle-status(userId=${user.id}, currentStatus=${user.status})}"
+                               class="action-link" style="color: var(--accent-color);">Kích hoạt</a>
+                            
+                            <!-- [3] Xóa Tài khoản -->
+                            <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}"
+                               class="action-link" style="color: orange;"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">Xóa</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <!-- Right Sidebar (Giữ nguyên) -->
+        <aside class="right-sidebar">
+             <div class="card"><h3>Lọc & Tìm kiếm</h3></div>
+        </aside>
+    </div>
+</body>
+</html>

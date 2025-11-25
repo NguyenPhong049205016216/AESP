@@ -112,5 +112,10 @@ public class UserService {
         userRepository.deleteUser(id); 
     }//nghiệp vụ xóa tài khoản
 
+    public List<Learner> findAllLearners() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAllLearners'");
+    }
+
 
 }

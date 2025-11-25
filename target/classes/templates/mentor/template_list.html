@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Mẫu Bài tập để Chỉ định | AESP</title>
+
+    <!-- Liên kết với CSS chung (nếu cần) -->
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* CSS Tùy chỉnh (Đảm bảo phong cách nhất quán) */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --card-bg: white;
+            --border-radius: 8px;
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: #f4f7f9; }
+        .main-content { padding: 30px; }
+        .main-header { margin-bottom: 25px; }
+        .main-header h1 { font-size: 30px; color: #333; }
+        .page-description { color: var(--secondary-color); }
+        
+        .list-container { background: var(--card-bg); padding: 25px; border-radius: var(--border-radius); box-shadow: var(--shadow-light); }
+
+        /* Bảng */
+        .template-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .template-table th, .template-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        .template-table th { background-color: #f8f9fa; font-weight: 700; color: #333; }
+        
+        /* Nút Hành động (Màu cam từ ảnh mẫu) */
+        .action-button {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background-color: #ff9800; /* Orange */
+            display: inline-block;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .action-button:hover { background-color: #fb8c00; }
+        
+        /* Thông tin Nhanh */
+        .info-box { margin-top: 30px; padding: 20px; background-color: #fff3e0; border-radius: var(--border-radius); border: 1px solid #ffe0b2; }
+    </style>
+</head>
+
+<body>
+    <!-- Giả định Dashboard Layout và Sidebar (Mentor) đã có -->
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+             <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/mentor/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
+                <li><a href="/aesp/mentor/learners/list"><i class="fas fa-users"></i> Quản lý Học viên</a></li>
+                <li class="active"><a href="/aesp/mentor/assignment/template_list"><i class="fas fa-tasks"></i> Tổ chức Đánh giá</a></li>
+                <li><a href="/aesp/mentor/resources"><i class="fas fa-book"></i> Tài liệu & Chủ đề</a></li>
+                <li><a href="/aesp/mentor/settings"><i class="fas fa-cog"></i> Cài đặt</a></li>
+                <li><a href="/aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="main-header">
+                <h1 style="font-size: 30px;">Chọn Mẫu Bài tập để Chỉ định</h1>
+                <p class="page-description">Chọn mẫu bài kiểm tra/luyện tập phù hợp với cấp độ mục tiêu của học viên.</p>
+            </header>
+
+            <div class="list-container">
+                <p style="font-weight: 600; margin-bottom: 10px;">Danh sách các Mẫu Bài Tập hiện có:</p>
+                
+                <div th:if="${templates.isEmpty()}">
+                    <p style="color: red;">Hiện chưa có mẫu bài tập nào được tạo. Vui lòng liên hệ Admin.</p>
+                </div>
+
+                <div th:unless="${templates.isEmpty()}">
+                    <table class="template-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Mã</th>
+                                <th style="width: 40%;">Tên Mẫu Bài Tập</th>
+                                <th style="width: 15%;">Cấp độ Mục tiêu</th>
+                                <th style="width: 15%;">Kỹ năng</th>
+                                <th style="width: 20%;">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="template : ${templates}">
+                                <!-- Giả định bạn có trường 'id', 'name', 'difficultyLevel', 'contentJson' (dùng làm Mã/Kỹ năng tạm thời) -->
+                                <td th:text="'ASS' + ${template.id}">ASS002</td> 
+                                <td th:text="${template.name}">Bài viết Essay (400 từ)</td>
+                                <td th:text="${template.difficultyLevel}">C1</td>
+                                <td>Writing</td> <!-- Placeholder/Giả định kỹ năng -->
+                                <td>
+                                    <!-- LIÊN KẾT ĐẾN BƯỚC CHỈNH SỬA & GÁN -->
+                                    <a th:href="@{/mentor/assignment/edit-and-assign/{id}(id=${template.id})}" class="action-button">
+                                        Chọn & Chỉ định
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- THÔNG TIN NHANH (Tương tự ảnh mẫu) -->
+            <div class="info-box">
+                <h3>Thông tin Nhanh</h3>
+                <p>Chi định bài tập cho:</p>
+                <p><strong>[Tất cả Học viên]</strong></p>
+                <small style="color: #ff9800;">Chức năng chỉ định cho nhiều học viên sẽ được phát triển sau.</small>
+            </div>
+        </main>
+        
+        <!-- Giả định Right Sidebar đã có -->
+    </div>
+</body>
+
+</html>

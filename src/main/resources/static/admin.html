@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảng điều khiển Học viên - AESP</title>
+    <title>Bảng điều khiển Admin - AESP</title>
     
+    <!-- Giữ nguyên liên kết CSS -->
     <link rel="stylesheet" href="/aesp/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -12,15 +13,18 @@
 
 <body>
     <div class="dashboard-layout">
+        
+        <!-- 1. SIDEBAR: Đã cập nhật URL để khớp với Controller và dùng /list -->
         <nav class="sidebar">
             <div class="logo">AESP</div>
             <ul>
-                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="active"><a href="admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="/aesp/admin/users/list"><i class="fas fa-users"></i> Quản lý Tài khoản</a></li> 
                 <li><a href="/aesp/admin/packages/list"><i class="fas fa-cubes"></i> Gói dịch vụ & Giá</a></li> 
-                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i>  Quảng Lý Bài Tập</a></li> 
+                <!-- SỬA: Trỏ đến trang quản lý chung (/list) -->
+                <li><a href="/aesp/admin/assessment/new"><i class="fas fa-pencil-alt"></i> Quản lý Bài Tập</a></li> 
                 <li><a href="/aesp/admin/feedback/pending"><i class="fas fa-comments"></i> Kiểm duyệt Feedback</a></li> 
-                <li><a href="#"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
+                <li><a href="/aesp/admin/reports"><i class="fas fa-chart-bar"></i> Thống kê & Báo cáo</a></li> 
                 <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
             </ul>
         </nav>
@@ -35,7 +39,7 @@
                     <h2>Quản lý Gói dịch vụ</h2>
                     <p>Thêm, sửa, hoặc cập nhật giá các gói học.</p>
                 </div>
-                <a href="/admin/packages" class="btn" style="background-color: #ff5722; color: white;">Cấu hình Gói</a>
+                <a href="/aesp/admin/packages/list" class="btn" style="background-color: #ff5722; color: white;">Cấu hình Gói</a>
             </section>
 
             <section class="dashboard-grid">
@@ -51,14 +55,33 @@
                     <p style="color: red; font-weight: 600;">8 phản hồi cần xem xét.</p>
                     <a href="/aesp/admin/feedback/pending" class="btn btn-secondary" style="margin-top: 10px;">Xem chi tiết</a>
                 </div>
+                
+                <!-- KHU VỰC QUẢN LÝ TÀI KHOẢN (Đã sửa lỗi cấu trúc) -->
                 <div class="card user-management-card" style="grid-column: 1 / span 2;">
                     <h3>Quản lý Tài khoản</h3>
                     <p>Xem danh sách Mentor/Learner, kích hoạt hoặc vô hiệu hóa tài khoản.</p>
-                    <a href="/admin/users/list" class="btn btn-primary" style="margin-top: 15px;">Danh sách Tài khoản</a>
+                    <a href="/aesp/admin/users/list" class="btn btn-primary" style="margin-top: 15px;">Danh sách Tài khoản</a>
+                    <!-- SỬA: Đã sửa đường dẫn /assessment/pending thành /assessment/assign (Giả định trang Gán Học viên) -->
+                    <a href="/aesp/admin/assessment/pending" class="btn btn-secondary" 
+                    style="background-color: #007bff; color: white; margin-left: 10px;"><i class="fas fa-link"></i> Gán Mentor </a>
+                </div>
+                
+                <!-- KHU VỰC QUẢN LÝ BÀI TẬP (Đã sửa lỗi cấu trúc và URL) -->
+                <!-- LƯU Ý: Đã xóa </div> thừa để tránh lỗi cấu trúc -->
+                <div class="card assessment-management-card" style="grid-column: 1 / span 2;">
+                    <h3>Quản lý Bài Tập và Kịch bản</h3>
+                    <p>Tạo mẫu bài tập, kịch bản kiểm tra, và xem danh sách các mẫu đã tạo.</p>
+                    
+                    <!-- SỬA: Trỏ đến trang quản lý chung (/list) -->
+                    <a href="/aesp/admin/assessment/new" class="btn btn-primary" style="margin-top: 15px;">Tạo Mẫu Bài Tập</a>
+                    <!-- SỬA: Trỏ đến trang danh sách (trùng với nút trên, chỉ đổi tên hiển thị) -->
+                    <a href="/aesp/admin/assessment/list" class="btn btn-secondary" 
+                    style="background-color: #007bff; color: white; margin-left: 10px;"><i class="fas fa-list"></i> Danh sách Mẫu</a>
                 </div>
             </section>
         </main>
 
+        <!-- 3. RIGHT SIDEBAR (GIỮ NGUYÊN) -->
         <aside class="right-sidebar">
              <div class="profile-card card">
                 <i class="fas fa-shield-alt avatar" style="color: red;"></i>
@@ -69,7 +92,7 @@
                 <h3>Báo cáo Doanh thu</h3>
                 <p>Tổng doanh thu tháng này:</p>
                 <h4 style="font-size: 24px; color: var(--accent-color); margin-top: 5px;">$12,500</h4>
-                <a href="/admin/reports" style="font-size: 14px; color: var(--primary-color); display: block; margin-top: 10px;">Xem báo cáo chi tiết</a>
+                <a href="/aesp/admin/reports" style="font-size: 14px; color: var(--primary-color); display: block; margin-top: 10px;">Xem báo cáo chi tiết</a>
             </div>
         </aside>
     </div>

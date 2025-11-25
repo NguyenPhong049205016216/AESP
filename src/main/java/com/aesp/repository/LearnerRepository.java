@@ -1,10 +1,11 @@
 package com.aesp.repository;
 import java.util.List;
-import com.aesp.dao.Learnerdao;
-public class LearnerRepository implements ILearnerRepository{
-    private Learnerdao learnerdao;
+import com.aesp.pojo.Learner;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+@Repository
+public interface LearnerRepository extends JpaRepository<Learner, Long>{
 
-    public LearnerRepository(){
-        this.learnerdao = new Learnerdao();
-    }
+    List<Learner> findAllByMentorId(Long mentorId);
+    
 }

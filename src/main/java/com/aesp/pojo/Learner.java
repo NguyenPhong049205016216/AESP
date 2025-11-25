@@ -73,6 +73,9 @@ public class Learner extends User {    //học viên
     private List<Purchase> purchase;  //list lược mua
     @OneToOne(mappedBy = "learner")
     private LearningPath learningPath; //hành trình học
+    @ManyToOne 
+    @JoinColumn(name = "mentor_id") // leanr near được gán cho  1  mentor: mentor quảng lý học viên nào.
+    private Mentor mentor;
     
     public void setEmail(String email) {
         super.setEmail(email);
@@ -85,5 +88,9 @@ public class Learner extends User {    //học viên
     }
     public void setCreatedAt(Date date) {
        
+    }
+    public void setMentor(Mentor mentor2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setMentor'");
     }
 }

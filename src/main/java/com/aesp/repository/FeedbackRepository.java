@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedbacks, Long> {
     
-    // Hàm Custom Finder để lấy danh sách cần kiểm duyệt
     List<Feedbacks> findAllByStatus(String status);
-}
+
+    long countByStatus(String status);
+
+}// Hàm Custom Finder để lấy danh sách cần kiểm duyệt

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gán Mentor cho Học viên</title>
+
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="card" style="max-width: 600px; margin: 50px auto;">
+            <h1>Gán Mentor & Lộ trình</h1>
+            <!-- THÔNG BÁO LỖI/THÀNH CÔNG -->
+            <!-- ... -->
+            <form th:action="@{/admin/assignment/assign}" method="post">
+
+                <!-- 1. CHỌN HỌC VIÊN -->
+                <div class="form-group">
+                    <label for="learnerId">Chọn Học viên:</label>
+                    <select id="learnerId" name="learnerId" required class="form-control">
+                        <option value="">-- Chọn Học viên --</option>
+                        <option th:each="learner : ${learners}" th:value="${learner.id}"
+                            th:text="${learner.name} + ' (' + ${learner.email} + ') '">
+                            Học viên A (a@example.com)
+                        </option>
+                    </select>
+                </div>
+
+                <!-- 2. CHỌN MENTOR -->
+                <div class="form-group">
+                    <label for="mentorId">Gán Mentor:</label>
+                    <select id="mentorId" name="mentorId" required class="form-control">
+                        <option value="">-- Chọn Mentor --</option>
+                        <option th:each="mentor : ${mentors}" th:value="${mentor.id}"
+                            th:text="${mentor.name} + ' (Vai trò: ' + ${mentor.role} + ')'">
+                            Mentor Anna (Vai trò: MENTOR)
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Xác nhận Gán Mentor</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -21,71 +21,47 @@ public class AdminUserController {
         this.userService = userService;
     }
 
-    // =======================================================
-    // 1. GET: Hiển thị danh sách TẤT CẢ người dùng (Admin role requirement)
-    // URL: /admin/users/list
-    // =======================================================
     @GetMapping("/list")
     public String listAllUsers(Model model) {
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("users", allUsers);
         return "admin/user_list_table";
-    }
+    }//hiển thị tất cả người dùng 
 
-    // =======================================================
-    // 2. POST: Xử lý Kích hoạt/Vô hiệu hóa tài khoản (Enable/Disable Accoun t)
-    // URL: /admin/users/toggle-status
-    // =======================================================
     @GetMapping("/toggle-status")
     public String toggleUserStatus(@RequestParam Long userId,
             @RequestParam String currentStatus, RedirectAttributes redirectAttributes) {
         try {
         userService.toggleUserStatus(userId, currentStatus);
-        
-        // SỬA LỖI: XÓA CONTEXT PATH THỦ CÔNG
-        return "redirect:/admin/users/list"; // <<< SỬA
+        return "redirect:/admin/users/list"; 
         
     } catch (Exception e) {
         redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: " + e.getMessage());
-        
-        // SỬA LỖI: XÓA CONTEXT PATH THỦ CÔNG
-        return "redirect:/admin/users/list"; // <<< SỬA
+        return "redirect:/admin/users/list"; 
     }
-    }
+    }//sữ lý kích hoạt, vô hiệu hóa tài khoản 
 
-    // =======================================================
-    // 3. GET: Hiển thị trang chỉnh sửa tài khoản (Tùy chọn)
-    // =======================================================
     @GetMapping("/{userId}/edit")
     public String editUserForm(@PathVariable Long userId, Model model) {
         User user = userService.findUserById(userId);
         if (user == null) {
-            // Xử lý không tìm thấy user
             return "redirect:/admin/users/list?error=UserNotFound";
         }
         model.addAttribute("user", user);
         return "admin/user_edit_from";
-    }
+    }//hiển thị chỉnh sữa tài khoản 
 
-    // =======================================================
-    // 4. GET: Xóa Tài khoản (Tạm thời - Dùng GET cho đơn giản)
-    // URL: /admin/users/{userId}/delete
-    // =======================================================
-    // Lưu ý: Trong môi trường thực tế nên dùng POST/DELETE API
+    
     @GetMapping("/{userId}/delete")
     public String deleteUser(@PathVariable Long userId) {
         try {
-            userService.deleteUsert(userId); // Giả định UserService có hàm deleteUser
+            userService.deleteUsert(userId);
             return "redirect:/admin/users/list?message=UserDeleted";
         } catch (Exception e) {
             return "redirect:/admin/users/list?error=" + e.getMessage();
         }
-    }
+    } // xóa tài khoản 
 
-    // =======================================================
-    // 5. POST: Xử lý Lưu Thay Đổi (Update)
-    // URL: /admin/users/update
-    // =======================================================
     @PostMapping("/update")
     public String updateUser(@RequestParam Long id, @RequestParam String email,
             @RequestParam(required = false) String password, Model model) {
@@ -101,6 +77,5 @@ public class AdminUserController {
             // Thất bại: Chuyển hướng về trang list với thông báo lỗi
             return "redirect:/admin/users/list?error=" + e.getMessage();
         }
-    }
-
+    }// save thay đổi
 }

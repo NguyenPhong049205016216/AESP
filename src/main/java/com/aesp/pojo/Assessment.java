@@ -18,6 +18,10 @@ public class Assessment {  //đánh giá
     public String feedback;
     @Column(name = "session_id")
     public String sessionId;
+    @Column(name = "status")
+    public String status;
+    @Column(name = "custom_content_json", length = 4000) // Tăng độ dài nếu cần
+    private String customContentJson; 
     //Mộ Assessment thuộc về 1 Learner:.1 đánh giá_học viên
     //Một Menter sẻ có nhiều Assessment:.1 NG_hướng dẩn_đánh giá
     @ManyToOne
@@ -61,8 +65,22 @@ public class Assessment {  //đánh giá
     public Mentor getMentor() { return mentor; }
     public void setMentor(Mentor mentor) { this.mentor = mentor; }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public String getCustomContentJson() 
+    { 
+        return customContentJson; 
+    }
+    public void setCustomContentJson(String customContentJson) 
+    { 
+        this.customContentJson = customContentJson; 
+    }
     @Override
     public String toString() {
-        return "Assessment [id=" + id + ", score=" + score + ", topic=" + topic + "]";
+        return "Assessment [id=" + id + ", score=" + score + ", topic=" + topic + ", status=" + status + "]";
     }
 }

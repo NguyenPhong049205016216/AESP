@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉ định Bài tập (Assessment) - AESP</title>
+    
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        .form-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { font-weight: 600; display: block; margin-bottom: 5px; color: var(--secondary-color); }
+        .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
+        .learner-info-box { background-color: #f7f7f7; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #eee; }
+        .btn-submit { background-color: #007bff; color: white; padding: 12px 30px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <!-- 1. SIDEBAR -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/aesp/mentor/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
+                <li class="active"><a href="/aesp/mentor/learners/list"><i class="fas fa-users"></i> Quản lý Học viên</a></li>
+                <li><a href="/aesp/mentor/assessments/"><i class="fas fa-user-check"></i> Tổ chức Đánh giá</a></li>
+                <li><a href="/aesp/mentor/resources"><i class="fas fa-book"></i> Tài liệu & Chủ đề</a></li>
+                <li><a href="/aesp/mentor/settings"><i class="fas fa-cog"></i> Cài đặt</a></li>
+                <li><a href="/aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <!-- 2. NỘI DUNG CHÍNH (MAIN CONTENT) -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1 style="font-size: 30px;">Chỉ Định Bài Tập Mới (Assessment)</h1>
+                <p>Chọn mẫu bài tập và ngày hết hạn để gán cho học viên.</p>
+            </header>
+
+            <div class="form-container">
+                
+                <!-- THÔNG TIN HỌC VIÊN ĐANG ĐƯỢC CHỈ ĐỊNH -->
+                <div class="learner-info-box" th:if="${learner != null}">
+                    <p>Đang chỉ định cho Học viên:</p>
+                    <h3 th:text="${learner.name}">[Họ và tên Học viên]</h3>
+                    <small th:text="${learner.email}">[email@example.com]</small>
+                    <input type="hidden" name="learnerId" th:value="${learner.id}" />
+                </div>
+                
+                <!-- FORM CHỈ ĐỊNH BÀI TẬP -->
+                <!-- Giả định Action POST đến /mentor/assignment/confirm -->
+                <form th:action="@{/aesp/mentor/assignment/confirm}" method="post">
+                    
+                    <!-- Truyền ID Học viên đi kèm -->
+                    <input type="hidden" name="learnerId" th:value="${learner.id}" /> 
+
+                    <!-- 1. CHỌN MẪU BÀI TẬP (ASSESSMENT TEMPLATE) -->
+                    <div class="form-group">
+                        <label for="templateId">Chọn Mẫu Bài Tập (Template):</label>
+                        <select id="templateId" name="templateId" required class="form-control">
+                            <option value="">-- Vui lòng chọn Template --</option>
+                            <!-- LẶP QUA DANH SÁCH TEMPLATES -->
+                            <option th:each="template : ${templates}" 
+                                    th:value="${template.id}" 
+                                    th:text="${template.name} + ' (' + ${template.difficultyLevel} + ' - ' + ${template.contentJson} + ')'">
+                                [Tên Mẫu Bài Tập (Cấp độ - Kỹ năng)]
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- 2. NGÀY HẾT HẠN (DUE DATE) -->
+                    <div class="form-group">
+                        <label for="dueDate">Ngày Hết Hạn:</label>
+                        <input type="date" id="dueDate" name="dueDate" required class="form-control"/>
+                        <small>Học viên cần nộp bài trước ngày này.</small>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Xác nhận Chỉ định Bài tập</button>
+                    <a th:href="@{/aesp/mentor/learners/list}" class="btn" style="background-color: #6c757d; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none;">Hủy</a>
+                </form>
+            </div>
+        </main>
+        
+        <!-- 3. RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+             <div class="card">
+                <h3>Chi tiết Template</h3>
+                <p>Mô tả chi tiết mẫu bài tập được chọn sẽ xuất hiện ở đây (Cần dùng JavaScript/AJAX).</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

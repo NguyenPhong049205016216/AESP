@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện tập Ngay | AESP</title>
+     <!-- Liên kết với CSS chung (aesp/main.css) -->
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* CSS Riêng cho trang Luyện tập */
+        .practice-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            margin-bottom: 20px;
+        }
+        .topic-header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .topic-header h3 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        .prompt-box {
+            background-color: #f7f9fb;
+            border: 1px dashed #ddd;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .mic-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+        .mic-button:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        .recording {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+        #result-area {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .score-display {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a th:href="@{/learner/dashboard}"><i class="fas fa-home"></i> Bảng điều khiển</a></li>
+                <li class="active"><a th:href="@{/learner/practice}"><i class="fas fa-robot"></i> Luyện tập với AI</a></li>
+                <!-- ... các mục khác ... -->
+                <li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+
+        <!-- NỘI DUNG CHÍNH -->
+        <main class="main-content" style="max-width: 900px;">
+            <header class="main-header">
+                <h1>Luyện tập Kỹ năng Nói Ngay</h1>
+                <p>Thực hành với A.I. để nhận phản hồi phát âm, ngữ pháp và độ trôi chảy tức thì.</p>
+            </header>
+
+            <section class="practice-card">
+                <div class="topic-header">
+                    <p style="color: var(--secondary-color); font-size: 14px; margin-bottom: 5px;">Chủ đề/Bài tập đề xuất</p>
+                    <h3 th:text="${currentTopic.name}">Phỏng vấn xin việc: Giới thiệu bản thân</h3>
+                </div>
+
+                <div class="prompt-box">
+                    <p th:text="${currentTopic.prompt}">"Hãy giả định bạn đang tham gia buổi phỏng vấn xin việc cho vị trí Marketing Intern. Hãy giới thiệu ngắn gọn về kinh nghiệm, kỹ năng và lý do bạn muốn làm việc tại công ty này (tối thiểu 60 giây)."</p>
+                </div>
+
+                <div style="text-align: center;">
+                    <p id="status-message" style="color: var(--secondary-color); font-weight: 600;">Nhấn nút để bắt đầu ghi âm.</p>
+                    
+                    <!-- Nút Ghi âm (Được điều khiển bằng JS) -->
+                    <button id="mic-btn" class="mic-button"><i class="fas fa-microphone"></i></button>
+
+                    <p id="timer" style="font-size: 18px; margin-top: 10px;">00:00</p>
+                    
+                    <audio id="audio-playback" controls style="display: none; margin-top: 20px; width: 100%;"></audio>
+                    <button id="submit-btn" class="btn btn-primary" style="display: none; margin-top: 20px;"><i class="fas fa-paper-plane"></i> Gửi bài cho A.I. chấm điểm</button>
+                </div>
+            </section>
+            
+            <!-- Khu vực Phản hồi AI -->
+            <section id="result-area" class="practice-card" style="display: none;">
+                <h3>Phản hồi A.I. của bạn</h3>
+                <p>Nội dung bạn nói: <span id="transcription-text" style="font-style: italic;">(Đang xử lý...)</span></p>
+                
+                <div style="margin-top: 15px;">
+                    <h4>Điểm số Tổng quan: <span class="score-display" id="overall-score">--</span></h4>
+                    <div style="display: flex; gap: 30px; margin-top: 10px;">
+                        <p>Phát âm: <span class="score-display" id="pronunciation-score">--</span></p>
+                        <p>Ngữ pháp: <span class="score-display" id="grammar-score">--</span></p>
+                        <p>Độ trôi chảy: <span class="score-display" id="fluency-score">--</span></p>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top: 20px;">Gợi ý cải thiện</h4>
+                <p id="improvement-feedback">A.I. sẽ cung cấp các gợi ý cụ thể để cải thiện câu trả lời của bạn.</p>
+            </section>
+        </main>
+        
+        <!-- Sidebar phải -->
+        <aside class="right-sidebar">
+            <div class="card">
+                <h3>Các yêu cầu</h3>
+                <p>Thời gian tối thiểu: 60 giây</p>
+                <p>Sử dụng 5 từ vựng mới liên quan đến chủ đề.</p>
+            </div>
+            <!-- ... các card khác ... -->
+        </aside>
+    </div>
+    
+    <!-- Script xử lý Ghi âm và Gửi dữ liệu -->
+    <script th:src="@{/js/practice.js}"></script>
+</body>
+</html>

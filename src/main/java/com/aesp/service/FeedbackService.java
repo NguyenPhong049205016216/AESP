@@ -27,7 +27,7 @@ public class FeedbackService {
     @Transactional
     public void updateFeedbackStatus(Long feedbackId, String newStatus) throws Exception {
         Feedbacks feedback = feedbackRepository.findById(feedbackId)
-                                .orElseThrow(() -> new Exception("Feedback không tồn tại."));
+        .orElseThrow(() -> new Exception("Feedback không tồn tại."));
         
         feedback.setStatus(newStatus);
         feedbackRepository.save(feedback);

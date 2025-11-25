@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra Đầu vào | AESP</title>
+
+    <!-- Liên kết với CSS chung (aesp/main.css) -->
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* CSS Riêng cho trang Kiểm tra */
+        .assessment-intro {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #00aaff 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+        }
+
+        .assessment-intro h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .assessment-intro p {
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        .assessment-details {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .detail-item i {
+            font-size: 30px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .detail-item span {
+            font-weight: 600;
+        }
+        
+        /* Thay đổi màu nút CTA để nổi bật */
+        .btn-start-assessment {
+            background-color: var(--warning-color); 
+            color: #333;
+            font-size: 20px;
+            padding: 15px 50px;
+            margin-top: 20px;
+        }
+
+        .btn-start-assessment:hover {
+            background-color: #ffaa00;
+        }
+
+        .instructions-list li {
+            font-size: 16px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            list-style: none; /* Bỏ chấm tròn */
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .instructions-list li:before {
+            content: "\f058"; /* Icon check-circle */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+
+        <!-- THANH ĐIỀU HƯỚNG BÊN TRÁI (Tương tự Dashboard Learner) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a th:href="@{/learner/dashboard}"><i class="fas fa-home"></i> Bảng điều khiển</a></li>
+                <li class="active"><a th:href="@{/learner/assessment}"><i class="fas fa-pen-to-square"></i> Kiểm tra Đầu vào</a></li>
+                <li><a th:href="@{/learner/practice}"><i class="fas fa-robot"></i> Luyện tập với AI</a></li>
+                <li><a th:href="@{/learner/roadmap}"><i class="fas fa-route"></i> Lộ trình thích ứng</a></li>
+                <li><a th:href="@{/learner/reports}"><i class="fas fa-file-invoice"></i> Báo cáo tiến độ</a></li>
+                <li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+
+        <!-- NỘI DUNG CHÍNH -->
+        <main class="main-content" style="max-width: 900px;">
+
+            <header class="main-header" style="margin-bottom: 20px;">
+                <h1>Kiểm tra Đầu vào (Initial Assessment)</h1>
+                <p style="margin-bottom: 0;">Bài kiểm tra được thiết kế để đo lường chính xác trình độ hiện tại của bạn.</p>
+            </header>
+
+            <!-- Thẻ Giới thiệu Lớn -->
+            <section class="assessment-intro">
+                <h2>Xác định Cấp độ Anh ngữ của bạn</h2>
+                <p>Kết quả sẽ giúp A.I. cá nhân hóa hoàn toàn lộ trình học tập, tiết kiệm tối đa thời gian và chi phí.</p>
+                
+                <div class="assessment-details">
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Thời lượng: 45 Phút</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-list-check"></i>
+                        <span>Phần thi: Nghe, Nói, Ngữ pháp</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Kết quả: Nhận ngay sau khi hoàn thành</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thẻ Hướng dẫn -->
+            <section class="card">
+                <h3>Các bước chuẩn bị quan trọng</h3>
+                <ul class="instructions-list">
+                    <li>Đảm bảo bạn có kết nối Internet ổn định.</li>
+                    <li>Sử dụng tai nghe và micro chất lượng tốt cho phần thi Nói (Speaking).</li>
+                    <li>Tuyệt đối không sử dụng tài liệu, từ điển hoặc công cụ dịch thuật bên ngoài.</li>
+                    <li>Bạn chỉ có thể làm bài kiểm tra này **một lần**.</li>
+                </ul>
+            </section>
+            
+            <!-- Thẻ Bắt đầu -->
+            <section class="card" style="text-align: center;">
+                <h3>Sẵn sàng để bắt đầu?</h3>
+                <p>Hãy dành thời gian tập trung và hoàn thành bài kiểm tra trong một lần ngồi.</p>
+                <form th:action="@{/api/assessment/start}" method="post">
+                    <button type="submit" class="btn btn-start-assessment">
+                        <i class="fas fa-play-circle" style="margin-right: 10px;"></i> BẮT ĐẦU KIỂM TRA NGAY
+                    </button>
+                </form>
+            </section>
+
+        </main>
+
+        <!-- THANH BÊN PHẢI (Giữ nguyên cấu trúc trống để học viên tập trung) -->
+        <aside class="right-sidebar">
+            <div class="card">
+                <h3>Trợ giúp</h3>
+                <p style="font-size: 14px; color: var(--secondary-color);">Nếu bạn gặp sự cố, vui lòng liên hệ bộ phận hỗ trợ:</p>
+                <ul style="list-style-type: none; padding-left: 0; margin-top: 10px; font-size: 14px;">
+                    <li><i class="fas fa-envelope"></i> support@aesp.com</li>
+                    <li><i class="fas fa-phone"></i> +84 901 234 567</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

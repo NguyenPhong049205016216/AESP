@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa & Gán Bài tập | Mentor AESP</title>
+
+    <!-- Liên kết với CSS chung (admin_styles hoặc main.css nếu bạn dùng cho cả 2 vai trò) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_styles.css}">
+    
+    <style>
+        /* CSS bổ sung để định hình form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-control,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 400px; /* Chiều cao lớn cho nội dung JSON */
+            font-family: monospace; /* Font chữ cố định cho JSON */
+            white-space: pre;
+        }
+
+        .template-info {
+            background-color: #f0f8ff; /* Màu xanh nhạt */
+            padding: 15px;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        
+        .template-info p {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        
+        <!-- Giả định thanh điều hướng Mentor Sidebar ở đây -->
+        <!-- Bạn cần sao chép sidebar phù hợp với vai trò Mentor -->
+        
+        <!-- Nội dung chính -->
+        <main id="main-content">
+            <h1>Chỉnh sửa và Gán Bài tập</h1>
+            <p class="page-description">Tùy chỉnh nội dung câu hỏi từ mẫu gốc trước khi gán cho học viên.</p>
+
+            <!-- THÔNG TIN MẪU GỐC -->
+            <div class="template-info">
+                <h3><i class="fas fa-file-alt"></i> Mẫu Gốc: <span th:text="${template.name}"></span></h3>
+                <p><strong>Cấp độ:</strong> <span th:text="${template.difficultyLevel}"></span></p>
+                <p><strong>ID Mẫu:</strong> <span th:text="${template.id}"></span></p>
+            </div>
+
+            <!-- FORM CHỈNH SỬA VÀ GÁN -->
+            <form th:action="@{/mentor/assignment/assign}" method="post" class="report-section">
+                
+                <!-- Ẩn các trường cần thiết -->
+                <input type="hidden" name="templateId" th:value="${template.id}" />
+                <input type="hidden" name="mentorId" value="1" /> <!-- Giả định ID Mentor (Thực tế lấy từ Spring Security Session) -->
+
+                <!-- Chọn Học viên -->
+                <div class="form-group">
+                    <label for="learnerSelect"><i class="fas fa-user-graduate"></i> Chọn Học viên:</label>
+                    <select id="learnerSelect" name="learnerId" class="form-control" required>
+                        <!-- Giả định bạn đã thêm List<Learner> với tên "learners" vào Model -->
+                        <!-- <option th:each="learner : ${learners}" th:value="${learner.id}" th:text="${learner.name}"></option> -->
+                        
+                        <!-- Dữ liệu Giả lập -->
+                        <option value="">-- Chọn Học viên --</option>
+                        <option value="101">Nguyễn Văn A (Beginner)</option>
+                        <option value="102">Trần Thị B (Intermediate)</option>
+                        
+                    </select>
+                </div>
+
+                <!-- KHU VỰC CHỈNH SỬA CÂU HỎI -->
+                <div class="form-group">
+                    <label for="customContentJson"><i class="fas fa-edit"></i> Nội dung Bài tập (Chỉnh sửa JSON):</label>
+                    <!-- Nội dung JSON gốc được đưa vào TextArea để Mentor chỉnh sửa -->
+                    <textarea id="customContentJson" name="customContentJson" class="form-control" 
+                              th:text="${initialContent}" required></textarea>
+                </div>
+
+                <!-- Nút Gán -->
+                <div class="form-group" style="text-align: right;">
+                    <button type="submit" class="btn btn-primary btn-large-cta">
+                        <i class="fas fa-share-square"></i> Xác nhận & GÁN Bài tập
+                    </button>
+                </div>
+            </form>
+
+        </main>
+    </div>
+</body>
+
+</html>

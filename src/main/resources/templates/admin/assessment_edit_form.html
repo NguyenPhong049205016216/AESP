@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa Mẫu Bài tập | Admin AESP</title> 
+    <!-- Dùng CSS chung để có layout -->
+    <link rel="stylesheet" th:href="@{/aesp/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+    /* LƯU Ý: Đảm bảo file /aesp/main.css đã được liên kết và hoạt động */
+    
+    /* Thiết lập biến màu để dễ dàng tùy chỉnh */
+    :root {
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --background-color: #f4f7f9;
+        --card-bg: white;
+        --border-radius: 8px;
+        --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Cấu trúc Layout cơ bản (Nếu không dùng dashboard-layout) */
+    body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); padding: 20px; }
+    .main-content { max-width: 900px; margin: 0 auto; }
+    
+    /* Tiêu đề */
+    .form-header h1 { 
+        font-size: 30px; 
+        color: #333; 
+        padding-bottom: 10px; 
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary-color);
+    }
+    
+    /* Form Container */
+    .form-container { 
+        background: var(--card-bg); 
+        padding: 40px; 
+        border-radius: 12px; 
+        box-shadow: var(--shadow-light); 
+    }
+    
+    /* Form Group */
+    .form-group { 
+        margin-bottom: 25px; 
+    }
+    
+    .form-group label { 
+        font-weight: 600; 
+        display: block; 
+        margin-bottom: 8px; 
+        color: #333; /* Màu chữ tiêu đề */
+    }
+    
+    /* Input/Select/TextArea */
+    .form-control,
+    textarea { 
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #ddd; 
+        border-radius: 8px; 
+        box-sizing: border-box; 
+        font-size: 16px; 
+        transition: border-color 0.2s;
+    }
+    
+    .form-control:focus,
+    textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+
+    textarea {
+        min-height: 250px; /* Chiều cao cố định cho nội dung câu hỏi */
+        font-family: monospace; /* Font chữ cố định cho JSON/Code */
+    }
+    
+    /* Buttons */
+    .btn-submit { 
+        background-color: var(--primary-color); 
+        color: white; 
+        padding: 12px 30px; 
+        font-weight: 700; 
+        border-radius: 8px; 
+        border: none; 
+        cursor: pointer; 
+        transition: background-color 0.3s; 
+    }
+    
+    .btn-submit:hover { 
+        background-color: #0056b3; 
+    }
+    
+    .btn-cancel {
+        background-color: var(--secondary-color); 
+        color: white; 
+        padding: 12px 20px; 
+        border-radius: 8px; 
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 10px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    
+    .btn-cancel:hover {
+        background-color: #5a6268;
+    }
+</style>
+</head>
+<body>
+    <!-- Giả định layout đã được gọi -->
+    <div class="dashboard-layout">
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Chỉnh sửa Mẫu Bài Tập: <span th:text="${template.name}"></span></h1>
+            </header>
+            
+            <div class="form-container">
+                <!-- FORM CHỈNH SỬA: SỬ DỤNG DỮ LIỆU CŨ VÀ GỬI ĐẾN ENDPOINT UPDATE -->
+                <!-- Bạn cần tạo @PostMapping("/update") để xử lý form này -->
+                <form th:action="@{/admin/assessment/update}" method="post"> 
+                    
+                    <!-- Truyền ID mẫu đi kèm (quan trọng!) -->
+                    <input type="hidden" name="id" th:value="${template.id}" />
+                    
+                    <!-- 1. TÊN MẪU BÀI TẬP (Đã điền sẵn giá trị cũ) -->
+                    <div class="form-group">
+                        <label for="templateName">Tên Mẫu Bài Tập:</label>
+                        <input type="text" id="templateName" name="templateName" required class="form-control" 
+                               th:value="${template.name}">
+                    </div>
+                    
+                    <!-- 2. ĐỘ KHÓ -->
+                    <div class="form-group">
+                        <label for="difficulty">Độ Khó / Cấp độ Mục tiêu:</label>
+                        <select id="difficulty" name="difficulty" required class="form-control">
+                            <!-- Thiết lập giá trị cũ được chọn (selected) -->
+                            <option th:selected="${template.difficultyLevel == 'Beginner'}" value="Beginner">Cơ bản (Beginner)</option>
+                            <option th:selected="${template.difficultyLevel == 'Intermediate'}" value="Intermediate">Trung cấp (Intermediate)</option>
+                            <option th:selected="${template.difficultyLevel == 'Advanced'}" value="Advanced">Nâng cao (Advanced)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 3. NỘI DUNG CÂU HỎI (JSON/TEXT) -->
+                    <div class="form-group">
+                        <label for="questionsJson">Nội dung Câu Hỏi / Kịch bản (JSON/Text):</label>
+                        <textarea id="questionsJson" name="questionsJson" rows="10" required class="form-control" 
+                                  th:text="${template.contentJson}"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Lưu Thay Đổi</button>
+                    <a th:href="@{/admin/assessment/list}" class="btn" style="background-color: #6c757d; color: white;">Hủy</a>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

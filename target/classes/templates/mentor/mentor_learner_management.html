@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Học viên - Mentor</title>
+    
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* [CÁC STYLE BASE CẦN THIẾT TỪ LEARNER/MENTOR DASHBOARD] */
+        .dashboard-layout { display: grid; grid-template-columns: 220px 1fr 300px; min-height: 100vh; background-color: var(--light-color); }
+        .sidebar { background-color: white; padding: 20px 0; }
+        .main-content, .right-sidebar { padding: 40px; }
+        .right-sidebar { background-color: #fafafa; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        .data-table th { background-color: var(--secondary-color); color: white; font-weight: 600; }
+        .progress-indicator { height: 10px; background-color: #eee; border-radius: 5px; overflow: hidden; }
+        .progress-indicator-bar { height: 100%; background-color: var(--primary-color); }
+        .action-link { margin-right: 15px; color: var(--primary-color); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- 1. SIDEBAR (MENU MENTOR) -->
+        <nav class="sidebar">
+            <div class="logo">AESP</div>
+            <ul>
+                <li><a href="/mentor/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
+                <li class="active"><a href="/mentor/learners/list"><i class="fas fa-users"></i> Quản lý Học viên</a></li>
+                <li><a href="/aesp/mentor/assessments/pending"><i class="fas fa-user-check"></i> Tổ chức Đánh giá</a></li>
+                <li><a href="/aesp/mentor/resources"><i class="fas fa-book"></i> Tài liệu & Chủ đề</a></li>
+                <li><a href="/aesp/mentor/settings"><i class="fas fa-cog"></i> Cài đặt</a></li>
+                <li><a href="/aesp/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+        
+        <!-- 2. MAIN CONTENT -->
+        <main class="main-content">
+            <h1 style="color: var(--dark-color);">Quản lý Học viên của bạn</h1>
+            <p style="color: var(--secondary-color); margin-bottom: 30px;">Theo dõi tiến độ, cấp độ, và gán các bài tập cần thiết.</p>
+            
+            <a href="/aesp/mentor/assessment/template_list" class="btn btn-primary" style="margin-bottom: 20px;">
+                <i class="fas fa-plus"></i> Chỉ định Bài tập (Assessment)
+            </a>
+
+            <!-- BẢNG DANH SÁCH HỌC VIÊN -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ và tên</th>
+                        <th>Cấp độ</th>
+                        <th>Mục tiêu học</th>
+                        <th>Tiến độ</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- THYMELYAF LOOP: Lặp qua danh sách học viên (Giả định ${learners} là List<Learner>) -->
+                    <tr th:each="learner : ${learners}">
+                        <td th:text="${learner.id}">1</td>
+                        <td th:text="${learner.name}">Nguyễn Văn Phong</td> 
+                        <td th:text="${learner.level}">Upper-Intermediate</td>
+                        <td th:text="${learner.goal}">Tự tin thuyết trình</td>
+                        <td>
+                            <!-- THANH TIẾN ĐỘ -->
+                            <div class="progress-indicator">
+                                <div class="progress-indicator-bar" th:style="'width: ' + ${learner.progress} + '%;'"></div>
+                            </div>
+                            <span th:text="${learner.progress} + '%'" style="font-size: 12px;">75%</span>
+                        </td>
+                        <td>
+                            <!-- XEM BÁO CÁO (Requirement: Receive reports) -->
+                            <a th:href="@{/mentor/learners/{id}/report(id=${learner.id})}" class="action-link">Báo cáo</a> 
+                            <!-- GÁN BÀI TẬP (Requirement: Organize assessment) -->
+                            <a th:href="@{/mentor/assessments/assign(learnerId=${learner.id})}" class="action-link" style="color: #ff9800;">Gán Bài</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        
+        <!-- 3. RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+             <div class="card"><h3>Lọc & Thống kê</h3></div>
+             <!-- ... (Các Card Thống kê nhanh, v.v.) ... -->
+        </aside>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.aesp.service;
 import com.aesp.pojo.AssessmentTemplate;
+import com.aesp.productinventory.exception.ResourceNotFoundException;
 import com.aesp.repository.AssessmentTemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,19 @@ public class AssessmentTemplateService {
        
         return templateRepository.save(newTemplate);
     }
+    /**
+     * [MỚI] Lấy một mẫu bài tập theo ID.
+     * @param id ID của mẫu bài tập.
+     * @return AssessmentTemplate
+     * @throws ResourceNotFoundException nếu không tìm thấy.
+     */
+    public AssessmentTemplate findTemplateById(Long id) { 
+        return templateRepository.findById(id)
+                // Đảm bảo bạn có class ResourceNotFoundException hoặc dùng RuntimeException
+                .orElseThrow(() -> new ResourceNotFoundException("Mẫu bài tập không tồn tại."));
+    }
     public java.util.List<AssessmentTemplate> findAllTemplates() {
         return templateRepository.findAll();
     }
+
 }// quảng lý mãu bài tập

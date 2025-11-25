@@ -84,9 +84,7 @@ public class User{//người dùng
     public void setStatus(String status) {
         this.status = status;
     }
-    public LocalDate getUpdatedAT() {
-        return updatedAT;
-    }
+    
     public void setCreatedAt(LocalDate createdAT ){
         this.createdAT = createdAT;
     }
